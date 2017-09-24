@@ -1,0 +1,52 @@
+/* Footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+#footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%!important;
+  /* Set the fixed height of the footer here */
+  background: 
+  /* color overlay */ 
+    linear-gradient(
+      rgba(240, 212, 0, 0.45), 
+      rgba(0, 0, 0, 0.45)
+    ),
+    /* image to overlay */
+    // url(http://images.cdn.fotopedia.com/_avPIZmqM3w-7z161LH_268-hd.jpg);
+}
+.row {
+        background-color:#000;
+}
+
+
+/* Custom footer CSS
+-------------------------------------------------- */
+
+.container {
+  width: auto;
+  max-width: 100%!important;
+  padding: 0 15px;
+}
+.container .text-muted {
+  margin: 20px 0;
+}
+.footertext {
+  color: #ffffff;
+}
+.col-md-4{
+  margin-top: 30px; 
+}
+
+
+@media (min-width: 1200px){
+.container {
+    width: 100%!important;
+}
