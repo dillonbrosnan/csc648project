@@ -1,0 +1,6 @@
+instructions to add profile to website: 
+1. naviage to perfolio.html
+2. change a tag to your user profile
+3. include your image on the perfolio.html
+4. change dummy information on team/{your user profile} tip: you can follow my example
+5. 
