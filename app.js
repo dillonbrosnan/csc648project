@@ -1,7 +1,9 @@
 'use strict';
+'use strict';
 
 var express = require('express');
-var port = process.env.PORT || 3000;
+//var port = process.env.PORT || 17007;
+var port = 17007;
 
 var app = express();
 app.use(express.static(__dirname + "/public"));
@@ -19,7 +21,6 @@ app.get('/portfolio', function(req, res) {
 app.get('/vikram', function(req, res) {  
   res.render('vikram');
 });
-
 app.get('/animohan', function(req, res) {  
   res.render('animohan');
 });
@@ -43,5 +44,6 @@ app.get('/royanguiano', function(req, res) {
 
 <!-- Listening port -->
 app.listen(port, function () {
-  console.log('Real estate app listening on port 3000!');
+  console.log('Real estate app listening on port 17007!');
 })
+
