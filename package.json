@@ -1,0 +1,15 @@
+{
+  "name": "realestateapp",
+  "version": "1.0.0",
+  "description": "A way of buying/selling real estate.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Team 07",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^2.5.7",
+    "express": "^4.15.4"
+  }
+}
