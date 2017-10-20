@@ -41,6 +41,10 @@ app.get('/royanguiano', function(req, res) {
   res.render('royanguiano');
 });
 
+app.get('/maps', function(req, res){
+	res.render('maps');
+});
+
 
 <!-- Listening port -->
 app.listen(port, function () {
