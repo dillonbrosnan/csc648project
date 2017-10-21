@@ -10,19 +10,82 @@
 
   <% include partials/header %>
 
-  <div class="container">
-  <div class="jumbotron">
-    <h1Team 07</h1> 
-    <p>Click on portfolio in the navbar to see our team</p> 
-    </div>
-    </div>
-
     <section class="container">
   <!-- search component -->
     <div class="left-half">
+
       <article>
-        <h1>Left Half</h1>
-        <p>Search component goes here...</p>
+            <section class="leftHandSide">
+    <input type="textarea" name="address" id="address">
+    <input type="button" name="submit" onclick="getGeo()" value="Look for address">
+    <div id="map"></div>
+    <script>
+      var map;
+      var startLatLng = {lat: 37.4220, lng: -122.0841};
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: startLatLng,
+          zoom: 5
+        });
+      }
+
+
+      function getGeo(){
+
+            var geocoder = new google.maps.Geocoder();
+            var address = document.getElementById("address").value;
+
+
+            var infowindow = new google.maps.InfoWindow();
+            var markers = [];
+         //   var service = new google.maps.places.PlacesService(map); 
+
+            geocoder.geocode( { 'address': address}, function(results, status) {
+              if (status == google.maps.GeocoderStatus.OK)
+              {
+                
+                  // do something with the geocoded result
+                  for(let i = 0; i < results.length; i++){
+                      let lat1 = results[i].geometry.location.lat()
+                      let lng1 = results[i].geometry.location.lng()
+
+
+                      var myLatLng={lat: lat1, lng: lng1};
+                      var windowInfo = document.createElement('DIV'); 
+                      var newContent = document.createTextNode('<h1>'+ results[i].formatted_address +'</h1>'); 
+                      windowInfo.appendChild(newContent); 
+                      console.log(windowInfo); 
+
+                        marker = new google.maps.Marker({
+                        map: map,
+                        position: myLatLng,
+                        title: results[i].formatted_address
+                      });
+                      markers.push(marker);
+                      console.log(markers);
+                      google.maps.event.addListener(marker, 'click', function(){
+                        infowindow.setContent('<div onclick="getInfo(this.innerHTML)">' +  results[i].formatted_address + '</div>');
+                        infowindow.open(map,this);
+                      }); 
+                  }
+                  
+                  map.setCenter(myLatLng);
+                }
+            });
+      }
+
+      function getInfo(address){
+        console.log('you have clicked', address); 
+        var jsonData = require('../documents/testData.json'); 
+        console.log(jsonData); 
+        //test link. links to dillons petsonal page when running on node
+        location.href = "dillonb";
+      }
+
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPXF-zkLqKND8w5ktBN5bdlTkQSVbw950&callback=initMap"
+    async defer></script>
+  </section>
       </article>
   </div>
   <!--end of result section -->
