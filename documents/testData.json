@@ -1,0 +1,58 @@
+var json = {"items": [
+ {
+   "price": "sample 1",
+   "address": "author 1", 
+   "ciity": "san francisco", 
+   "state": "california", 
+   "zip": 94123
+ },
+ {
+   "price": "sample 2",
+   "address": "author 1", 
+   "ciity": "san francisco", 
+   "state": "california", 
+   "zip": 94123
+ }, 
+ {
+   "price": "sample 3",
+   "address": "author 1", 
+   "ciity": "san francisco", 
+   "state": "california", 
+   "zip": 94123
+ },
+ {
+   "price": "sample 4",
+   "address": "author 1", 
+   "ciity": "san francisco", 
+   "state": "california", 
+   "zip": 94123
+ }, 
+  {
+   "price": "sample 1",
+   "address": "author 1", 
+   "ciity": "mateo", 
+   "state": "california", 
+   "zip": 94123
+ },
+ {
+   "price": "sample 2",
+   "address": "author 1", 
+   "ciity": "mateo", 
+   "state": "california", 
+   "zip": 94123
+ }, 
+ {
+   "price": "sample 3",
+   "address": "author 1", 
+   "ciity": "mateo", 
+   "state": "california", 
+   "zip": 94123
+ },
+ {
+   "price": "sample 1",
+   "address": "author 1", 
+   "ciity": "riverside", 
+   "state": "california", 
+   "zip": 94123
+ }
+]}; 
