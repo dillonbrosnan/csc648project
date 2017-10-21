@@ -15,11 +15,11 @@ body {
 }
 
 section {
-  color: #fff;
+  color: #000000;
   text-align: center;
 }
 
-div {
+.left-half, .right-half {
   height: 100%;
 }
 
@@ -51,3 +51,14 @@ article {
   right: 0px;
   width: 50%;
 }
+      #map {
+        height: 500px;
+        width: 500px;
+      }
+      /* Optional: Makes the sample page fill the window. */
+ 
+      #address{
+        margin-top: 15px; 
+        margin-bottom: 15px; 
+        width: 500px;
+      }
