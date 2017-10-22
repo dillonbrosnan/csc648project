@@ -76,10 +76,69 @@
 
       function getInfo(address){
         console.log('you have clicked', address); 
-        var jsonData = require('../documents/testData.json'); 
-        console.log(jsonData); 
+
+        let city = address.split(',');
+        city = city[0].toLowerCase();  
+
         //test link. links to dillons petsonal page when running on node
-        location.href = "dillonb";
+        var json = {"listings": [
+                               {
+                                 "price": "3001",
+                                 "address": "155 bright st. San Francisco, CA 96134", 
+                                 "city": "san francisco", 
+                                 "state": "california", 
+                                 "zip": 94123,
+                                 "lat": 37.4220, 
+                                 "lng": -122.0841
+                               },
+                               {
+                                 "price": "45643.98",
+                                 "address": "3490 candlewood st, San Francisco, CA 9876", 
+                                 "city": "san francisco", 
+                                 "state": "california", 
+                                 "zip": 94123,
+                                 "lat": 37.4220, 
+                                 "lng": -122.0841
+                               }, 
+                               {
+                                 "price": "2344",
+                                 "address": "5468 iowa, st. San Francisco, CA", 
+                                 "city": "san francisco", 
+                                 "state": "california", 
+                                 "zip": 94123,
+                                 "lat": 37.4220, 
+                                 "lng": -122.0841
+                               },
+                               {
+                                 "price": "90000",
+                                 "address": "9034 keyboard st, San Francisco, CA ", 
+                                 "city": "san francisco", 
+                                 "state": "california", 
+                                 "zip": 94123,
+                                 "lat": 37.4220, 
+                                 "lng": -122.0841
+                               }, 
+                                {
+                                 "price": "45643",
+                                 "address": "4564 testing, ave. San Francisco, 83754", 
+                                 "city": "mateo", 
+                                 "state": "california", 
+                                 "zip": 94123,
+                                 "lat": 37.4220, 
+                                 "lng": -122.0841
+                               }
+                              ]}; 
+                               
+                                     // location.href = "dillonb";
+        
+        if(city != null){
+          console.log(city)
+          for(let i = 0; i < 5; i++){
+            if(json.listings[i].city.toLowerCase() == city){
+              console.log(json.listings[i].address, 'for this price: ', json.listings[i].price); 
+            }
+          }  
+        }             
       }
 
     </script>
