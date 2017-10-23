@@ -13,75 +13,115 @@
     <section class="container">
   <!-- search component -->
     <div class="left-half">
-
-      <article>
-            <section class="leftHandSide">
+    <article>
+    <section class="leftHandSide">
     <input type="textarea" name="address" id="address">
-    <input type="button" name="submit" onclick="getGeo()" value="Look for address">
+    <input type="button" name="submit" onclick="createMarkers()" value="Look for address">
     <div id="map"></div>
     <script>
-      var map;
-      var startLatLng = {lat: 37.4220, lng: -122.0841};
-      function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
-          center: startLatLng,
-          zoom: 5
-        });
+    var map;
+    var startLatLng = {lat: 37.4220, lng: -122.0841};
+    var markers = [];
+    function initMap() {
+      map = new google.maps.Map(document.getElementById('map'), {
+        center: startLatLng,
+        zoom: 5
+      });
+    }
+    function createMarkers(){
+      var json = getInfo();
+      let city = document.getElementById("address").value;
+      var infowindow = new google.maps.InfoWindow();
+      while(markers.length > 0){
+        markers[markers.length-1].setMap(null);
+        markers.pop();
       }
-
-
-      function getGeo(){
-
-            var geocoder = new google.maps.Geocoder();
-            var address = document.getElementById("address").value;
-
-
-            var infowindow = new google.maps.InfoWindow();
-            var markers = [];
-         //   var service = new google.maps.places.PlacesService(map); 
-
-            geocoder.geocode( { 'address': address}, function(results, status) {
-              if (status == google.maps.GeocoderStatus.OK)
-              {
-                
-                  // do something with the geocoded result
-                  for(let i = 0; i < results.length; i++){
-                      let lat1 = results[i].geometry.location.lat()
-                      let lng1 = results[i].geometry.location.lng()
-
-
-                      var myLatLng={lat: lat1, lng: lng1};
-                      var windowInfo = document.createElement('DIV'); 
-                      var newContent = document.createTextNode('<h1>'+ results[i].formatted_address +'</h1>'); 
-                      windowInfo.appendChild(newContent); 
-                      console.log(windowInfo); 
-
-                        marker = new google.maps.Marker({
-                        map: map,
-                        position: myLatLng,
-                        title: results[i].formatted_address
-                      });
-                      markers.push(marker);
-                      console.log(markers);
-                      google.maps.event.addListener(marker, 'click', function(){
-                        infowindow.setContent('<div onclick="getInfo(this.innerHTML)">' +  results[i].formatted_address + '</div>');
-                        infowindow.open(map,this);
-                      }); 
-                  }
-                  
-                  map.setCenter(myLatLng);
-                }
+      if(city != null){
+        //console.log(city)
+        for(let i = 0; i < 5; i++){
+          if(json.listings[i].city.toLowerCase() == city){
+            console.log(json.listings[i].address, 'for this price: ', json.listings[i].price); 
+            let lat1 = json.listings[i].lat;
+            console.log(json.listings[i].address, 'createmarkers');   
+            //let lat1 = getLat(json.listings[i].address);
+            let lng1 = json.listings[i].lng;
+            var myLatLng={lat: lat1, lng: lng1};
+            marker = new google.maps.Marker({
+              map: map,
+              position: myLatLng,
+              title: json.listings[i].address
             });
+            markers.push(marker);
+            //console.log(markers);
+            google.maps.event.addListener(marker, 'click', function(){
+              infowindow.setContent('<div onclick="getInfo(this.innerHTML)">' +  json.listings[i].address + '</div>');
+              infowindow.open(map,this);
+            }); 
+          }
+        }  
       }
-
-      function getInfo(address){
-        console.log('you have clicked', address); 
-        var jsonData = require('../documents/testData.json'); 
-        console.log(jsonData); 
-        //test link. links to dillons petsonal page when running on node
-        location.href = "dillonb";
-      }
-
+    }
+    function getInfo(){
+        var json = {"listings": [
+                     {
+                       "price": "3001",
+                       "address": "155 bright st. San Francisco, CA 96134", 
+                       "city": "san francisco", 
+                       "state": "california", 
+                       "zip": 94123,
+                       "lat": 37.4220, 
+                       "lng": -122.0841
+                     },
+                     {
+                       "price": "45643.98",
+                       "address": "3490 candlewood st, San Francisco, CA 9876", 
+                       "city": "san francisco", 
+                       "state": "california", 
+                       "zip": 94123,
+                       "lat": 38.4220, 
+                       "lng": -122.0841
+                     }, 
+                     {
+                       "price": "2344",
+                       "address": "5468 iowa, st. San Francisco, CA", 
+                       "city": "san francisco", 
+                       "state": "california", 
+                       "zip": 94123,
+                       "lat": 39.4220, 
+                       "lng": -122.0841
+                     },
+                     {
+                       "price": "90000",
+                       "address": "9034 keyboard st, San Francisco, CA ", 
+                       "city": "san francisco", 
+                       "state": "california", 
+                       "zip": 94123,
+                       "lat": 36.4220, 
+                       "lng": -122.0841
+                     }, 
+                      {
+                       "price": "45643",
+                       "address": "4564 testing, ave. San Francisco, 83754", 
+                       "city": "mateo", 
+                       "state": "california", 
+                       "zip": 94123,
+                       "lat": 35.4220, 
+                       "lng": -122.0841
+                     }
+                  ]}; 
+                             
+                                   // location.href = "dillonb";
+      return json;
+    }
+    function getLat(address){
+      var geocoder = new google.maps.Geocoder();
+      geocoder.geocode({'address': address}, function(results, status){
+        if(status == 'OK'){
+          console.log(address, 'getLat');
+          //return parseFloat(results[0].geometry.location.lat());
+        }
+      });
+    }
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPXF-zkLqKND8w5ktBN5bdlTkQSVbw950&callback=initMap"
     async defer></script>
@@ -93,7 +133,61 @@
     <div class="right-half">
       <article>
         <h1>Right Half</h1>
-        <p>result container goes here...</p>
+        
+        <div class="row text-center">
+      <div class="col-sm-4">
+        <div class="thumbnail">
+          <a href="#"><img src="paris.jpg" alt="Paris" width= "900" height="300"></a>
+          <p><strong>Price: $3001</strong></p>
+          <p>155 bright st. San Francisco, CA 96134</p>
+        </div>
+      </div>
+
+      <div class="col-sm-4">
+        <div class="thumbnail">
+          <a href="#"><img src="newyork.jpg" alt="New York" width="900" height="300"></a>
+          <p><strong>Price: $45643.98</strong></p>
+          <p>3490 candlewood st, San Francisco, CA 9876</p>
+        </div>
+      </div>
+
+      <div class="col-sm-4">
+        <div class="thumbnail">
+          <a href="#"><img src="sanfran.jpg" alt="San Francisco" width="900" height="300"></a>
+          <p><strong>Price: $2344</strong></p>
+          <p>5468 iowa, st. San Francisco, CA</p>
+        </div>
+      </div>
+
+<div class="row text-center">
+      <div class="col-sm-4">
+        <div class="thumbnail">
+          <a href="#"><img src="paris.jpg" alt="Paris" width="900" height="300"></a>
+          <p><strong>Price: $90000</strong></p>
+          <p>9034 keyboard st, San Francisco, CA</p>
+        </div>
+      </div>
+
+      <div class="col-sm-4">
+        <div class="thumbnail">
+          <a href="#"><img src="newyork.jpg" alt="New York" width="900" height="300"></a>
+          <p><strong>Price: $45643</strong></p>
+          <p>4564 testing, ave. San Francisco, 83754</p>
+        </div>
+      </div>
+
+      <div class="col-sm-4">
+        <div class="thumbnail">
+          <a href="#"><img src="sanfran.jpg" alt="San Francisco" width="400" height="300"></a>
+          <p><strong>Price: $</strong></p>
+          <p>Address...</p>
+        </div>
+      </div>
+
+        <div class="container text-center">
+        <a href="#"><h2>More Listings...></h2</a>
+        </div>
+        
       </article>
     </div>
   <!--end of result section -->
