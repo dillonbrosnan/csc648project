@@ -20,9 +20,9 @@ app.get('/', function(req, res) {
   db.query(sql, function (err, rows) {
       if (err) throw err;
       if(rows.length != 0){
-          res.render('index', { name: 'Tobi' });
+          res.render('index', {pageTitle: 'EJS Demo'});
         }else{
-          res.render('index', { name: 'Tobi' });
+          res.render('index', {pageTitle: 'EJS Demo'});
       }
   })
 });
