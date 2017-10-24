@@ -16,15 +16,16 @@ app.set('view engine', 'ejs');
 <!-- Routes -->
 
 app.get('/', function(req, res) {  
+
   var sql = 'SELECT * FROM Sale';
   var data;
   db.query(sql, function (err, rows) {
       if (err) throw err;
       if(rows.length != 0){
-          data = rows[0];
+          data = rows;
           res.render('index', { fakeData : JSON.stringify(data) });
         }else{
-          data = rows[0];
+          data = rows;
           res.render('index', { fakeData : JSON.stringify(data) });
       }
   })
