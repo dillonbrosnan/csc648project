@@ -21,11 +21,12 @@ app.get('/', function(req, res) {
       if (err) throw err;
       if(rows.length != 0){
           res.json(rows);
+          res.render('index');
         }else{
           res.json(rows);
+          res.render('index');
       }
   })
-  res.render('index');
 });
 
 
