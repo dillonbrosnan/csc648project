@@ -20,11 +20,10 @@ app.get('/', function(req, res) {
   db.query(sql, function (err, rows) {
       if (err) throw err;
       if(rows.length != 0){
-          res.json(rows);
-          res.render('index');
+          res.render('index', {rows: rows});
+          
         }else{
-          res.json(rows);
-          res.render('index');
+          res.render('index', {rows: rows});
       }
   })
 });
