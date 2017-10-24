@@ -22,10 +22,10 @@ app.get('/', function(req, res) {
       if (err) throw err;
       if(rows.length != 0){
           data = rows[0];
-          res.render('index', { fakeData : data });
+          res.render('index', { fakeData : 'data' });
         }else{
           data = rows[0];
-          res.render('index', { fakeData : data });
+          res.render('index', { fakeData : 'data' });
       }
   })
 });
