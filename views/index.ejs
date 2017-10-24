@@ -10,7 +10,9 @@
 
   <% include partials/header %>
 
-  <% console.log(rows); %>
+  <script type='text/javascript'>
+    var rows =<%-JSON.stringify(rows)%>
+  </script>
 
     <section class="container">
   <!-- search component -->
@@ -21,7 +23,6 @@
     <input type="button" name="submit" onclick="createMarkers()" value="Look for address">
     <div id="map"></div>
     <script>
-    console.log(rows);
     
  var map;
     var startLatLng = {lat: 37.4220, lng: -122.0841};
