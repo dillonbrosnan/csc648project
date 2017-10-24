@@ -4,6 +4,10 @@
 var express = require('express');
 //var port = process.env.PORT || 17007;
 var port = 17007;
+var db = require('./db');
+var path = require('path');
+var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
 
 var app = express();
 app.use(express.static(__dirname + "/public"));
