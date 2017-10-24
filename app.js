@@ -17,7 +17,7 @@ app.set('view engine', 'ejs');
 
 app.get('/', function(req, res) {  
 
-  var sql = 'SELECT * FROM Sale';
+  var sql = 'SELECT price, streetNumber, streetName, city, state FROM Sale';
   var data;
   db.query(sql, function (err, rows) {
       if (err) throw err;
