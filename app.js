@@ -17,12 +17,15 @@ app.set('view engine', 'ejs');
 
 app.get('/', function(req, res) {  
   var sql = 'SELECT * FROM Sale';
+  var data;
   db.query(sql, function (err, rows) {
       if (err) throw err;
       if(rows.length != 0){
-          res.render('index', {pageTitle: 'EJS Demo'});
+          data = rows[0];
+          res.render('index', { fakeData : data });
         }else{
-          res.render('index', {pageTitle: 'EJS Demo'});
+          data = rows[0];
+          res.render('index', { fakeData : data });
       }
   })
 });
