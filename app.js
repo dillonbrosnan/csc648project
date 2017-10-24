@@ -14,9 +14,23 @@ app.use(express.static(__dirname + "/public"));
 app.set('view engine', 'ejs');
 
 <!-- Routes -->
+app.get('/search', function(req, res) {  
+  var sql = 'SELECT * FROM Sale';
+  db.query(sql, function (err, rows) {
+      if (err) throw err;
+      if(rows.length != 0){
+          res.json(rows);
+        }else{
+          res.json(rows);
+      }
+  })
+});
+
 app.get('/', function(req, res) {  
   res.render('index');
 });
+
+
 
 app.get('/portfolio', function(req, res) {  
   res.render('portfolio');
