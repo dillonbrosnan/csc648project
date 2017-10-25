@@ -17,16 +17,16 @@ app.set('view engine', 'ejs');
 
 app.get('/', function(req, res) {  
 
-  var sql = 'SELECT price, streetNumber, streetName, city, state FROM Sale';
+  var sql = 'SELECT price, streetNumber, streetName, city, state, postalCode FROM Sale';
   var data;
   db.query(sql, function (err, rows) {
       if (err) throw err;
       if(rows.length != 0){
           data = rows;
-          res.render('index', { fakeData : JSON.stringify(data) });
+          res.render('index', { data : data });
         }else{
           data = rows;
-          res.render('index', { fakeData : JSON.stringify(data) });
+          res.render('index', { data : data });
       }
   })
 });
