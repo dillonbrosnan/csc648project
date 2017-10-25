@@ -17,7 +17,7 @@
     <article>
     <section class="leftHandSide">
     <input type="textarea" name="query" id="query">
-    <input type="button" name="submit" onclick="createMarkers()" value="Look for address">
+    <input type="button" name="submit" onclick="createMarkers();consolelog()" value="Look for address">
     <div id="map"></div>
     <script>
     
@@ -37,7 +37,6 @@
       var data = <%- JSON.stringify(data) %>
       let query = document.getElementById("query").value;
       var infowindow = new google.maps.InfoWindow();
-      console.log(query);
       if(listingObjects.length){
         listingObjects = []; 
       }
@@ -64,71 +63,9 @@
         }
       }
     }
-
-    function getInfo(){
-        var json = {"listings": [
-                     {
-                       "price": "3001",
-                       "address": "155 bright st. San Francisco, CA 96134", 
-                       "city": "san francisco", 
-                       "state": "california", 
-                       "zip": 94123,
-                       "lat": 37.4220, 
-                       "lng": -122.0841
-                     },
-                     {
-                       "price": "45643.98",
-                       "address": "3490 candlewood st, San Francisco, CA 9876", 
-                       "city": "san francisco", 
-                       "state": "california", 
-                       "zip": 94123,
-                       "lat": 38.4220, 
-                       "lng": -122.0841
-                     }, 
-                     {
-                       "price": "2344",
-                       "address": "5468 iowa, st. San Francisco, CA", 
-                       "city": "san francisco", 
-                       "state": "california", 
-                       "zip": 94123,
-                       "lat": 39.4220, 
-                       "lng": -122.0841
-                     },
-                     {
-                       "price": "90000",
-                       "address": "9034 keyboard st, San Francisco, CA ", 
-                       "city": "san francisco", 
-                       "state": "california", 
-                       "zip": 94123,
-                       "lat": 36.4220, 
-                       "lng": -122.0841
-                     }, 
-                      {
-                       "price": "45643",
-                       "address": "4564 testing, ave. San Francisco, 83754", 
-                       "city": "mateo", 
-                       "state": "california", 
-                       "zip": 94123,
-                       "lat": 35.4220, 
-                       "lng": -122.0841
-                     }
-                  ]}; 
-                             
-                                   // location.href = "dillonb";
-      return json;
+    function consolelog(){
+      console.log('consolelog');
     }
-
-    function getLat(address){
-      var geocoder = new google.maps.Geocoder();
-     
-      geocoder.geocode({'address': address}, function(results, status){
-        if(status == 'OK'){
-          //console.log(address, 'getLat');
-          //return parseFloat(results[0].geometry.location.lat());
-        }
-      });
-    }
-
 
 
 function createInfoBox(jsonListing){
