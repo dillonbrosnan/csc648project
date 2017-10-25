@@ -17,7 +17,7 @@
     <article>
     <section class="leftHandSide">
     <input type="textarea" name="query" id="query">
-    <input type="button" name="submit" onclick="createMarkers();consolelog()" value="Look for address">
+    <input type="button" name="submit" onclick="createMarkers()" value="Look for address">
     <div id="map"></div>
     <script>
     
@@ -63,11 +63,6 @@
         }
       }
     }
-    function consolelog(){
-      console.log('consolelog');
-    }
-
-
 function createInfoBox(jsonListing){
   //getting parent element to append child elements into it
     let parent = document.getElementsByClassName('row text-center')[0]; 
