@@ -16,7 +16,7 @@
     <div class="left-half">
     <article>
     <section class="leftHandSide">
-    <input type="textarea" name="address" id="address">
+    <input type="textarea" name="query" id="query">
     <input type="button" name="submit" onclick="createMarkers()" value="Look for address">
     <div id="map"></div>
     <script>
@@ -34,51 +34,34 @@
     }
 
     function createMarkers(){
-      var json = getInfo();
-      let city = document.getElementById("address").value;
-      
-
+      var data = <%- JSON.stringify(data) %>
+      let query = document.getElementById("query").value;
+      var infowindow = new google.maps.InfoWindow();
+      console.log(query);
       if(listingObjects.length){
         listingObjects = []; 
       }
-
-      getLat(city); 
-
-      var infowindow = new google.maps.InfoWindow();
-    
       while(markers.length > 0){
         markers[markers.length-1].setMap(null);
         markers.pop();
       }
-    
-      if(city != null){
-        for(let i = 0; i < 5; i++){
-          if(json.listings[i].city.toLowerCase() == city){
-            let lat1 = json.listings[i].lat;    //getting lat 
-            let lng1 = json.listings[i].lng;      //getting lng
-
-            var myLatLng={lat: lat1, lng: lng1};
-
-
-            listingObjects.push(json.listings[i]); 
-
-             marker = new google.maps.Marker({
-              map: map,
-              position: myLatLng,
-              title: json.listings[i].address
-            });
-
-           // console.log(marker); 
-
-            markers.push(marker);
-            
-            google.maps.event.addListener(marker, 'click', function(){
-              infowindow.setContent('<div onclick="getInfo(this.innerHTML)">' +  json.listings[i].address + '</div>');
-              infowindow.open(map,this);
-            }); 
-          }
-        } 
-        createInfoBox(listingObjects); 
+      for(let i = 0; i < data.length; i++){
+        if(data[i].city.toLowerCase() == query){
+          let lat1 = parseFloat(data[i].lat);
+          let lng1 = parseFloat(data[i].lon);
+          var myLatLng={lat: lat1, lng: lng1};
+          listingObjects.push(data[i]);
+          marker = new google.maps.Marker({
+            map: map,
+            position: myLatLng,
+            title: data[i].streetNumber + ' ' + data[i].streetName
+          });
+          markers.push(marker);
+          google.maps.event.addListener(marker, 'click', function(){
+            infowindow.setContent('<div onclick="getInfo(this.innerHTML)">' +  data[i].streetNumber + ' ' + data[i].streetName + '</div>');
+            infowindow.open(map,this);
+          }); 
+        }
       }
     }
 
