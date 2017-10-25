@@ -11,12 +11,6 @@
 
   <% include partials/header %>
 
-  <script> 
-    var places = {{name}};
-    console.log(places);
-  </script>
-
-
     <section class="container">
   <!-- search component -->
     <div class="left-half">
@@ -27,7 +21,7 @@
     <div id="map"></div>
     <script>
     
- var map;
+    var map;
     var startLatLng = {lat: 37.4220, lng: -122.0841};
     var markers = [];
     var listingObjects = []; 
@@ -222,60 +216,31 @@ function createInfoBox(jsonListing){
         <h1>Right Half</h1>
         
         <div class="row text-center">
-
-        <!--
-      <div class="col-sm-4">
-        <div class="thumbnail">
-          <a href="#"><img src="paris.jpg" alt="Paris" width= "900" height="300"></a>
-          <p><strong>Price: $3001</strong></p>
-          <p>155 bright st. San Francisco, CA 96134</p>
-        </div>
-      </div>
-
-      <div class="col-sm-4">
-        <div class="thumbnail">
-          <a href="#"><img src="newyork.jpg" alt="New York" width="900" height="300"></a>
-          <p><strong>Price: $45643.98</strong></p>
-          <p>3490 candlewood st, San Francisco, CA 9876</p>
-        </div>
-      </div>
-
-      <div class="col-sm-4">
-        <div class="thumbnail">
-          <a href="#"><img src="sanfran.jpg" alt="San Francisco" width="900" height="300"></a>
-          <p><strong>Price: $2344</strong></p>
-          <p>5468 iowa, st. San Francisco, CA</p>
-        </div>
-      </div>
-
-<div class="row text-center">
-      <div class="col-sm-4">
-        <div class="thumbnail">
-          <a href="#"><img src="paris.jpg" alt="Paris" width="900" height="300"></a>
-          <p><strong>Price: $90000</strong></p>
-          <p>9034 keyboard st, San Francisco, CA</p>
-        </div>
-      </div>
-
-      <div class="col-sm-4">
-        <div class="thumbnail">
-          <a href="#"><img src="newyork.jpg" alt="New York" width="900" height="300"></a>
-          <p><strong>Price: $45643</strong></p>
-          <p>4564 testing, ave. San Francisco, 83754</p>
-        </div>
-      </div>
-
-      <div class="col-sm-4">
-        <div class="thumbnail">
-          <a href="#"><img src="sanfran.jpg" alt="San Francisco" width="400" height="300"></a>
-          <p><strong>Price: $</strong></p>
-          <p>Address...</p>
-        </div>
-      </div>-->
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>City</th>
+                <th>Price</th>
+                <th>Address</th>
+                <th>Zip Code</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% if(typeof data !== 'undefined') { %>
+                <% for(var i=0; i<data.length; i++) { %>
+                  <tr>
+                    <td><%= data[i].city %></td>
+                    <td><%= data[i].price %></td>
+                    <td><%= data[i].streetNumber %> <%= data[i].streetName %></td>
+                    <td><%= data[i].postalCode %></td>
+                  </tr>
+                <% } %>
+              <% } %>
+            </tbody>
+          </table>
 
         <div class="container text-center">
         <a href="#"><h2>More Listings...></h2</a>
-        <h1><%= fakeData %> </h1>
         </div>
         
       </article>
