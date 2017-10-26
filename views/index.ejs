@@ -63,6 +63,7 @@
         }
       }
     }
+
 function createInfoBox(jsonListing){
   //getting parent element to append child elements into it
     let parent = document.getElementsByClassName('row text-center')[0]; 
@@ -138,6 +139,7 @@ function createInfoBox(jsonListing){
                 <th>Price</th>
                 <th>Address</th>
                 <th>Zip Code</th>
+                <th>ImageId</th>
               </tr>
             </thead>
             <tbody>
@@ -148,6 +150,7 @@ function createInfoBox(jsonListing){
                     <td><%= data[i].price %></td>
                     <td><%= data[i].streetNumber %> <%= data[i].streetName %></td>
                     <td><%= data[i].postalCode %></td>
+                    <td><%= data[i].imageId %></td>
                   </tr>
                 <% } %>
               <% } %>

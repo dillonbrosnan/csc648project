@@ -17,8 +17,11 @@ app.set('view engine', 'ejs');
 
 app.get('/', function(req, res) {  
 
-  var sql = 'SELECT price, streetNumber, streetName, city, state, postalCode, lat, lon FROM Sale';
+  var sql = 'SELECT Sale.saleId, Sale.price, Sale.streetNumber, Sale.streetName, Sale.city, '
+    + 'Sale.state, Sale.postalCode, Sale.lat, Sale.lon, SaleImages.imageId FROM Sale, SaleImages'
+    + ' WHERE Sale.saleId = SaleImages.saleId';
   var data;
+  var images;
   db.query(sql, function (err, rows) {
       if (err) throw err;
       if(rows.length != 0){
