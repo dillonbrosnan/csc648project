@@ -31,8 +31,6 @@ app.get('/', function(req, res) {
   })
 });
 
-
-
 app.get('/portfolio', function(req, res) {  
   res.render('portfolio');
 });
@@ -184,6 +182,25 @@ app.get('/rent?:lan?:lon', function(req, res) {
     console.log(distance, "miles apart");
     res.end();
 });
+
+app.get('/image/:id', function(req, res) {  
+
+  var imageNumber = req.params.id;
+  console.log(imageNumber);
+  var sql = 'SELECT imageId FROM SaleImages WHERE saleId = ?';
+  var imageId;
+  db.query(sql, [imageNumber], function (err, rows) {
+      if (err) throw err;
+      if(rows.length != 0){
+          imageId = rows;
+          res.render('image', {imageId:imageId});
+        }else{
+          imageId = rows;
+          res.render('image', {imageId:imageId});
+      }
+  })
+});
+
 
 <!-- Listening port -->
 app.listen(port, function () {
