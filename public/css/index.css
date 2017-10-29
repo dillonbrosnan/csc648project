@@ -1,24 +1,28 @@
 body	{
 	margin-top: 50px;
 	padding-top: 20px;
-}
-
-
-	* {
-  box-sizing: border-box;
-}
-body {
   font-size: 1.25rem;
   font-family: sans-serif;
   line-height: 150%;
   text-shadow: 0 2px 2px #b6701e;
 }
 
+p{
+  text-shadow: no; 
+}
+
+
+	* {
+  box-sizing: border-box;
+}
 section {
   color: #000000;
   text-align: center;
 }
 
+.leftHandSide{
+  padding-top: inherit;
+}
 .left-half, .right-half {
   height: 100%;
 }
@@ -31,10 +35,10 @@ article {
   width: 100%;
   padding: 20px;
 }
-table, td {
-  border: 1px solid black;
-}
 
+.navbar{
+  display: none;
+}
 /* Pattern styles */
 .container {
   display: table;
@@ -42,6 +46,7 @@ table, td {
 }
 
 .left-half {
+  padding-top: inherit;
   background-color: #a09587;
   position: absolute;
   left: 0px;
@@ -54,14 +59,35 @@ table, td {
   right: 0px;
   width: 50%;
 }
-      #map {
-        height: 500px;
-        width: 500px;
-      }
-      /* Optional: Makes the sample page fill the window. */
- 
-      #address{
-        margin-top: 15px; 
-        margin-bottom: 15px; 
-        width: 500px;
-      }
+#map {
+  height: 565px;
+  width: 100%;
+}
+/* Optional: Makes the sample page fill the window. */
+
+#address{
+  margin-top: 15px; 
+  margin-bottom: 15px; 
+  width: 500px;
+}
+
+/* query input style*/
+#query{
+  width: 80%;
+  box-sizing: border-box;
+  border:2px solid #ccc;
+  border-radius: 4px; 
+  font-size: 16px;
+  background-color: white; 
+  background-image: url('#');
+  background-position: 10px 10px; 
+  background-repeat: no-repeat;
+  padding: 7px 0px 7px 14px;
+}
+
+#submit{
+  color: #fff;
+  background-color: #6496c8;
+  text-shadow: -1px 1px #417cb8;
+  border: none;
+}
