@@ -1,6 +1,6 @@
 body	{
 	margin-top: 50px;
-	padding-top: 20px;
+	padding-top: 2px;
   font-size: 1.25rem;
   font-family: sans-serif;
   line-height: 150%;
@@ -37,7 +37,7 @@ article {
 }
 
 .navbar{
-  display: none;
+  
 }
 /* Pattern styles */
 .container {
@@ -60,7 +60,7 @@ article {
   width: 50%;
 }
 #map {
-  height: 565px;
+  height: 400px;
   width: 100%;
 }
 /* Optional: Makes the sample page fill the window. */
