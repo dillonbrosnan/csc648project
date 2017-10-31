@@ -1,0 +1,28 @@
+body	{
+	margin-top: 30px;
+	padding-top: 20px;
+}
+
+
+	* {
+  box-sizing: border-box;
+}
+body {
+  font-size: 1.25rem;
+  font-family: sans-serif;
+}
+
+section {
+  color: #000000;
+  text-align: center;
+}
+
+.searchContainer  {
+  margin-left: 20%;
+  margin-right: 20%;
+  margin-top: 20%;
+}
+
+#latInput, #lngInput  {
+  visibility: hidden;
+}

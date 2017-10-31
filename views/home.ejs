@@ -1,0 +1,95 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" dir="ltr">
+
+<!-- Contains head of website -->
+<head>
+  <% include partials/head %>
+  <link rel="stylesheet" href="css/home.css"></link>
+</head>
+
+
+<body>
+
+  <!-- Contains header of website -->
+  <% include partials/header %>
+
+  <!-- Contains body of page -->
+  <section class="container">
+    <!-- Area contains search box, buttons, and options -->
+    <div class="searchContainer">
+      <div class="btn-group btn-group-justified" data-toggle="buttons">
+        <label class="btn btn-default active">
+          <input type="radio" name="options" id="sellOption" autocomplete="off" checked> Sell
+        </label>
+        <label class="btn btn-default">
+          <input type="radio" name="options" id="rentOption" autocomplete="off"> Rent
+        </label>
+      </div>
+      <form id="searchForm" method="get" action="/sell">
+        <input id="latInput" name="lat"></input>
+        <input id="lngInput" name="lng"></input>
+        <div class="input-group">
+          <input placeholder="Miles radius" type="number" class="form-control" id="usr" name="milesRadius"></input>
+        </div>
+        <div class="input-group">
+          <input id="pac-input" class="controls form-control" type="text" placeholder="Type and select a location">
+          <span class="input-group-btn">
+            <button class="btn btn-default">Search!</button>
+          </span>
+        </div>
+      </form>
+    </div>
+    <!-- End of search box area -->
+    
+
+  </section>
+
+  <footer>
+    <% include partials/footer %>
+  </footer>
+
+   <!-- Contains autocomplete functionality -->
+  <script>
+    // Create the search box and link it to the UI element.
+    function initAutocomplete() {
+      var input = document.getElementById('pac-input');
+      var searchBox = new google.maps.places.SearchBox(input);
+
+      searchBox.addListener('places_changed', function() {
+            var places = searchBox.getPlaces();
+
+            if (places.length == 0) {
+              return;
+            }
+
+            places.forEach(function(place) {
+                var location = place.geometry.location;
+                lat = location.lat();
+                lng = location.lng();
+                document.getElementById('latInput').value=lat; 
+                document.getElementById('lngInput').value=lng;  
+            });
+      });
+    }
+
+    function validateInput()   {
+      if(lat==null && lng==null)  {
+        return;
+      }     
+    }
+
+    $('#searchForm').on('keyup keypress', function(e) {
+      var keyCode = e.keyCode || e.which;
+      if (keyCode === 13) { 
+        e.preventDefault();
+        return false;
+      }
+    });
+  </script>
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPXF-zkLqKND8w5ktBN5bdlTkQSVbw950&libraries=places&callback=initAutocomplete"
+         async defer></script>
+  <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+</body>
+</html>

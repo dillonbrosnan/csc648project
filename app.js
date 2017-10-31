@@ -38,31 +38,31 @@ app.get('/portfolio', function(req, res) {
   res.render('portfolio');
 });
 
+app.get('/home', function(req, res) {  
+  res.render('home');
+});
+
 app.get('/vikram', function(req, res) {  
-  res.render('vikram');
+  res.render('team/vikram');
 });
 app.get('/animohan', function(req, res) {  
-  res.render('animohan');
+  res.render('team/animohan');
 });
 
 app.get('/dillonb', function(req, res) {  
-  res.render('dillonb');
+  res.render('team/dillonb');
 });
 
 app.get('/indra', function(req, res) {  
-  res.render('indra');
+  res.render('team/indra');
 });
 
 app.get('/darrylr', function(req, res) {  
-  res.render('darrylr');
+  res.render('team/darrylr');
 });
 
 app.get('/royanguiano', function(req, res) {  
-  res.render('royanguiano');
-});
-
-app.get('/maps', function(req, res){
-	res.render('maps');
+  res.render('team/royanguiano');
 });
 
 // Route
@@ -143,25 +143,39 @@ function getDistance(lat1,lon1,lat2,lon2) {
   return d;
 }
 
-app.get('/sell?:lan?:lon', function(req, res) {
+app.get('/sell', function(req, res) {
     
     var lat = req.query.lat;
-    var lon = req.query.lon;
+    var lon = req.query.lng;
+    var milesRadius = req.query.milesRadius;
     lat = Number(lat);
     lon = Number(lon);
-    
-    //var lat = 121.01323;
-    //var lon = -2323.23232;
+    milesRadius = Number(milesRadius);
+    var withinDistance;
 
 
     // Fake lat lon for test purposes this would be from a database
-    var lat1 = 37.721897;
-    var lon1 = -122.478209;
+    // var lat1 = 37.721897;
+    // var lon1 = -122.478209;
     
-    var distance = getDistance(lat, lon, lat1, lon1);
-    distance = 0.621371 * distance;
-    console.log(distance, "miles apart");
-    res.end();
+    // var distance = getDistance(lat, lon, lat1, lon1);
+    // distance = 0.621371 * distance;
+    // console.log(distance, "miles apart");
+    // res.end();
+    var sql = 'SELECT saleId, ACOS( SIN( RADIANS( lat ) ) * SIN( RADIANS( ? ) ) ' + 
+      '+ COS( RADIANS( lat ) ) * COS( RADIANS( ? )) * COS( RADIANS( lon ) ' +
+      '- RADIANS( ? )) ) * 3959 AS distance FROM Sale WHERE ' +
+      'ACOS( SIN( RADIANS( lat ) ) * SIN( RADIANS( ? ) ) + COS( RADIANS( lat ) ) ' +
+      '* COS( RADIANS( ? )) * COS( RADIANS( lon ) - RADIANS( ? )) ) * 3959 < ? ' +
+      'ORDER BY distance';
+    db.query(sql, [lat, lat, lon, lat, lat, lon, milesRadius], function (err, rows) {
+        if (err) throw err;
+        if(rows.length != 0){
+            res.json(rows);
+          }else{
+            res.json(rows);
+        }
+    })
 });
 
 app.get('/rent?:lan?:lon', function(req, res) {
