@@ -16,14 +16,27 @@
     <div class="left-half">
     <article>
           <section class="leftHandSide">
-            <div id="result">
-            <input type="textarea" name="query" id="query" value="">
+            <div>
+              <input type="text" name="query" id="query" value="" list="availableOptions" placeholder="San Francisco">
+              <datalist id="availableOptions">
+                <option value="San Francisco"></option>
+                <option value="San Mateo"></option>
+                <option value="San Carlos"></option>
+                <option value="San Diego"></option>
+                <option value="San Francisco"></option>
+                <option value="Daly City"></option>
+                <option value="Riverside"></option>
+                <option value="Los Angeles"></option>
+                <option value="Santa Barbra"></option>
+                <option value="Los Banos"></option>
+              </datalist>
+            </div>
             <input type="button" name="submit" id="submit" onclick="createMarkers()" value="Look for address">
             
             <div id="map"></div>
             <script>
-            
-            var map;
+
+            var mapCities = {}; 
             var startLatLng = {lat: 37.7749, lng: -122.4194};
             var markers = [];
             var listingObjects = []; 
@@ -31,28 +44,6 @@
             var currentQuery = document.getElementsByClassName('row text-center')[0]; 
             var searchAmount = 0; 
             var availableCities = ['san francisco', 'san mateo', 'san jose', 'riverside', 'daly city', 'los angeles']; 
-
-            // function showResult(str){
-            //     if(str.length == 0){
-            //       document.getElementById('result').innerHTML = ''; 
-            //       document.getElementById('result').style.border = '0px'; 
-            //     }
-            //     var timer, value; 
-
-            //     clearTimeout(timer);
-            //     if(str.length > 0){
-            //       timer = setTimeout(function(){
-            //         value = str;
-            //         let regex = \value\g 
-            //          if(regex.test(str)){
-            //           console.log(str); 
-            //          }
-            //     }, 1000); 
-            //   }
-            // }
-
-
-
             
             function clearListings(){
               let parent = document.getElementsByClassName('row text-center')[0];
@@ -76,40 +67,110 @@
 
             function createMarkers(){
               var data = <%- JSON.stringify(data) %>
-              //console.log(data);
+              var streetCity = convertAddress(); 
+              
               query = document.getElementById("query").value;
               var infowindow = new google.maps.InfoWindow();
+
               if(listingObjects.length){
                 listingObjects = []; 
               }
+
               while(markers.length > 0){
                 markers[markers.length-1].setMap(null);
                 markers.pop();
               }
+              
               for(let i = 0; i < data.length; i++){
-                if(data[i].city.toLowerCase() == query){
+                if(data[i].city.toLowerCase() == query.toLowerCase() || data[i].city.toLowerCase() == streetCity.toLowerCase()){
+                  
                   let lat1 = parseFloat(data[i].lat);
                   let lng1 = parseFloat(data[i].lon);
                   var myLatLng={lat: lat1, lng: lng1};
+                
                   listingObjects.push(data[i]);
+                
                   marker = new google.maps.Marker({
                     map: map,
                     position: myLatLng,
                     title: data[i].streetNumber + ' ' + data[i].streetName
                   });
+                
                   markers.push(marker);
+                
                   google.maps.event.addListener(marker, 'click', function(){
                     infowindow.setContent('<div onclick="getInfo(this.innerHTML)">' +  data[i].streetNumber + ' ' + data[i].streetName + '</div>');
                     infowindow.open(map,this);
                   }); 
                 }
               }
-               
-             // createTable();
-              createInfoBox(); 
+              
+              createInfoBox(streetCity); 
+
               searchAmount++; 
-              console.log(searchAmount)
             }
+
+          /*
+          The convert() will take a string of an address 
+          it will split the string into its streetNumber, streetName, streetType, streetCity
+          Then, 
+          The variable url will be used to make an api call using ajax to google maps api to get information about that specific address
+
+
+          */
+        function convertAddress(){
+          let fullAddress = document.getElementById("query").value;
+          fullAddress = fullAddress.split(' '); 
+
+          console.log(fullAddress); 
+
+          var temp          = parseInt(fullAddress[0]), 
+              streetNumber, 
+              streetName, 
+              streetCity, 
+              streetType, 
+              streetCitypart1, 
+              streetCityPart2, url; 
+
+          if(!isNaN(temp)){
+           
+            streetNumber = fullAddress[0], 
+            streetName   = fullAddress[1], 
+            streetType   = fullAddress[2]; 
+
+            //determine what type of city
+            if(fullAddress[4] != undefined && fullAddress[4] != ''){
+              streetCitypart1   = fullAddress[3]; 
+              streetCityPart2   = fullAddress[4]; 
+
+             url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + streetNumber + '+' + streetName + '+' +streetType+',+'+ streetCitypart1 + '+'+ streetCityPart2 +',+CA&key=AIzaSyBPXF-zkLqKND8w5ktBN5bdlTkQSVbw950'; 
+
+            } else if(fullAddress[4] == undefined && fullAddress[3] != ''){
+             streetCity   = fullAddress[3]; 
+
+              url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + streetNumber + '+' + streetName + '+' +streetType+',+'+ streetCity +',+CA&key=AIzaSyBPXF-zkLqKND8w5ktBN5bdlTkQSVbw950'; 
+
+            } else {
+              streetCity = 'san+francisco'; 
+
+              url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + streetNumber + '+' + streetName + '+' +streetType+',+'+ streetCity +',+CA&key=AIzaSyBPXF-zkLqKND8w5ktBN5bdlTkQSVbw950'; 
+            }
+
+          
+             $.ajax({
+                type: 'GET', 
+                url: url, 
+                dataType: 'json', 
+                success: processJSON
+              });
+          } 
+
+          return streetCitypart1 + ' ' + streetCityPart2; 
+        }
+
+        function processJSON(json){
+          console.log(json.results[0]);
+        } 
 
         //selfy funcion that is checking if input is zero 
         //if the input is zero then this function will trigger and remove all listings
@@ -117,43 +178,17 @@
               $('#query').keyup(function(){
                 var s = $(this).val(); 
                 let parent = document.getElementById('result'); 
+                let regex = /[s]/g;
 
-                if(s.length == 0){
-                  clearListings(); 
-                } else if (s.length > 1){
-                  
-                  s = s.toString(); 
-                  let regex = /[s]/g;
-
-                  for(let i = 0; i < availableCities.length; i++){
-
-                    if(regex.test(availableCities[i])){
-                      if(!map[availableCities[i]]){
-                        map[availableCities[i]] = availableCities[i]; 
-                      }
-
-                      if()
-
-                      let textnode = document.createTextNode(availableCities[i]); 
-                      let option = document.createElement('option'); 
-                      option.appendChild(textnode); 
-                      console.log(option); 
-                      if(option == null){
-                        console.log(option); 
-                      } else {
-                        console.log(parent); 
-                        parent.appendChild(option); 
-                      } 
-                    }
-                  }
-                  
-                }
-              })
-           })
+                  if(s.length == 0){
+                    clearListings(); 
+                  } 
+                })
+           }); 
 
          function createInfoBox(){
           var data = <%- JSON.stringify(data) %>
-          console.log(data); 
+          
                 //getting parent element to append child elements into it
              let parent = document.getElementsByClassName('row text-center')[0]; 
             
@@ -162,10 +197,11 @@
                  parent.removeChild(parent.lastChild); 
 
              }
-              parent.lastChild = ''; 
+
+            parent.lastChild = ''; 
 
              for(let i = 0; i < data.length; i++){
-               if(data[i].city.toLowerCase() == query){
+               if(data[i].city.toLowerCase() == query.toLowerCase()){
                  //getting data from objects 
                  let city    = data[i].city, 
                      price   = data[i].price, 
@@ -209,7 +245,7 @@
 
                  var addressNode = document.createTextNode(address); 
                  pTagg.appendChild(addressNode); 
-             }
+             } 
            }
          }
 
@@ -219,75 +255,14 @@
         </section>
       </article>
   </div>
-  <!--end of result section -->
-  <!--result section -->
+
+
     <div class="right-half">
       <div class="row text-center"></div>
-
-      <article>
-<!--        <h1>Right Half</h1>
-         <div class="row text-center">
-          <table class="table table-bordered"> 
-            <table id = "displayTable">
-            <thead>
-              <tr>
-                <td>Street Number</td>
-                <td>Street Name</td>
-                <td>City</td>
-                <td>Zip Code</td>
-                <td>Price</td>
-                <td>Image</td>
-              </tr>
-            </thead>
-          </table>-->
-            <script type="text/javascript">
-              function createTable(){
-                var data = <%- JSON.stringify(data) %>
-                console.log('createTable function: ', data);  
-                var table = document.getElementById("displayTable");
-                while(table.rows.length > 1){
-                  console.log(table.rows.length); 
-                  table.deleteRow(table.rows.length-1);
-                }
-                for(let i = 0; i < data.length; i++){
-                  if(data[i].city.toLowerCase() == query){
-                    var row = table.insertRow(table.length);
-                    //console.log(row); 
-                    var c0 = row.insertCell(0);
-                    var c1 = row.insertCell(1);
-                    var c2 = row.insertCell(2);
-                    var c3 = row.insertCell(3);
-                    var c4 = row.insertCell(4);
-                    var c5 = row.insertCell(5);
-
-                    var address = data[i].streetNumber;
-                    var street = data[i].streetName;
-                    var city = data[i].city;
-                    var zip = data[i].postalCode;
-                    var price = data[i].price;
-
-                    c0.innerHTML = address;
-                    c1.innerHTML = street;
-                    c2.innerHTML = city;
-                    c3.innerHTML = zip;
-                    c4.innerHTML = price
-
-                    var suffix = data[i].imageId.toString();
-                    var src = 'saleImages/' + suffix + '.jpg';
-                    var img = document.createElement("IMG");
-                    img.src = src;
-                    img.style.width = "100px";
-                    c5.appendChild(img);
-                  }
-                }
-              }
-            </script>
-          </table>
-      </article>
     </div>
-
-  <!--end of result section -->
 </section>
+
+
   <hr>
     <footer>
       <% include partials/footer %>
