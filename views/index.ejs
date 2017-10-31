@@ -191,6 +191,7 @@
           
                 //getting parent element to append child elements into it
              let parent = document.getElementsByClassName('row text-center')[0]; 
+             let noMatch = 0; 
             
              //check parent children nodes to clear the right side out
              while(parent.hasChildNodes()){
@@ -245,7 +246,17 @@
 
                  var addressNode = document.createTextNode(address); 
                  pTagg.appendChild(addressNode); 
-             } 
+             } else {
+                noMatch++; 
+             }
+           }
+
+           if(noMatch == data.length){
+              let noResult = document.createElement('DIV'); 
+              let textNode = document.createTextNode('No result...'); 
+              noResult.appendChild(textNode); 
+              document.getElementsByClassName('row text-center')[0].appendChild(noResult); 
+              console.log('no result');
            }
          }
 
