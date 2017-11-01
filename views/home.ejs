@@ -17,15 +17,11 @@
   <section class="container">
     <!-- Area contains search box, buttons, and options -->
     <div class="searchContainer">
-      <div class="btn-group btn-group-justified" data-toggle="buttons">
-        <label class="btn btn-default active">
-          <input type="radio" name="options" id="sellOption" autocomplete="off" checked> Sell
-        </label>
-        <label class="btn btn-default">
-          <input type="radio" name="options" id="rentOption" autocomplete="off"> Rent
-        </label>
+      <div class="btn-group btn-group-justified">
+        <a class="btn btn-default active">Buy</a>
+        <a class="btn btn-default">Rent</a>
       </div>
-      <form id="searchForm" method="get" action="/sell">
+      <form id="searchForm" method="post" action="/sale">
         <input id="latInput" name="lat"></input>
         <input id="lngInput" name="lng"></input>
         <div class="input-group">
@@ -72,6 +68,18 @@
       });
     }
 
+    $(".btn-group > .btn").click(function(){
+      $(this).addClass("active").siblings().removeClass("active");
+      var action = $(this).text();
+      console.log(action);
+      if(action == "Buy") {
+        action = "sale";
+      } else  {
+        action = "rent";
+      }
+      $("#searchForm").attr("action", "/" + action);
+    });
+
     function validateInput()   {
       if(lat==null && lng==null)  {
         return;
@@ -87,8 +95,7 @@
     });
   </script>
 
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPXF-zkLqKND8w5ktBN5bdlTkQSVbw950&libraries=places&callback=initAutocomplete"
-         async defer></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPXF-zkLqKND8w5ktBN5bdlTkQSVbw950&libraries=places&callback=initAutocomplete" async defer></script>
   <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 </body>

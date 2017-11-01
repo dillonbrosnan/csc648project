@@ -13,6 +13,10 @@ var app = express();
 app.use(express.static(__dirname + "/public"));
 app.set('view engine', 'ejs');
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
+
 <!-- Routes -->
 
 app.get('/', function(req, res) {  
@@ -44,7 +48,7 @@ app.get('/home', function(req, res) {
 
 app.get('/vikram', function(req, res) {  
   res.render('team/vikram');
-});
+})
 app.get('/animohan', function(req, res) {  
   res.render('team/animohan');
 });
@@ -125,57 +129,34 @@ app.post('/login/agent',function(req,res){
   Commenting source for formula
   https://stackoverflow.com/questions/27928/calculate-distance-between-two-latitude-longitude-points-haversine-formula/27943  
 */
-function getRadianDeg(deg) {
-  return deg * (Math.PI/180)
-}
 
-function getDistance(lat1,lon1,lat2,lon2) {
-  var R = 6371; // Radius of the earth in km
-  var dLat = getRadianDeg(lat2-lat1);  // getRadianDeg below
-  var dLon = getRadianDeg(lon2-lon1); 
-  var a = 
-    Math.sin(dLat/2) * Math.sin(dLat/2) +
-    Math.cos(getRadianDeg(lat1)) * Math.cos(getRadianDeg(lat2)) * 
-    Math.sin(dLon/2) * Math.sin(dLon/2)
-    ; 
-  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
-  var d = R * c; // Distance in km
-  return d;
-}
-
-app.get('/sell', function(req, res) {
+app.post('/sale', function(req, res) {
     
-    var lat = req.query.lat;
-    var lon = req.query.lng;
-    var milesRadius = req.query.milesRadius;
-    lat = Number(lat);
-    lon = Number(lon);
-    milesRadius = Number(milesRadius);
-    var withinDistance;
+    var milesRadius = req.body.milesRadius;
+    var lat = req.body.lat;
+    var lon = req.body.lng;
+    if(lat == undefined || lon == undefined || milesRadius == undefined)  {
+      res.redirect("/");
+    } else  {
+      lat = Number(lat);
+      lon = Number(lon);
+      milesRadius = Number(milesRadius);
+      var withinDistance;
 
-
-    // Fake lat lon for test purposes this would be from a database
-    // var lat1 = 37.721897;
-    // var lon1 = -122.478209;
-    
-    // var distance = getDistance(lat, lon, lat1, lon1);
-    // distance = 0.621371 * distance;
-    // console.log(distance, "miles apart");
-    // res.end();
-    var sql = 'SELECT saleId, ACOS( SIN( RADIANS( lat ) ) * SIN( RADIANS( ? ) ) ' + 
-      '+ COS( RADIANS( lat ) ) * COS( RADIANS( ? )) * COS( RADIANS( lon ) ' +
-      '- RADIANS( ? )) ) * 3959 AS distance FROM Sale WHERE ' +
-      'ACOS( SIN( RADIANS( lat ) ) * SIN( RADIANS( ? ) ) + COS( RADIANS( lat ) ) ' +
-      '* COS( RADIANS( ? )) * COS( RADIANS( lon ) - RADIANS( ? )) ) * 3959 < ? ' +
-      'ORDER BY distance';
-    db.query(sql, [lat, lat, lon, lat, lat, lon, milesRadius], function (err, rows) {
-        if (err) throw err;
-        if(rows.length != 0){
-            res.json(rows);
-          }else{
-            res.json(rows);
-        }
-    })
+      var sql = 'SELECT saleId, ACOS( SIN( RADIANS( lat ) ) * SIN( RADIANS( ? ) ) ' + 
+        '+ COS( RADIANS( lat ) ) * COS( RADIANS( ? )) * COS( RADIANS( lon ) ' +
+        '- RADIANS( ? )) ) * 3959 AS distance FROM Sale WHERE ' +
+        'ACOS( SIN( RADIANS( lat ) ) * SIN( RADIANS( ? ) ) + COS( RADIANS( lat ) ) ' +
+        '* COS( RADIANS( ? )) * COS( RADIANS( lon ) - RADIANS( ? )) ) * 3959 < ? ' +
+        'ORDER BY distance';
+      db.query(sql, [lat, lat, lon, lat, lat, lon, milesRadius], function (err, rows) {
+          if(rows.length != 0){
+              res.json(rows);
+            }else{
+              res.json(rows);
+          }
+      })
+    }
 });
 
 app.get('/rent?:lan?:lon', function(req, res) {
