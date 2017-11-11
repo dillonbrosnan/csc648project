@@ -1,0 +1,91 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" dir="ltr">
+
+<!-- Contains head of website -->
+<head>
+  <% include partials/head %>
+  <link rel="stylesheet" href="/css/register.css"></link>
+</head>
+
+
+<body>
+
+  	<!-- Contains header of website -->
+  	<% include partials/header %>
+
+  	<!-- Contains body of page -->
+  	<div class="container registerContainer">
+
+		<div class="row main">
+			<div class="main-login main-center">
+				<form class="form-horizontal" method="post" action="#">
+						
+					<div class="form-group">
+						<label for="name" class="cols-sm-2 control-label">Your Name</label>
+						<div class="cols-sm-10">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+								<input type="text" class="form-control" name="name" id="name"  placeholder="Enter your Name"/>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="email" class="cols-sm-2 control-label">Your Email</label>
+						<div class="cols-sm-10">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+								<input type="text" class="form-control" name="email" id="email"  placeholder="Enter your Email"/>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="username" class="cols-sm-2 control-label">Username</label>
+						<div class="cols-sm-10">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+								<input type="text" class="form-control" name="username" id="username"  placeholder="Enter your Username"/>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="password" class="cols-sm-2 control-label">Password</label>
+						<div class="cols-sm-10">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+								<input type="password" class="form-control" name="password" id="password"  placeholder="Enter your Password"/>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="confirm" class="cols-sm-2 control-label">Confirm Password</label>
+						<div class="cols-sm-10">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+								<input type="password" class="form-control" name="confirm" id="confirm"  placeholder="Confirm your Password"/>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group ">
+						<button type="button" class="btn btn-primary btn-lg btn-block login-button">Register</button>
+					</div>
+					
+				</form>
+			</div>
+		</div>
+    </div>
+    <!-- End of search box area -->
+    
+  <footer>
+    <% include partials/footer %>
+  </footer>
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPXF-zkLqKND8w5ktBN5bdlTkQSVbw950&libraries=places&callback=initAutocomplete" async defer></script>
+  <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+</body>
+</html>

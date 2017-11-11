@@ -4,7 +4,7 @@
 <!-- Contains head of website -->
 <head>
   <% include partials/head %>
-  <link rel="stylesheet" href="css/home.css"></link>
+  <link rel="stylesheet" href="/css/home.css"></link>
 </head>
 
 
@@ -21,19 +21,29 @@
         <a class="btn btn-default active">Buy</a>
         <a class="btn btn-default">Rent</a>
       </div>
+
       <form id="searchForm" method="post" action="/sale/">
         <input id="latInput" name="lat" required></input>
         <input id="lngInput" name="lng" required></input>
-        <div class="input-group">
-          <input placeholder="Miles radius" type="number" class="form-control" id="usr" name="milesRadius" required></input>
+        
+        <div class="row">
+          <div class="col-md-3">
+            <div class="input-group">
+              <input placeholder="Miles radius" type="number" class="form-control" id="usr" name="milesRadius" required></input>
+            </div>
+          </div>
+          <div class="col-md-9">
+            <div class="input-group">
+              <input id="pac-input" class="controls form-control" type="text" placeholder="Select location">
+              <span class="input-group-btn">
+                <button class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+              </span>
+            </div>
+          </div>
         </div>
-        <div class="input-group">
-          <input id="pac-input" class="controls form-control" type="text" placeholder="Type and select a location">
-          <span class="input-group-btn">
-            <button class="btn btn-default">Search!</button>
-          </span>
-        </div>
+
       </form>
+
     </div>
     <!-- End of search box area -->
     
@@ -71,7 +81,6 @@
     $(".btn-group > .btn").click(function(){
       $(this).addClass("active").siblings().removeClass("active");
       var action = $(this).text();
-      console.log(action);
       if(action == "Buy") {
         action = "sale";
       } else  {

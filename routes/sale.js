@@ -2,6 +2,13 @@ var express = require('express');
 var router = express.Router();
 var db = require('../db');
 
+// Search route
+
+/* 
+  Commenting source for formula
+  https://stackoverflow.com/questions/27928/calculate-distance-between-two-latitude-longitude-points-haversine-formula/27943  
+*/
+
 router.post('/', function(req, res) {
     
     var milesRadius = req.body.milesRadius;
