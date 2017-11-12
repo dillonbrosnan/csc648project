@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var db = require('../db');
+var pool = require('../db');
 
 // Search route
 
@@ -17,24 +17,33 @@ router.post('/', function(req, res) {
     if(lat == undefined || lon == undefined || milesRadius == undefined)  {
       res.redirect("/");
     } else  {
+
       lat = Number(lat);
       lon = Number(lon);
       milesRadius = Number(milesRadius);
-      var withinDistance;
 
       var sql = 'SELECT saleId, ACOS( SIN( RADIANS( lat ) ) * SIN( RADIANS( ? ) ) ' + 
-        '+ COS( RADIANS( lat ) ) * COS( RADIANS( ? )) * COS( RADIANS( lon ) ' +
-        '- RADIANS( ? )) ) * 3959 AS distance FROM Sale WHERE ' +
-        'ACOS( SIN( RADIANS( lat ) ) * SIN( RADIANS( ? ) ) + COS( RADIANS( lat ) ) ' +
-        '* COS( RADIANS( ? )) * COS( RADIANS( lon ) - RADIANS( ? )) ) * 3959 < ? ' +
-        'ORDER BY distance';
-      db.query(sql, [lat, lat, lon, lat, lat, lon, milesRadius], function (err, rows) {
-          if(rows.length != 0){
-              res.json(rows);
-            }else{
-              res.json(rows);
-          }
-      })
+      '+ COS( RADIANS( lat ) ) * COS( RADIANS( ? )) * COS( RADIANS( lon ) ' +
+      '- RADIANS( ? )) ) * 3959 AS distance FROM Sale WHERE ' +
+      'ACOS( SIN( RADIANS( lat ) ) * SIN( RADIANS( ? ) ) + COS( RADIANS( lat ) ) ' +
+      '* COS( RADIANS( ? )) * COS( RADIANS( lon ) - RADIANS( ? )) ) * 3959 < ? ' +
+      'ORDER BY distance';
+
+      pool.getConnection(function(err, connection){ //Get connection to pool
+        if(err) console.log(err);
+
+        connection.query(sql, [lat, lat, lon, lat, lat, lon, milesRadius], function (err, rows) {
+            if(rows.length != 0){
+                res.json(rows);
+              }else{
+                res.json(rows);
+            }
+        })
+
+        connection.release();
+
+      }); //End of connection pool
+
     }
 });
 

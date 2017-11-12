@@ -24,5 +24,9 @@ section {
 }
 
 #latInput, #lngInput  {
-  visibility: hidden;
+  display: none;
+}
+
+.btn-group  {
+  margin-bottom: 20px;
 }

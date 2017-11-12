@@ -1,78 +1,69 @@
 var express = require('express');
 var router = express.Router();
 var db = require('../db');
+var bcrypt = require('bcrypt');
 
 // Route
 router.get('/',function(req,res){
-  res.render('login',
-    {role: "user"}
-  );
+  
+  if(typeof req.query.incorrectPassword != "undefined") {
+    var username = req.query.incorrectPassword;
+    res.render('login', {
+      role: "user",
+      username: username
+    });
+  } else  {
+    res.render('login', {role: "user"});
+  }
+  
 });
 
-router.get('/agent*',function(req,res){
-  res.render('login',
-    {role: "agent"}
-  );
+router.get('/agent',function(req,res){
+  
+  if(typeof req.query.incorrectPassword != "undefined") {
+    var username = req.query.incorrectPassword;
+    res.render('login', {
+      role: "agent",
+      username: username
+    });
+  } else  {
+    res.render('login', {role: "agent"});
+  }
+  
 });
 
-router.get('/admin*',function(req,res){
+router.get('/admin',function(req,res){
   res.render('login',
     {role: "admin"}
   );
 });
 
 // Route
-router.post('/',function(req,res){
+router.post('/user',function(req,res){
   var username = req.body.username;
   var password = req.body.password;
   // Db query
-  var sql = 'SELECT userId FROM User WHERE username = ? and password = ?';
-  db.query(sql, [username, password], function (err, rows) {
-      if (err) throw err;
-      if(rows.length != 0){
-        var userId = rows[0].userId.toString();
-        res.cookie('priviledge', 'user');
-        res.send(userId);
-        }else{
-            res.json(rows);
+  var sql = 'SELECT userId, password FROM User WHERE username = ?';
+  db.query(sql, [username], function (err, rows) {
+
+      if (err) {
+        res.redirect('http://www.404errorpages.com/');      
+      }
+
+      if(rows.length > 0){
+        var hash = rows[0].password;
+        bcrypt.compare(password, hash, function(err, response) {
+          if(response == true) {
+            res.redirect('/');
+          } else  {
+            res.redirect('/login?incorrectPassword=' + username);
+          }
+        });
+      } else  {
+        res.redirect('/login');
       }
   })
 });
 
-// Route
-router.post('/admin',function(req,res){
-  var username = req.body.username;
-  var password = req.body.password;
-  // Db query
-  var sql = 'SELECT adminId FROM Admin WHERE username = ? and password = ?';
-  db.query(sql, [username, password], function (err, rows) {
-      if (err) throw err;
-      if(rows.length != 0){
-        var adminId = rows[0].adminId.toString();
-        res.cookie('priviledge', 'admin');
-        res.send(adminId);
-        }else{
-            res.json(rows);
-      }
-  })
-});
-
-// Route
-router.post('/agent',function(req,res){
-  var username = req.body.username;
-  var password = req.body.password;
-  // Db query
-  var sql = 'SELECT agentId FROM Agent WHERE username = ? and password = ?';
-  db.query(sql, [username, password], function (err, rows) {
-      if (err) throw err;
-      if(rows.length != 0){
-        var agentId = rows[0].agentId.toString();
-        res.cookie('priviledge', 'admin');
-        res.send(agentId);
-        }else{
-            res.json(rows);
-      }
-  })
-});
 
 module.exports = router;

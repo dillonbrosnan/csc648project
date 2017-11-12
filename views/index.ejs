@@ -22,17 +22,16 @@
         <a class="btn btn-default">Rent</a>
       </div>
 
-      <form id="searchForm" method="post" action="/sale/">
-        <input id="latInput" name="lat" required></input>
-        <input id="lngInput" name="lng" required></input>
-        
+      <form id="searchForm" method="post" action="/sale/" onsubmit="return validateSearch()">
+        <input id="latInput" name="lat"></input>
+        <input id="lngInput" name="lng"></input>
         <div class="row">
-          <div class="col-md-3">
+          <div class="col-xs-12 col-md-3">
             <div class="input-group">
-              <input placeholder="Miles radius" type="number" class="form-control" id="usr" name="milesRadius" required></input>
+              <input placeholder="Miles radius" type="number" class="form-control" id="milesRadius" name="milesRadius" required></input>
             </div>
           </div>
-          <div class="col-md-9">
+          <div class="col-xs-12 col-md-9">
             <div class="input-group">
               <input id="pac-input" class="controls form-control" type="text" placeholder="Select location">
               <span class="input-group-btn">
@@ -41,11 +40,19 @@
             </div>
           </div>
         </div>
-
       </form>
 
     </div>
     <!-- End of search box area -->
+
+    <div>
+      <ul>
+      <% if(typeof latestHouses != 'undefined') { %>
+      <% latestHouses.forEach(function(house) { %>
+        <li><%= house.userId %></li>
+      <%  }) %>
+      <%  } %>
+    </div>
     
 
   </section>
@@ -78,6 +85,14 @@
       });
     }
 
+    function validateSearch() {
+      var milesRadius = document.getElementById('milesRadius').value;
+      if(typeof lat != undefined && typeof lng != undefined && !isNaN(milesRadius))  {
+        return true;
+      }
+      return false;
+    }
+
     $(".btn-group > .btn").click(function(){
       $(this).addClass("active").siblings().removeClass("active");
       var action = $(this).text();
@@ -88,12 +103,6 @@
       }
       $("#searchForm").attr("action", "/" + action);
     });
-
-    function validateInput()   {
-      if(lat==null && lng==null)  {
-        return;
-      }     
-    }
 
     $('#searchForm').on('keyup keypress', function(e) {
       var keyCode = e.keyCode || e.which;
