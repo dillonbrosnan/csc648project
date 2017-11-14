@@ -14,37 +14,34 @@ router.post('/', function(req, res) {
     var milesRadius = req.body.milesRadius;
     var lat = req.body.lat;
     var lon = req.body.lng;
-    if(lat == undefined || lon == undefined || milesRadius == undefined)  {
-      res.redirect("/");
-    } else  {
+    
 
-      lat = Number(lat);
-      lon = Number(lon);
-      milesRadius = Number(milesRadius);
+    lat = Number(lat);
+    lon = Number(lon);
+    milesRadius = Number(milesRadius);
 
-      var sql = 'SELECT saleId, ACOS( SIN( RADIANS( lat ) ) * SIN( RADIANS( ? ) ) ' + 
-      '+ COS( RADIANS( lat ) ) * COS( RADIANS( ? )) * COS( RADIANS( lon ) ' +
-      '- RADIANS( ? )) ) * 3959 AS distance FROM Sale WHERE ' +
-      'ACOS( SIN( RADIANS( lat ) ) * SIN( RADIANS( ? ) ) + COS( RADIANS( lat ) ) ' +
-      '* COS( RADIANS( ? )) * COS( RADIANS( lon ) - RADIANS( ? )) ) * 3959 < ? ' +
-      'ORDER BY distance';
+    var sql = 'SELECT saleId, ACOS( SIN( RADIANS( lat ) ) * SIN( RADIANS( ? ) ) ' + 
+    '+ COS( RADIANS( lat ) ) * COS( RADIANS( ? )) * COS( RADIANS( lon ) ' +
+    '- RADIANS( ? )) ) * 3959 AS distance FROM Sale WHERE ' +
+    'ACOS( SIN( RADIANS( lat ) ) * SIN( RADIANS( ? ) ) + COS( RADIANS( lat ) ) ' +
+    '* COS( RADIANS( ? )) * COS( RADIANS( lon ) - RADIANS( ? )) ) * 3959 < ? ' +
+    'ORDER BY distance';
 
-      pool.getConnection(function(err, connection){ //Get connection to pool
-        if(err) console.log(err);
+    pool.getConnection(function(err, connection){ //Get connection to pool
+      if(err) console.log(err);
 
-        connection.query(sql, [lat, lat, lon, lat, lat, lon, milesRadius], function (err, rows) {
-            if(rows.length != 0){
-                res.json(rows);
-              }else{
-                res.json(rows);
-            }
-        })
+      connection.query(sql, [lat, lat, lon, lat, lat, lon, milesRadius], function (err, rows) {
+          if(rows.length != 0){
+              res.json(rows);
+            }else{
+              res.json(rows);
+          }
+      })
 
-        connection.release();
+      connection.release();
 
-      }); //End of connection pool
+    }); //End of connection pool
 
-    }
 });
 
 module.exports = router;

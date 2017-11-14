@@ -87,9 +87,10 @@
 
     function validateSearch() {
       var milesRadius = document.getElementById('milesRadius').value;
-      if(typeof lat != undefined && typeof lng != undefined && !isNaN(milesRadius))  {
+      if(typeof lat !== 'undefined' && typeof lng !== 'undefined' && !isNaN(milesRadius))  {
         return true;
       }
+      alert("Please select a location");
       return false;
     }
 

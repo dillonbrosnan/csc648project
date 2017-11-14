@@ -1,0 +1,143 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" dir="ltr">
+
+<!-- Contains head of website -->
+<head>
+  <% include partials/head %>
+  <link rel="stylesheet" href="/css/post.css"></link>
+</head>
+
+
+<body>
+
+    <!-- Contains header of website -->
+    <% include partials/header %>
+
+    <!-- Contains body of page -->
+    <div class="container registerContainer">
+
+    <div class="row main">
+      <div class="main-login main-center">
+        <form>
+          <div class="form-group">
+            <label for="formattedAddress">Address:</label>
+            <input name="formattedAddress" type="text" class="form-control" id="formattedAddress" placeholder="Select location">
+          </div>
+          <div class="form-group">
+            <label for="beds">Bedrooms:</label>
+            <select name="beds" class="form-control" id="beds">
+              <% for(var i = 0; i <= 20; i++)  {   %>
+                <option><%= i %></option>
+              <% }  %>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="baths">Bathrooms:</label>
+            <select name="baths" class="form-control" id="baths">
+              <% for(var i = 0; i <= 20; i+=0.5)  {   %>
+                <option><%= i %></option>
+              <% }  %>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="sqFt">Square Feet:</label>
+            <input name="sqFt" type="number" class="form-control" id="sqFt" min="0">
+          </div>
+          <div class="form-group">
+            <label for="lotSqFt">Lot Square Feet:</label>
+            <input name="lotSqFt" type="number" class="form-control" id="lotSqFt" min="0">
+          </div>
+          <div class="form-group">
+            <label for="yearBuilt">Year Built:</label>
+            <select name="yearBuilt" class="form-control" id="yearBuilt">
+              <% for(var i = new Date().getFullYear(); i > 1600; i--)  {   %>
+                <option><%= i %></option>
+              <% }  %>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="lotType">Lot Type:</label>
+            <select name="lotType" class="form-control" id="lotType">
+              <option>House</option>
+              <option>Apartment</option>
+              <option>Condo</option>
+              <option>Townhouse</option>
+              <option>Manufactured</option>
+              <option>Land</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="hoa">HOA:</label>
+            <input name="hoa" type="number" class="form-control" id="hoa" min="0">
+          </div>
+          <div class="form-group">
+            <label for="price">Price:</label>
+            <input name="price" type="number" class="form-control" id="price" min="0">
+          </div>
+          <div class="form-group">
+            <label for="image">Price:</label>
+            <input name="image" type="file" class="form-control" id="image" accept=".jpg,.png,.gif">
+          </div>
+          <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+      </div>
+    </div>
+    </div>
+    <!-- End of search box area -->
+    
+    <footer>
+      <% include partials/footer %>
+    </footer>
+
+    <!-- Contains autocomplete functionality -->
+    <script>
+      // Create the search box and link it to the UI element.
+      function initAutocomplete() {
+        var input = document.getElementById('formattedAddress');
+        var searchBox = new google.maps.places.SearchBox(input);
+
+        searchBox.addListener('places_changed', function() {
+              var places = searchBox.getPlaces();
+
+              if (places.length == 0) {
+                return;
+              }
+
+              places.forEach(function(place) {
+                  var location = place.geometry.location;
+                  // var zipCodeFound = false;
+                  for (var i = 0; i < place.address_components.length; i++) {
+                      for (var j = 0; j < place.address_components[i].types.length; j++) {
+                        if (place.address_components[i].types[j] == "street_number") {
+                          streetNumber = place.address_components[i].long_name;
+                          if(typeof streetNumber !== 'undefined') {
+                  streetNumber = place.address_components[i].long_name;
+                }
+                        }
+                    }
+                  }
+
+                  // if(!zipCodeFound)  {
+                  //  alert("Please narrow down to a specific area");
+                  // }
+
+                  lat = location.lat();
+                  lng = location.lng();
+                  formattedAddress = place.formatted_address;
+                  console.log(formattedAddress);
+                  document.getElementById('latInput').value=lat; 
+                  document.getElementById('lngInput').value=lng;  
+                  document.getElementById('formattedAddress').value=formattedAddress; 
+              });
+        });
+      }
+
+      
+
+  </script>
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPXF-zkLqKND8w5ktBN5bdlTkQSVbw950&libraries=places&callback=initAutocomplete" async defer></script>
+  <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+</body>
+</html>
