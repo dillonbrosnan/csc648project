@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var SaleModel = require('../model/saleModel.js');
+var SaleModel = require('../models/saleModel.js');
 
 // Search route
 
