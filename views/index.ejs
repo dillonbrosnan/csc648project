@@ -90,7 +90,12 @@
       if(typeof lat !== 'undefined' && typeof lng !== 'undefined' && !isNaN(milesRadius))  {
         return true;
       }
-      alert("Please select a location");
+      if(isNaN(milesRadius))  {
+        alert("Please enter a valid number");
+      }
+      if(typeof lat === 'undefined' || typeof lng === 'undefined')  {
+        alert("Please select a valid location");
+      }
       return false;
     }
 
