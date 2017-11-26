@@ -22,30 +22,38 @@ h1.title {
 	font-family: 'Passion One', cursive; 
 	font-weight: 400; 
 }
+h2 {
+	font-size: 24px;
+	text-align: left;
+}
 
 hr{
 	width: 10%;
 	color: #fff;
 }
-
+p {
+	font-size: 16px;
+}
+.test {
+	text-align: center;
+}
 .separation {
 	height : 2px;
 	width: 100%;
 	border-top: 2px solid #ccc;
 }
-
 .form-group{
-	margin-bottom: 15px;
+	margin-bottom: 3px;
 }
 
 label{
-	margin-bottom: 10px;
+	margin-bottom: 2px;
 }
 
 .main-center{
  	margin-top: 30px;
  	margin: 0 auto;
- 	max-width: 400px;
+ 	max-width: 500px;
     padding: 40px 40px;
 
 }
@@ -53,4 +61,12 @@ label{
 .login-register{
 	font-size: 11px;
 	text-align: center;
+}
+
+#latInput, #lngInput  {
+  display: none;
+}
+
+#hidden-form	{
+	display: none;
 }

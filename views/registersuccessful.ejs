@@ -1,0 +1,43 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" dir="ltr">
+
+
+<head>
+  <% include partials/head %>
+  <link rel="stylesheet" href="css/registersuccessful.css"></link>
+</head>
+
+<body>
+
+  <% include partials/header %>
+
+  <div class = "container registerContainer">
+
+    <div class="row-main">
+      <br>
+        <div class="main-login main-center">
+          <h1><strong>Registration Successful</strong></h1>
+
+          <!-- If agent registration successful, have link to agent login rather than user login. -->
+          <% if(role == 'agent')  { %>
+            <p class ="test"> You have successfully registered as an Agent. </p>
+            <a href="/login/agent">Click here to Login</a>
+          <% } else if(role == 'user') { %>
+          <p> You have successfully registered as a User. </p>
+            <a class="test btn btn-info" role="button" href="/login">Click here to Login</a>
+          <% }  %>
+        </div>
+    </div>
+  </div>
+
+  <hr>
+
+    <footer>
+      <% include partials/footer %>
+    </footer>
+  </div> <!-- /container -->
+
+  <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+</body>
+</html>

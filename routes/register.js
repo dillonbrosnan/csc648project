@@ -64,7 +64,7 @@ router.post('/user',function(req,res){
           res.redirect('/register');
         }
         console.log("Successfully created user");
-        res.redirect('/');
+        res.redirect('/registersuccessful');
         connection.release();
         });
       }
@@ -107,13 +107,13 @@ router.post('/agent',function(req,res){
       if(usernameEmailResult.length > 0)  { //Logic for if user exists should be put in here
         if(usernameEmailResult[0].username == username && usernameEmailResult[0].email == email)  {
           console.log("Email and username taken");
-          res.redirect('/register');
+          res.redirect('/register/agent');
         } else if(usernameEmailResult[0].username == username) {
           console.log("Username taken");
-          res.redirect('/register'); 
+          res.redirect('/register/agent'); 
         } else  {
           console.log("Email taken");
-          res.redirect('/register');
+          res.redirect('/register/agent');
         }
       } else  { //Logic for creating user should be put in here
         connection.query(insertUserQuery, [userId, hash, email, firstName, lastName, username, lat, lng, formattedAddress], function (err, registrationResult)  {
@@ -122,7 +122,7 @@ router.post('/agent',function(req,res){
           res.redirect('/register');
         }
         console.log("Successfully created user");
-        res.redirect('/');
+        res.redirect('/agent/registersuccessful');
         connection.release();
         });
       }

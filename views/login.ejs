@@ -20,6 +20,13 @@
 
 		<div class="row main">
 			<div class="main-login main-center">
+					<% if(role == 'agent')	{ %>
+						<h1><strong>Login for Agents</strong></h1>
+						<a href="/login">Looking for user login? Click here</a>
+					<% } else if(role == 'user') { %>
+						<h1> <strong>Login for Users</strong></h1>
+						<a href="/login/agent">Looking for agent login? Click here</a>
+					<% } 	%>
 
 				<form class="form-horizontal" method="post" action="/login/<%= role %>">
 					<div class="form-group">
@@ -29,10 +36,10 @@
 								<span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
 								<% if(typeof username != 'undefined')	{ %>
 									<input type="text" class="form-control" name="username" id="username"  
-									placeholder="Enter Username" value="<%= username %>"/>
+									placeholder="Enter Username" value="<%= username %>" required/>
 								<% }  else { %>
 									<input type="text" class="form-control" name="username" id="username"  
-									placeholder="Enter Username"/>
+									placeholder="Enter Username" required/>
 								<% }  %>
 							</div>
 						</div>
@@ -43,7 +50,7 @@
 						<div class="cols-sm-10">
 							<div class="input-group">
 								<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-								<input type="password" class="form-control" name="password" id="password"  placeholder="Enter Password"/>
+								<input type="password" class="form-control" name="password" id="password"  placeholder="Enter Password" required/>
 							</div>
 						</div>
 					</div>
@@ -51,11 +58,13 @@
 					<div class="form-group ">
 						<input type="submit" class="btn btn-primary btn-block login-button" value='Login'></input>
 					</div>
-					
+					<hr class = "separation">
 					<% if(role == 'agent')	{ %>
 						<a href="/login">Looking for user login? Click here</a>
+						<br><span>Don't have an account?<a href="/register/agent"> Create one here!</a></span>
 					<% } else if(role == 'user') { %>
 						<a href="/login/agent">Looking for agent login? Click here</a>
+						<br><span>Don't have an account?<a href="/register"> Create one here!</a></span>
 					<% } 	%>
 
 				</form>
