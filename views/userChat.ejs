@@ -1,0 +1,33 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" dir="ltr">
+
+<!-- Contains head of website -->
+<head>
+  <% include partials/head %>
+  <link rel="stylesheet" href="/css/userChat.css"></link>
+  <title>User Chat</title>
+</head>
+
+
+<body>
+
+  <!-- Contains header of website -->
+  <% include partials/header %>
+
+  <!-- Contains body of page -->
+  <div class="container-fluid chatContainer">
+
+    
+
+  </div>
+
+
+	<script src="http://localhost:17017/socket.io/socket.io.js"></script>
+   
+   <script>
+      var socket = io();
+   </script>
+	<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+</body>
+</html>

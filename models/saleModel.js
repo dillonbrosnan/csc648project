@@ -4,19 +4,24 @@ var Promise = require('promise');
 var getSaleListings = function (lat, lon, milesRadius)	{
 
 	return new Promise(function(resolve, reject)	{
-	
-		var sql = 'SELECT saleId, ACOS( SIN( RADIANS( lat ) ) * SIN( RADIANS( ? ) ) ' + 
+		
+		var sql = ['SELECT saleId, lat, lon, formattedAddress, price, baths, beds, sqFt, ACOS( SIN( RADIANS( lat ) ) * SIN( RADIANS( ? ) ) ' + 
 	    '+ COS( RADIANS( lat ) ) * COS( RADIANS( ? )) * COS( RADIANS( lon ) ' +
 	    '- RADIANS( ? )) ) * 3959 AS distance FROM Sale WHERE ' +
 	    'ACOS( SIN( RADIANS( lat ) ) * SIN( RADIANS( ? ) ) + COS( RADIANS( lat ) ) ' +
-	    '* COS( RADIANS( ? )) * COS( RADIANS( lon ) - RADIANS( ? )) ) * 3959 < ? ' +
-	    'ORDER BY distance';
+	    '* COS( RADIANS( ? )) * COS( RADIANS( lon ) - RADIANS( ? )) ) * 3959 < ?',
+	    'ORDER BY distance'].join(" ");
+
+	    var array = [lat, lat, lon, lat, lat, lon, milesRadius];
 
 	    pool.getConnection(function(err, connection){ //Get connection to pool
 	      
 	      if(err) console.log(err);
 
-	      connection.query(sql, [lat, lat, lon, lat, lat, lon, milesRadius], function (err, rows) {
+	      connection.query(sql, array, function (err, rows) {
+
+
+	      		console.log(this.sql);
 	          
 	          if(err)	{
 	          	return reject(err);
@@ -32,4 +37,51 @@ var getSaleListings = function (lat, lon, milesRadius)	{
 
 }
 
+var getAdvancedSaleListings = function (lat, lon, milesRadius, bedsMin, bedsMax, bathsMin, bathsMax, sqFtMin, 
+	sqFtMax, lotSqFtMin, lotSqFtMax, yearBuiltMin, yearBuiltMax, hoaMin, hoaMax, lotType, priceMin, priceMax)	{
+
+	return new Promise(function(resolve, reject)	{
+	
+		var sql = ['SELECT saleId, lat, lon, formattedAddress, price, baths, beds, sqFt, ACOS( SIN( RADIANS( lat ) ) * SIN( RADIANS( ? ) ) ' + 
+	    '+ COS( RADIANS( lat ) ) * COS( RADIANS( ? )) * COS( RADIANS( lon ) ' +
+	    '- RADIANS( ? )) ) * 3959 AS distance FROM Sale WHERE ' +
+	    'ACOS( SIN( RADIANS( lat ) ) * SIN( RADIANS( ? ) ) + COS( RADIANS( lat ) ) ' +
+	    '* COS( RADIANS( ? )) * COS( RADIANS( lon ) - RADIANS( ? )) ) * 3959 < ?',
+		'AND (beds BETWEEN ? and ?)',
+		'AND (baths BETWEEN ? and ?)',
+		'AND (sqFt BETWEEN ? and ?)',
+		'AND (lotSqFt BETWEEN ? and ?)',
+		'AND (yearBuilt BETWEEN ? and ?)',
+		'AND (hoa BETWEEN ? and ?)',
+		'AND (lotType = ?)',
+		'AND (price BETWEEN ? and ?)',
+	    'ORDER BY distance'].join(" ");
+
+	    var array = [lat, lat, lon, lat, lat, lon, milesRadius, bedsMin, bedsMax, bathsMin, bathsMax, sqFtMin, 
+	    sqFtMax, lotSqFtMin, lotSqFtMax, yearBuiltMin, yearBuiltMax, hoaMin, hoaMax, lotType, priceMin, priceMax];
+
+	    pool.getConnection(function(err, connection){ //Get connection to pool
+	      
+	      if(err) console.log(err);
+
+	      connection.query(sql, array, function (err, rows) {
+
+	      		console.log(this.sql);
+	          
+	          if(err)	{
+	          	console.log(err);
+	          	return reject(err);
+	          }
+	          resolve(rows);
+	      })
+
+	      connection.release();
+
+      	}); //End of connection pool
+
+  	});
+
+}
+
 module.exports.getSaleListings = getSaleListings;
+module.exports.getAdvancedSaleListings = getAdvancedSaleListings;
