@@ -47,6 +47,7 @@ function postValidation() {
   var hoa = document.getElementById('hoa').value;
   var lotType = document.getElementById('lotType').value;
   var price = document.getElementById('price').value;
+  var description = document.getElementById('description').value;
 
   var testPass = true;
 
@@ -77,6 +78,10 @@ function postValidation() {
   if(hoa < 0 || hoa > 10000) {
     testPass = false;
     alert("Hoa input incorrect");
+  }
+  if(description.length < 0 || description.length > 255) {
+    testPass = false;
+    alert("Description input incorrect. Must be less than 255 characters.");
   }
   if(price < 0 || price > 1000000000) {
     testPass = false;

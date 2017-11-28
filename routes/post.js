@@ -3,16 +3,21 @@ var router = express.Router();
 var bcrypt = require('bcrypt');
 var uuidv4 = require('uuid/v4');
 var moment = require('moment');
+var fileUpload = require('express-fileupload');
 var PostModel = require('../models/postModel');
 
 // Route
 router.get('/',function(req,res){
-  res.render('post',
-    {role: "agent"}
-  );
+  console.log(req.session.role);
+  console.log(req.session.agentId);
+  if(req.session.role != "agent") {
+    res.redirect('/login/agent/');
+  } else  {
+  res.render('post');
+  }
 });
 
-router.post('/',function(req,res){
+router.post('/', function(req,res){
 
   var beds = req.body.beds;
   var baths = req.body.baths;
@@ -25,9 +30,10 @@ router.post('/',function(req,res){
   var lat = req.body.lat;
   var lng = req.body.lng;
   var formattedAddress = req.body.formattedAddress;
+  var description = req.body.description;
   var currentTimestamp = moment().unix();
   var datePosted = moment(currentTimestamp*1000).format("YYYY-MM-DD HH:mm:ss");
-  var saleId = uuidv4({msecs: new Date('2011-11-01').getTime()});
+  var saleId = uuidv4({msecs: new Date().getTime()});
 
   beds = Number(beds);
   baths = Number(baths);
@@ -39,6 +45,7 @@ router.post('/',function(req,res){
   lat = Number(lat);
   lng = Number(lng);
 
+
   // All form validation is include below using express-validator
   req.checkBody('lat', 'Latitude must be between -90 and 90').notEmpty().isFloat({ min: -90, max: 90 });
   req.checkBody('lng', 'Longitude must be between -180 and 180').notEmpty().isFloat({ min: -180, max: 180 });
@@ -49,8 +56,12 @@ router.post('/',function(req,res){
   req.checkBody('yearBuilt', 'Year built must be between 0 and ' + new Date().getFullYear())
       .notEmpty().isInt({ min: 0, max: new Date().getFullYear() });
   req.checkBody('hoa', 'Hoa must be between 0 and 10000').notEmpty().isInt({ min: 0, max: 10000 });
+  req.checkBody('description', 'Description must be between 0 and 255 characters').isLength({ min: 0, max: 255 });
   req.checkBody('price', 'Price must between 0 and 1000000000').notEmpty().isInt({ min: 0, max: 1000000000 });
   var errors = req.validationErrors();
+
+
+    
 
   if(errors)  {
     var response = { errors: [] };
@@ -59,25 +70,35 @@ router.post('/',function(req,res){
     });
     res.statusCode = 400;
     return res.json(response);
-  } else  {
-
+  }   
+  else if(req.files.saleImage.length > 12) {
+      res.send("Too many files");
+  }
+  else  {
     PostModel.checkFormattedAddress(formattedAddress)
     .then(function() {
-      return Promise.all([PostModel.insertPosting(beds, baths, sqFt, lotSqFt, yearBuilt, 
-      hoa, lotType, price, lat, lng, formattedAddress, saleId, datePosted)]); 
+      return Promise.all([PostModel.insertImagesToFileSystem(req.files.saleImage)]); 
     })
-    .then(function()  {
-      return res.send('Successfully posted posting');
+    .then(function(imageNames) {
+      return Promise.all([imageNames, PostModel.buildSqlQuery(imageNames)]);
+    })
+    .then(function() {
+      return Promise.all([PostModel.insertPosting(beds, baths, sqFt, lotSqFt, yearBuilt, 
+      hoa, lotType, price, lat, lng, formattedAddress, saleId, datePosted, description)]); 
+    })
+    .then(function() {
+      res.redirect('/forSale/' + saleId + '/')
     })
     .catch(function(err) {
       console.log(err);
       res.status(400);
-      return res.send('None shall pass');
-    });
-
-  }
-  
+      return res.send("Couldn't post posting");
+    });    
+  } 
 
 });
+
+
+
 
 module.exports = router;

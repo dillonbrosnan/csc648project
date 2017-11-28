@@ -5,7 +5,7 @@ var getSaleListings = function (lat, lon, milesRadius)	{
 
 	return new Promise(function(resolve, reject)	{
 		
-		var sql = ['SELECT saleId, lat, lon, formattedAddress, price, baths, beds, sqFt, ACOS( SIN( RADIANS( lat ) ) * SIN( RADIANS( ? ) ) ' + 
+		var sql = ['SELECT saleId, agentId, lat, lon, formattedAddress, price, baths, beds, sqFt, ACOS( SIN( RADIANS( lat ) ) * SIN( RADIANS( ? ) ) ' + 
 	    '+ COS( RADIANS( lat ) ) * COS( RADIANS( ? )) * COS( RADIANS( lon ) ' +
 	    '- RADIANS( ? )) ) * 3959 AS distance FROM Sale WHERE ' +
 	    'ACOS( SIN( RADIANS( lat ) ) * SIN( RADIANS( ? ) ) + COS( RADIANS( lat ) ) ' +
@@ -42,7 +42,7 @@ var getAdvancedSaleListings = function (lat, lon, milesRadius, bedsMin, bedsMax,
 
 	return new Promise(function(resolve, reject)	{
 	
-		var sql = ['SELECT saleId, lat, lon, formattedAddress, price, baths, beds, sqFt, ACOS( SIN( RADIANS( lat ) ) * SIN( RADIANS( ? ) ) ' + 
+		var sql = ['SELECT saleId, agentId, lat, lon, formattedAddress, price, baths, beds, sqFt, ACOS( SIN( RADIANS( lat ) ) * SIN( RADIANS( ? ) ) ' + 
 	    '+ COS( RADIANS( lat ) ) * COS( RADIANS( ? )) * COS( RADIANS( lon ) ' +
 	    '- RADIANS( ? )) ) * 3959 AS distance FROM Sale WHERE ' +
 	    'ACOS( SIN( RADIANS( lat ) ) * SIN( RADIANS( ? ) ) + COS( RADIANS( lat ) ) ' +

@@ -31,6 +31,8 @@
             <th>Baths</th>
             <th>Square Feet</th>
             <th>Price</th>
+            <th>Message</th>
+            <th>View</th>
           </tr>
         </thead>
   
@@ -42,6 +44,8 @@
           <td><%= saleListings[i].baths %></td>
           <td><%= saleListings[i].sqFt %></td>
           <td><%= saleListings[i].price %></td>
+          <td><a href="/user/message/<%= saleListings[i].saleId %>/">Message</a></td>
+          <td><a href="/forSale/<%= saleListings[i].saleId %>/">View</a></td>
         </tr>
       <% } %>
         </tbody>

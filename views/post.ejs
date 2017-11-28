@@ -18,7 +18,7 @@
 
     <div class="row main">
       <div class="main-login main-center">
-        <form action="/agent/post/" method="post" id="postForm" onsubmit="return postValidation()">
+        <form ref='postForm' action="/agent/post/" method="post" id="postForm" enctype="multipart/form-data" onsubmit="return postValidation()">
           <input id="latInput" name="lat"></input>
           <input id="lngInput" name="lng"></input>
           <div class="form-group">
@@ -77,8 +77,11 @@
             <input name="price" type="number" class="form-control" id="price" min="0">
           </div>
           <div class="form-group">
-            <label for="image">Price:</label>
-            <input name="image" type="file" class="form-control" id="image" accept=".jpg,.png,.gif">
+            <label for="description">Description:</label>
+            <input name="description" type="text" class="form-control" id="description" min="0">
+          </div>
+          <div class="form-group">
+            <input type="file" name="saleImage" class="form-control" multiple>
           </div>
           <button type="submit" class="btn btn-default">Submit</button>
         </form>

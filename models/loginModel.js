@@ -56,7 +56,7 @@ var loginAsAgent = function (username, password)	{
 
 	return new Promise(function(resolve, reject)	{
 	
-		var sql = 'SELECT agentId, password FROM User WHERE username = ?';
+		var sql = 'SELECT agentId, password FROM Agent WHERE username = ?';
 
 	    pool.getConnection(function(err, connection){ //Get connection to pool
 	      
