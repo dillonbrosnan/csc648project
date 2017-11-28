@@ -1,0 +1,112 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" dir="ltr">
+
+<!-- Contains head of website -->
+<head>
+  <% include partials/head %>
+  <link rel="stylesheet" href="/css/sale.css"></link>
+</head>
+
+
+<body>
+
+  <!-- Contains header of website -->
+  <% include partials/header %>
+
+  <!-- Contains body of page -->
+  <div class="container-fluid saleContainer">
+    <div class="btn-group btn-group-justified hidden-md hidden-lg">
+        <a class="btn btn-default active">Show Map</a>
+        <a class="btn btn-default">Show List</a>
+    </div>
+    <div class="mapContainer col-md-5" id="map">
+      
+    </div>
+    <div class="listContainer col-md-7">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Formatted Address</th>
+            <th>Beds</th>
+            <th>Baths</th>
+            <th>Square Feet</th>
+            <th>Price</th>
+            <th>Message</th>
+            <th>View</th>
+          </tr>
+        </thead>
+  
+      <tbody>
+      <% for(var i = 0; i < saleListings.length; i++) { %>
+        <tr>
+          <td><%= saleListings[i].formattedAddress %></td>
+          <td><%= saleListings[i].beds %></td>
+          <td><%= saleListings[i].baths %></td>
+          <td><%= saleListings[i].sqFt %></td>
+          <td><%= saleListings[i].price %></td>
+          <td><a href="/user/message/<%= saleListings[i].saleId %>/">Message</a></td>
+          <td><a href="/forSale/<%= saleListings[i].saleId %>/">View</a></td>
+        </tr>
+      <% } %>
+        </tbody>
+      </table>
+    </div>
+    
+
+  </div>
+
+  <script>
+  function initMap() {
+    var latInput = <%- JSON.stringify(lat) %>;
+    var lngInput = <%- JSON.stringify(lon) %>;
+    var milesRadius = <%= JSON.stringify(milesRadius) %>
+    var saleListings = <%- JSON.stringify(saleListings) %>;
+
+
+    latInput = parseFloat(latInput);
+    lngInput = parseFloat(lngInput);
+    milesRadius = parseInt(milesRadius);
+
+    var uluru = {lat: latInput, lng: lngInput};
+
+    var map = new google.maps.Map(document.getElementById('map'), {
+      center: uluru,
+      mapTypeId: 'terrain'
+    });
+
+    // Add the circle for this city to the map.
+    var milesCircle = new google.maps.Circle({
+      strokeColor: '#FF0000',
+      strokeOpacity: 0.8,
+      strokeWeight: 2,
+      fillColor: '#FF0000',
+      fillOpacity: 0.35,
+      map: map,
+      center: uluru,
+      radius: milesRadius * 1609.34
+    });
+
+    for(var i = 0; i < saleListings.length; i++)  {
+      var saleLat = saleListings[i].lat;
+      var saleLng = saleListings[i].lon;
+      saleLat = parseFloat(saleLat);
+      saleLng = parseFloat(saleLng);
+      var marker = new google.maps.Marker({
+          position: {lat: saleLat, lng: saleLng},
+          map: map,
+          title: saleListings[i].formattedAddress
+      });
+    }
+
+    var bounds = milesCircle.getBounds();
+    map.fitBounds(bounds);
+
+
+  }
+  </script>
+  <script src="/js/sale.js"></script> <!-- Client side code for sale.ejs -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPXF-zkLqKND8w5ktBN5bdlTkQSVbw950&libraries=places&callback=initMap" async defer></script>
+  <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+</body>
+</html>

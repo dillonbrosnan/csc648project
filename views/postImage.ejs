@@ -1,0 +1,39 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" dir="ltr">
+
+<!-- Contains head of website -->
+<head>
+  <% include partials/head %>
+  <link rel="stylesheet" href="/css/post.css"></link>
+</head>
+
+
+<body>
+
+    <!-- Contains header of website -->
+    <% include partials/header %>
+
+    <!-- Contains body of page -->
+    <div class="container registerContainer">
+
+    <div class="row main">
+      <div class="main-login main-center">
+        <form enctype="multipart/form-data" action="/agent/post/" method="post" id="postForm" onsubmit="return postValidation()">
+          <div class="form-group">
+            <label for="image">Upload Images:</label>
+            <input name="image" type="file" class="form-control" id="image" accept=".jpg,.png,.gif">
+          </div>
+          <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+      </div>
+    </div>
+    </div>
+    <!-- End of search box area -->
+
+
+  <script src="/js/postImage.js"></script> <!-- Contains client side javascript -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPXF-zkLqKND8w5ktBN5bdlTkQSVbw950&libraries=places&callback=initAutocomplete" async defer></script>
+  <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+body	{
+	margin-top: 50px;
+}
+
+	* {
+  box-sizing: border-box;
+}
+body {
+  font-size: 1.25rem;
+  font-family: sans-serif;
+}
+
+section {
+  color: #000000;
+  text-align: center;
+}
+
+.searchContainer  {
+  margin-left: 10%;
+  margin-right: 10%;
+  padding-top: 25px;
+}
+
+#latInput, #lngInput  {
+  display: none;
+}
+
+.btn-group  {
+  margin-bottom: 20px;
+}
+
+#advancedSearchInputs {
+  display: none;
+}
+
+#searchForm :input  {
+  z-index: 9999;
+}

@@ -1,0 +1,213 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" dir="ltr">
+
+<!-- Contains head of website -->
+<head>
+  <% include partials/head %>
+  <link rel="stylesheet" href="/css/register.css"></link>
+</head>
+
+
+<body>
+
+  	<!-- Contains header of website -->
+  	<% include partials/header %>
+
+  	<!-- Contains body of page -->
+  	<div class="container registerContainer">
+
+		<div class="row main">
+			<div class="main-login main-center">
+				<form class="form-horizontal" method="post" action="/register/<%= role %>" onsubmit="return validateRegistration()">
+				
+					<div class="form-group">
+						<label for="firstName" class="cols-sm-1 control-label">Your First Name</label>
+						<div class="cols-sm-5">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+								<input type="text" class="form-control" name="firstName" id="firstName"  placeholder="Enter your first name" required/>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="lastName" class="cols-sm-1 control-label">Your Last Name</label>
+						<div class="cols-sm-5">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+								<input type="text" class="form-control" name="lastName" id="lastName"  placeholder="Enter your last name" required/>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="email" class="cols-sm-2 control-label">Your Email</label>
+						<div class="cols-sm-10">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+								<input type="text" class="form-control" name="email" id="email"  placeholder="Enter your Email" required/>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="username" class="cols-sm-2 control-label">Username</label>
+						<div class="cols-sm-10">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+								<input type="text" class="form-control" name="username" id="username"  placeholder="Enter your Username" required/>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="password" class="cols-sm-2 control-label">Password</label>
+						<div class="cols-sm-10">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+								<input type="password" class="form-control" name="password" id="password"  placeholder="Enter your Password" required/>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="address" class="cols-sm-2 control-label">Enter Address</label>
+						<div class="cols-sm-10">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+								<input type="text" class="form-control" name="address" id="address"  placeholder="Enter your address" required/>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group" id="hidden-form">
+						<input id="latInput" name="lat"></input>
+        				<input id="lngInput" name="lng"></input>
+        				<input id="formattedAddress" name="formattedAddress"></input>
+					</div>
+
+					<div class="form-group">
+						<input type="submit" class="btn btn-primary btn-block login-button" value='Register'></input>
+					</div>
+
+					<% if(role == 'agent')	{ %>
+						<a href="/register">Looking for user registration? Click here</a>
+					<% } else if(role == 'user') { %>
+						<a href="/register/agent">Looking for agent registration? Click here</a>
+					<% } 	%>
+					
+				</form>
+			</div>
+		</div>
+    </div>
+    <!-- End of search box area -->
+    
+  	<footer>
+    	<% include partials/footer %>
+  	</footer>
+
+  	<!-- Contains autocomplete functionality -->
+  	<script>
+	    // Create the search box and link it to the UI element.
+	    function initAutocomplete() {
+	      var input = document.getElementById('address');
+	      var searchBox = new google.maps.places.SearchBox(input);
+
+	      searchBox.addListener('places_changed', function() {
+	            var places = searchBox.getPlaces();
+
+	            if (places.length == 0) {
+	              return;
+	            }
+
+	            places.forEach(function(place) {
+	                var location = place.geometry.location;
+	                // var zipCodeFound = false;
+	                for (var i = 0; i < place.address_components.length; i++) {
+                  		for (var j = 0; j < place.address_components[i].types.length; j++) {
+                  			if (place.address_components[i].types[j] == "street_number") {
+                  				streetNumber = place.address_components[i].long_name;
+                  				if(typeof streetNumber !== 'undefined')	{
+									streetNumber = place.address_components[i].long_name;
+								}
+		                    }
+		                }
+                	}
+
+                	// if(!zipCodeFound)	{
+                	// 	alert("Please narrow down to a specific area");
+                	// }
+
+	                lat = location.lat();
+	                lng = location.lng();
+	                formattedAddress = place.formatted_address;
+	                console.log(formattedAddress);
+	                document.getElementById('latInput').value=lat; 
+	                document.getElementById('lngInput').value=lng;  
+	                document.getElementById('formattedAddress').value=formattedAddress; 
+	            });
+	      });
+	    }
+
+	    function validateRegistration()	{
+	    	
+	    	var username = document.getElementById('username').value;
+	    	var password = document.getElementById('password').value;
+	    	var role = "<%= role %>";
+
+	    	if(role == "agent" && typeof streetNumber === 'undefined')	{
+	    		var alertMessage = "Specify address";
+	    		alert(alertMessage);
+	    		return false;
+	    	}	else if(role == "agent" && typeof streetNumber !== 'undefined')	{
+	    		document.getElementById('streetNumber').value=streetNumber;
+	    	}
+	    	
+	    	if(!validateUser(username, password))	{
+	    		return false;
+	    	}
+	    	alert("Lat: " + lat + " Lon: " + lng + " Formatted address: " + formattedAddress + " Narrow down to area please.");
+	    	if(typeof lat === 'undefined' || typeof lng === 'undefined' || typeof formattedAddress === 'undefined')	{
+    			alert("Lat: " + lat + " Lon: " + lng + " Formatted address: " + formattedAddress + " Narrow down to area please.");
+	    		return false;
+	    	}	else	{
+	    		document.getElementById('latInput').value=lat; 
+                document.getElementById('lngInput').value=lng; 
+                document.getElementById('formattedAddress').value=formattedAddress;  
+                console.log(document.getElementById('latInput').value);
+                console.log(document.getElementById('lngInput').value);
+                console.log(document.getElementById('formattedAddress').value);
+	    	}
+	    	
+			return true;
+	    }
+
+	    function validateLength(text, lengthRestriction)	{
+	    	if(text.length > lengthRestriction || text.length == 0) return false;
+
+	    	return true;
+	    }
+
+	    function validateUndefined(text)	{
+	    	if(text == "" || text == null || text.length == 0) return false;
+
+	    	return true;
+	    }
+
+	    function validateUser(username, password)	{
+	    	if(!/^[a-zA-Z]+$/.test(username) || !validateLength(username, 20))	{
+	    		return false;
+	    	}
+	    	if(!validateLength(password, 20))	{
+	    		return false;
+	    	}
+	    	return true;
+	    }
+
+	</script>
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPXF-zkLqKND8w5ktBN5bdlTkQSVbw950&libraries=places&callback=initAutocomplete" async defer></script>
+  <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+</body>
+</html>
