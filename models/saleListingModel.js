@@ -3,8 +3,9 @@ var Promise = require('promise');
 
 var getSaleInfo = function(saleId){
 	return new Promise(function(resolve, reject){
-		var sql = 'SELECT lotType, beds, baths, yearBuilt, lotSqFt, sqFt, price, formattedAddress, description FROM Sale where saleId = ?';
-		var array = [saleId];
+		var sql = 'SELECT lotType, beds, baths, yearBuilt, lotSqFt, sqFt, price, formattedAddress, ' +
+		'description, SaleImages.imageId FROM Sale, SaleImages where SaleImages.saleId = ? and Sale.saleId = ?;';
+		var array = [saleId, saleId];
 		pool.getConnection(function(err, connection){
 			if(err){
 				console.log(err);
@@ -14,6 +15,7 @@ var getSaleInfo = function(saleId){
 				if(err){
 					return reject(err);
 				}
+				console.log(rows);
 				resolve(rows);
 			})
 			connection.release();

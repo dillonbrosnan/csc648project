@@ -34,6 +34,7 @@ router.post('/', function(req,res){
   var currentTimestamp = moment().unix();
   var datePosted = moment(currentTimestamp*1000).format("YYYY-MM-DD HH:mm:ss");
   var saleId = uuidv4({msecs: new Date().getTime()});
+  var imageId = uuidv4({msecs: new Date().getTime()});
 
   beds = Number(beds);
   baths = Number(baths);
@@ -71,19 +72,22 @@ router.post('/', function(req,res){
     res.statusCode = 400;
     return res.json(response);
   }   
-  else if(req.files.saleImage.length > 12) {
-      res.send("Too many files");
+  else if(req.files.saleImage.length > 12 || !req.files) {
+      res.send("File wrong");
   }
   else  {
+    req.files.saleImage.mv('./public/saleImages/' + imageId + '.jpg', function(err)  {
+      if(err) {
+        console.log(err);
+        res.send(err);
+      }
+    });
     PostModel.checkFormattedAddress(formattedAddress)
     .then(function() {
-      return Promise.all([PostModel.insertImagesToFileSystem(req.files.saleImage)]); 
-    })
-    .then(function(imageNames) {
-      return Promise.all([imageNames, PostModel.buildSqlQuery(imageNames)]);
+      return Promise.all([PostModel.insertImage(saleId, imageId)]); 
     })
     .then(function() {
-      return Promise.all([PostModel.insertPosting(beds, baths, sqFt, lotSqFt, yearBuilt, 
+      return Promise.all([, PostModel.insertPosting(beds, baths, sqFt, lotSqFt, yearBuilt, 
       hoa, lotType, price, lat, lng, formattedAddress, saleId, datePosted, description)]); 
     })
     .then(function() {

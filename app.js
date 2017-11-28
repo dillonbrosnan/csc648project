@@ -25,6 +25,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(busboyBodyParser());
 app.use(validator());
 app.use(session({
+	cookie: { maxAge: 60*10000 },
     secret: '4F33-5ZDE-ZggpE3D',
     resave: true,
     saveUninitialized: true

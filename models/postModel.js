@@ -65,55 +65,35 @@ var insertPosting = function(beds, baths, sqFt, lotSqFt, yearBuilt, hoa, lotType
 
 }
 
-var insertImagesToFileSystem = function(images)	{
+var insertImage = function(saleId, imageId)	{
 
 	return new Promise(function(resolve, reject)	{
 
-		var imageNames = [];
-		console.log(images);
+		var array = [saleId, imageId];
+		
+		var insertPostQuery = "INSERT INTO `fa17g07`.`SaleImages` (`saleId`, `imageId`) VALUES (?, ?);";
 
-		for(var i = 0; i < images.length; i++)	{
-			if(images[i].mimetype == 'image/jpeg')	{
-				var imageId = uuidv4({msecs: new Date().getTime()});
-				imageNames.push(imageId);
-				var image = images[i];
-			    image.mv('./public/saleImages/' + imageId + '.jpg', function(err)  {
-			      if(err) {
-			        reject();
-			      }
-			    });
-			}	else	{
-				console.log("File not supported");
+	    pool.getConnection(function(err, connection){ //Get connection to pool
+
+	    	if(err) reject(err);
+
+	    connection.query(insertPostQuery, array, function (err, insertImageCheck)  {
+			
+			if(err) {
+				reject(err);
 			}
-		}
 
-		resolve(imageNames);
+			resolve(insertImageCheck);
+			
+	    });
 
-  	});
-
-}
-
-var buildSqlQuery = function(imageNames)	{
-
-	return new Promise(function(resolve, reject)	{
-
-		console.log(imageNames);
-
-		var sqlQuery = "INSERT INTO `fa17g07`.`SaleImage` (`imageId`, `saleId) VALUES ";
-
-		for(var i = 0; i < imageNames.length; i++)	{
-			sqlQuery.concat("(?, ?) ")
-		}
-		sqlQuery.concat(";")
-
-		resolve(sqlQuery);
+	  }); //End of connection pool
+		
 
   	});
 
 }
 
-
-module.exports.buildSqlQuery = buildSqlQuery;
-module.exports.insertImagesToFileSystem = insertImagesToFileSystem;
+module.exports.insertImage = insertImage;
 module.exports.checkFormattedAddress = checkFormattedAddress;
 module.exports.insertPosting = insertPosting;
