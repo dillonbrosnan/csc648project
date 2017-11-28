@@ -14,106 +14,147 @@
   <% include partials/header %>
 
   <!-- Contains body of page -->
-  <section class="container">
+  <div class="container">
+
     <!-- Area contains search box, buttons, and options -->
     <div class="searchContainer">
+
       <div class="btn-group btn-group-justified">
-        <a class="btn btn-default active">Buy</a>
-        <a class="btn btn-default">Rent</a>
+        <a class="btn btn-default active" id="buyBtn">Buy</a>
+        <a class="btn btn-default" id="rentBtn">Rent</a>
       </div>
 
-      <form id="searchForm" method="post" action="/sale/" onsubmit="return validateSearch()">
+      <form id="searchForm" method="post" action="/forSale/" onsubmit="return validateSearch()">
         <input id="latInput" name="lat"></input>
         <input id="lngInput" name="lng"></input>
         <div class="row">
-          <div class="col-xs-12 col-md-3">
-            <div class="input-group">
-              <input placeholder="Miles radius" type="number" class="form-control" id="milesRadius" name="milesRadius" required></input>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label for="milesRadius">Mile Search Radius</label>
+              <input type="number" class="form-control" id="milesRadius" name="milesRadius" min="1" max="3000" required></input>
             </div>
           </div>
-          <div class="col-xs-12 col-md-9">
-            <div class="input-group">
-              <input id="pac-input" class="controls form-control" type="text" placeholder="Select location">
-              <span class="input-group-btn">
-                <button class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
-              </span>
+          <div class="col-md-9">
+            <div class="form-group">
+              <label for="pac-input">Type and select location</label>
+              <input id="pac-input" class="form-control" type="text">
             </div>
           </div>
         </div>
+
+        <div class="row" id="advancedSearchInputs">
+          <div class="col-xs-6 col-md-3">
+            <div class="form-group">
+              <label for="bedsMin">Min Beds</label>
+              <input type="number" class="form-control"name="bedsMin" id="bedsMin" min="0" max="20" value="0"></input>
+            </div>
+          </div>
+          <div class="col-xs-6 col-md-3">
+            <div class="form-group">
+              <label for="bedsMax">Max Beds</label>
+              <input type="number" class="form-control" name="bedsMax" id="bedsMax" min="0" max="20" value="20" required></input>
+            </div>
+          </div>
+          <div class="col-xs-6 col-md-3">
+            <div class="form-group">
+              <label for="bathsMin">Min Baths</label>
+              <input type="number" class="form-control" id="bathsMin" name="bathsMin" min="0" max="20" value="0"></input>
+            </div>
+          </div>
+          <div class="col-xs-6 col-md-3">
+            <div class="form-group">
+              <label for="bathsMax">Max Baths</label>
+              <input type="number" class="form-control" id="bathsMax" name="bathsMax" min="0" max="20" value="20"></input>
+            </div>
+          </div>
+          <div class="col-xs-6 col-md-3">
+            <div class="form-group">
+              <label for="sqFtMin">Min Square Feet</label>
+              <input type="number" class="form-control" id="sqFtMin" name="sqFtMin" min="0" max="1000000" value="0"></input>
+            </div>
+          </div>
+          <div class="col-xs-6 col-md-3">
+            <div class="form-group">
+              <label for="sqFtMax">Max Square Feet</label>
+              <input type="number" class="form-control" id="sqFtMax" name="sqFtMax" min="0" max="1000000" value="1000000"></input>
+            </div>
+          </div>
+          <div class="col-xs-6 col-md-3">
+            <div class="form-group">
+              <label for="lotSqFtMin">Min Lot Square Feet</label> <!-- Min Lot Square Feet Input -->
+              <input type="number" class="form-control" id="lotSqFtMin" name="lotSqFtMin" min="0" max="1000000" value="0"></input>
+            </div>
+          </div>
+          <div class="col-xs-6 col-md-3"> <!-- Max Lot Square Feet Input -->
+            <div class="form-group">
+              <label for="lotSqFtMax">Max Lot Square Feet</label>
+              <input type="number" class="form-control" id="lotSqFtMax" name="lotSqFtMax" min="0" max="1000000" value="1000000"></input>
+            </div>
+          </div>
+          <div class="col-xs-6 col-md-3"> <!-- Min Year Built Input -->
+            <div class="form-group">
+              <label for="yearBuiltMin">Min Year Built</label>
+              <input type="number" class="form-control" id="yearBuiltMin" name="yearBuiltMin" min="1700" value="1700"></input>
+            </div>
+          </div>
+          <div class="col-xs-6 col-md-3"> <!-- Max Year Built Input -->
+            <div class="form-group">
+              <label for="yearBuiltMax">Max Year Built</label>
+              <input type="number" class="form-control" id="yearBuiltMax" name="yearBuiltMax" min="1700"></input>
+            </div>
+          </div>
+          <div class="col-xs-6 col-md-3"> <!-- Min Year Built Input -->
+            <div class="form-group">
+              <label for="hoaMin">Min Hoa</label>
+              <input type="number" class="form-control" id="hoaMin" name="hoaMin" min="0" max="10000" value="0"></input>
+            </div>
+          </div>
+          <div class="col-xs-6 col-md-3"> <!-- Max Year Built Input -->
+            <div class="form-group">
+              <label for="hoaMax">Max Hoa</label>
+              <input type="number" class="form-control" id="hoaMax" name="hoaMax" min="0" max="10000" value="10000"></input>
+            </div>
+          </div>
+          <div class="col-xs-12 col-md-6"> <!-- Max Year Built Input -->
+            <div class="form-group">
+              <label for="lotType">Lot Type:</label>
+              <select name="lotType" class="form-control" id="lotType">
+                <option>House</option>
+                <option>Apartment</option>
+                <option>Condo</option>
+                <option>Townhouse</option>
+                <option>Manufactured</option>
+                <option>Land</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-xs-6 col-md-3"> <!-- Min Year Built Input -->
+            <div class="form-group">
+              <label for="priceMin">Min Price</label>
+              <input type="number" class="form-control" id="priceMin" name="priceMin" min="0" max="1000000000" value="0" required></input>
+            </div>
+          </div>
+          <div class="col-xs-6 col-md-3"> <!-- Max Year Built Input -->
+            <div class="form-group">
+              <label for="priceMax">Max Price</label>
+              <input type="number" class="form-control" id="priceMax" name="priceMax" min="0" max="1000000000" value="1000000000" required></input>
+            </div>
+          </div>
+        </div>
+
+
+        <button type="button" class="btn btn-default btn-block" id="openAdvancedSearchBtn">▼ Advanced Search</button>
+
+        <button type="submit" class="btn btn-success btn-block">Search</button>
+
       </form>
 
     </div>
     <!-- End of search box area -->
 
-    <div>
-      <ul>
-      <% if(typeof latestHouses != 'undefined') { %>
-      <% latestHouses.forEach(function(house) { %>
-        <li><%= house.userId %></li>
-      <%  }) %>
-      <%  } %>
-    </div>
-    
+  </div>
 
-  </section>
-
-  <footer>
-    <% include partials/footer %>
-  </footer>
-
-   <!-- Contains autocomplete functionality -->
-  <script>
-    // Create the search box and link it to the UI element.
-    function initAutocomplete() {
-      var input = document.getElementById('pac-input');
-      var searchBox = new google.maps.places.SearchBox(input);
-
-      searchBox.addListener('places_changed', function() {
-            var places = searchBox.getPlaces();
-
-            if (places.length == 0) {
-              return;
-            }
-
-            places.forEach(function(place) {
-                var location = place.geometry.location;
-                lat = location.lat();
-                lng = location.lng();
-                document.getElementById('latInput').value=lat; 
-                document.getElementById('lngInput').value=lng;  
-            });
-      });
-    }
-
-    function validateSearch() {
-      var milesRadius = document.getElementById('milesRadius').value;
-      if(typeof lat !== 'undefined' && typeof lng !== 'undefined' && !isNaN(milesRadius))  {
-        return true;
-      }
-      alert("Please select a location");
-      return false;
-    }
-
-    $(".btn-group > .btn").click(function(){
-      $(this).addClass("active").siblings().removeClass("active");
-      var action = $(this).text();
-      if(action == "Buy") {
-        action = "sale";
-      } else  {
-        action = "rent";
-      }
-      $("#searchForm").attr("action", "/" + action);
-    });
-
-    $('#searchForm').on('keyup keypress', function(e) {
-      var keyCode = e.keyCode || e.which;
-      if (keyCode === 13) { 
-        e.preventDefault();
-        return false;
-      }
-    });
-  </script>
-
+  <script src="/js/index.js"></script> <!-- Contains client side javascript -->
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPXF-zkLqKND8w5ktBN5bdlTkQSVbw950&libraries=places&callback=initAutocomplete" async defer></script>
   <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>

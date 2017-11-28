@@ -1,0 +1,50 @@
+html, body{
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-y: hidden;
+	overflow-x: hidden;
+}
+
+.container-fluid	{
+	padding-left: 0;
+	padding-right: 0;
+}
+
+.chatContainer	{
+	margin-top: 50px;
+	height: calc(100vh - 50px);
+	bottom: 0;
+	background-color: LightGray;
+}
+
+.chatInput	{
+	position: absolute;
+	height: 35px;
+	bottom: 0;
+}
+
+.chatLog	{
+	position: relative;
+	height: calc(100vh - 50px - 35px);
+	background-color: LightGray;
+	overflow-y: scroll; 
+}
+
+.userMessage	{
+	margin-left: 20px;
+	background-color: orange;
+	border-radius: 10px;
+	padding: 5px;
+	margin-top: 5px;
+	color: white;
+}
+
+.agentMessage	{
+	margin-right: 20px;
+	background-color: red;
+	border-radius: 10px;
+	padding: 5px;
+	margin-top: 5px;
+	color: white;
+}

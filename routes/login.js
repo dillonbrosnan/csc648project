@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var db = require('../db');
 var bcrypt = require('bcrypt');
+var LoginModel = require('../models/loginModel');
 
 // Route
 router.get('/',function(req,res){
@@ -50,82 +50,142 @@ router.get('/admin',function(req,res){
 router.post('/user',function(req,res){
   var username = req.body.username;
   var password = req.body.password;
-  // Db query
-  var sql = 'SELECT userId, password FROM User WHERE username = ?';
-  db.query(sql, [username], function (err, rows) {
+  
+  req.checkBody('username', 'Username must be between 1 and 20 characters').isLength({ min: 1, max: 20});
+  req.checkBody('password', 'Password must be between 1 and 20 characters').isLength({ min: 1, max: 20});
+  var errors = req.validationErrors();
 
-      if (err) {
-        res.redirect('http://www.404errorpages.com/');      
-      }
+  // Checks to see if there is any errors with form types
+  if (errors) {
+    
+    var response = { errors: [] };
+    errors.forEach(function(err) {
+      response.errors.push(err.msg);
+    });
+    res.statusCode = 400;
+    return res.json(response);
 
-      if(rows.length > 0) { // If username exists in database
-        var hash = rows[0].password;
-        bcrypt.compare(password, hash, function(err, response) {
-        
-        if(response == true) { //If username matches database
-          res.redirect('/');
-        } else  { //If username doesn't match database
-            res.redirect('/login?incorrectPassword=' + username);
-          }
-        });
-      } else  { // If username doesn't exist
-        res.redirect('/register');
-      }
-  })
-});
+  } else  {
 
-router.post('/agent',function(req,res){
-  var username = req.body.username;
-  var password = req.body.password;
-  // Db query
-  var sql = 'SELECT agentId, password FROM Agent WHERE username = ?';
-  db.query(sql, [username], function (err, rows) {
+    LoginModel.loginAsUser(username, password)
+      .then(function(usernames)  {
+        if(usernames.length == 0) {
+          res.redirect('/register');
+        }
+        if(usernames.length == 1) {
+          var hash = usernames[0].password;
+          bcrypt.compare(password, hash, function(err, response) {
+            if(response == true) { //If username matches database
+              req.session.userId = usernames[0].userId;
+              req.session.isLoggedIn = true;
+              req.session.role = "user";
+              res.redirect('/');
+            } else  { //If username doesn't match database
+              res.redirect('/login?incorrectPassword=' + username);
+            }
+          });
+        }
+      })
+      .catch(function(err) {
+        console.log(err);
+        res.redirect("/error");
+      });
+  }
 
-      if (err) {
-        res.redirect('http://www.404errorpages.com/');      
-      }
-
-      if(rows.length > 0) { // If username exists in database
-        var hash = rows[0].password;
-        bcrypt.compare(password, hash, function(err, response) {
-        
-        if(response == true) { //If username matches database
-          res.redirect('/');
-        } else  { //If username doesn't match database
-            res.redirect('/login?incorrectPassword=' + username);
-          }
-        });
-      } else  { // If username doesn't exist
-        res.redirect('/register');
-      }
-  })
 });
 
 router.post('/admin',function(req,res){
   var username = req.body.username;
   var password = req.body.password;
-  // Db query
-  var sql = 'SELECT adminId, password FROM Admin WHERE username = ?';
-  db.query(sql, [username], function (err, rows) {
+  
+  req.checkBody('username', 'Username must be between 1 and 20 characters').isLength({ min: 1, max: 20});
+  req.checkBody('password', 'Password must be between 1 and 20 characters').isLength({ min: 1, max: 20});
+  var errors = req.validationErrors();
 
-      if (err) {
-        res.redirect('http://www.404errorpages.com/');      
-      }
+  // Checks to see if there is any errors with form types
+  if (errors) {
+    
+    var response = { errors: [] };
+    errors.forEach(function(err) {
+      response.errors.push(err.msg);
+    });
+    res.statusCode = 400;
+    return res.json(response);
 
-      if(rows.length > 0) { // If username exists in database
-        var hash = rows[0].password;
-        bcrypt.compare(password, hash, function(err, response) {
-        
-        if(response == true) { //If username matches database
-          res.redirect('/');
-        } else  { //If username doesn't match database
-            res.redirect('/login?incorrectPassword=' + username);
-          }
-        });
-      } else  { // If username doesn't exist
-        res.redirect('/register');
-      }
-  })
+  } else  {
+
+    LoginModel.loginAsAdmin(username, password)
+      .then(function(usernames)  {
+        if(usernames.length == 0) {
+          res.redirect('/register');
+        }
+        if(usernames.length == 1) {
+          var hash = usernames[0].password;
+          bcrypt.compare(password, hash, function(err, response) {
+            if(response == true) { //If username matches database
+              req.session.adminId = usernames[0].adminId;
+              req.session.isLoggedIn = true;
+              req.session.role = "admin";
+              res.redirect('/');
+            } else  { //If username doesn't match database
+              res.redirect('/login?incorrectPassword=' + username);
+            }
+          });
+        }
+      })
+      .catch(function(err) {
+        console.log(err);
+        res.redirect("/error");
+      });
+  }
+
+});
+
+router.post('/agent',function(req,res){
+  var username = req.body.username;
+  var password = req.body.password;
+  
+  req.checkBody('username', 'Username must be between 1 and 20 characters').isLength({ min: 1, max: 20});
+  req.checkBody('password', 'Password must be between 1 and 20 characters').isLength({ min: 1, max: 20});
+  var errors = req.validationErrors();
+
+  // Checks to see if there is any errors with form types
+  if (errors) {
+    
+    var response = { errors: [] };
+    errors.forEach(function(err) {
+      response.errors.push(err.msg);
+    });
+    res.statusCode = 400;
+    return res.json(response);
+
+  } else  {
+
+    LoginModel.loginAsAgent(username, password)
+      .then(function(usernames)  {
+        if(usernames.length == 0) {
+          res.redirect('/register');
+        }
+        if(usernames.length == 1) {
+          var hash = usernames[0].password;
+          bcrypt.compare(password, hash, function(err, response) {
+            if(response == true) { //If username matches database
+              req.session.agentId = usernames[0].agentId;
+              req.session.isLoggedIn = true;
+              req.session.role = "agent";
+              res.redirect('/');
+            } else  { //If username doesn't match database
+              res.redirect('/login?incorrectPassword=' + username);
+            }
+          });
+        }
+      })
+      .catch(function(err) {
+        console.log(err);
+        res.redirect("/error");
+      });
+  }
+
 });
 
 
