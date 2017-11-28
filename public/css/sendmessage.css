@@ -1,0 +1,74 @@
+/*
+/* Created by Filipe Pina
+ * Specific styles of signin, register, component
+ */
+/*
+ * General styles
+ */
+
+body, html{
+     height: 100%;
+ 	background-repeat: no-repeat;
+ 	background-color: white;
+ 	font-family: sans-serif;
+}
+
+.main{
+ 	margin-top: 70px;
+}
+
+h1.title { 
+	font-size: 50px;
+	font-family: 'Passion One', cursive; 
+	font-weight: 400; 
+}
+h1 {
+	text-align: center;
+}
+
+hr{
+	width: 10%;
+	color: #fff;
+}
+p {
+	font-size: 16px;
+}
+.test {
+	text-align: center;
+}
+.separation {
+	height : 2px;
+	width: 100%;
+	border-top: 2px solid #ccc;
+}
+.form-group{
+	margin-bottom: 3px;
+}
+
+label{
+	margin-bottom: 2px;
+}
+
+.main-center{
+ 	margin-top: 30px;
+ 	margin: 0 auto;
+ 	max-width: 500px;
+    padding: 40px 40px;
+
+}
+
+.login-register{
+	font-size: 11px;
+	text-align: center;
+}
+
+#latInput, #lngInput  {
+  display: none;
+}
+
+#hidden-form	{
+	display: none;
+}
+textarea {
+	max-width: 500px;
+}

@@ -1,0 +1,77 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" dir="ltr">
+
+<!-- Contains head of website -->
+<head>
+  <% include partials/head %>
+  <link rel="stylesheet" href="/css/sendmessage.css"></link>
+</head>
+
+
+<body>
+
+  	<!-- Contains header of website -->
+  	<% include partials/header %>
+
+  	<!-- Contains body of page -->
+  	<div class="container registerContainer">
+
+		<div class="row main">
+			<div class="main-login main-center">
+				<h1><strong>Send a Message </strong></h1>
+
+				<form class="form-horizontal" method="post"> <!-- Add an extra parameters, unsure atm -->
+
+					<hr class="separation">
+					<div class="form-group">
+						<label for="address" class="cols-sm-2 control-label">Agent ID:</label>
+						<br>
+						<div class="col-sm-10">
+					        <p class="form-control-static"><%= agentid %></p>
+					    </div>
+					</div>
+					<div class="form-group">
+						<label for="address" class="cols-sm-2 control-label">Sale ID:</label>
+						<br>
+						<div class="col-sm-10">
+					        <p class="form-control-static"><%= saleid %></p>
+					    </div>
+					</div>
+					<div class="form-group">
+						<label for="address" class="cols-sm-2 control-label">Address:</label>
+						<br>
+						<div class="col-sm-10">
+					        <p class="form-control-static"><%= address %></p>
+					    </div>
+					</div>
+
+					<div class="form-group">
+						<label for="message" class="cols-sm-2 control-label">Message: </label>
+						<div class="cols-sm-10">
+							<div class="input-group">
+								<textarea class="form-control" rows="10" cols="60" id="message"></textarea>
+							</div>
+						</div>
+					</div>
+					<hr class="separation">
+					<div class="form-group">
+						<input type="submit" class="btn btn-primary btn-block " value='Send Message'></input>
+					</div>
+				</form>
+			</div>
+		</div>
+    </div>
+    <!-- End of search box area -->
+    
+  	<footer>
+    	<% include partials/footer %>
+  	</footer>
+
+  	<script>
+	</script>
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPXF-zkLqKND8w5ktBN5bdlTkQSVbw950&libraries=places&callback=initAutocomplete" async defer></script>
+  <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+</html>
