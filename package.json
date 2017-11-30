@@ -4,8 +4,8 @@
   "description": "A way of buying/selling real estate.",
   "main": "app.js",
   "scripts": {
-    "start": "node ./bin/www/app.js"
-  },
+    "start": "node ./bin/www"
+  },
   "author": "Team 07",
   "license": "ISC",
   "dependencies": {
