@@ -3,8 +3,13 @@
 
 <!-- Contains head of website -->
 <head>
-  <% include partials/head %>
-  <link rel="stylesheet" href="../public/css/login.css"></link>
+	<% include partials/head %>
+	<% if(role == 'agent')	{ %>
+		<link rel="stylesheet" href="../css/login.css"></link>
+	<% } else if(role == 'user') { %>
+		<link rel="stylesheet" href="../../css/login.css"></link>
+	<% } 	%>
+  
 </head>
 
 
