@@ -30,3 +30,13 @@ html, body{
 #map {
 	height: 100%;
 }
+h3 {
+	font-family: "Helvetica";
+	text-align: center;
+}
+th,td {
+	text-align: center;
+}
+td {
+	font-family: "Geneva";
+}

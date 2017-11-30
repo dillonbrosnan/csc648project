@@ -16,9 +16,9 @@
   <h2><%= saleListing[0].formattedAddress%> </h2> <h2 class="details"><small><%= saleListing[0].beds%> Beds | <%= saleListing[0].baths%> Baths | <%= saleListing[0].sqFt%> sq. ft. | <%= saleListing[0].lotType%></small></h2>
     <div class="container">
         <div id="main_area">
-            <!-- Information -->
             <div class="row">
-                <div class="col-md-6 left-block" id="slider-thumbs">
+                <!-- For all the description -->
+                <div class="col-md-6 left-block" id="slider-thumbs"> 
                         <h3 class="page-header price"><strong>$<%= saleListing[0].price %> </strong> </h3>
                         <!-- TODO: Route this button below correctly to the messaging page -->
                         <button type="button" class="btn btn-info center-block">Message Agent</button>
@@ -47,35 +47,54 @@
                         </li>
                     </ul> -->
                 </div>
+
+                <!--For map and Images -->
                 <div class="col-sm-6">
-                    <div class="col-xs-12" id="slider">
+                  <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#home">Images</a></li>
+                    <li><a data-toggle="tab" href="#menu1">Map</a></li>
+                  </ul>
+                  <div class="tab-content">
+                    <div id="home" class="tab-pane fade in active">
+                        <br>
+                        <div class="col-xs-12" id="slider">
 
-                        <!-- Top part of the slider -->
-                        <div class="row">
-                            <div class="col-sm-12" id="carousel-bounding-box">
-                                <div class="carousel slide" id="myCarousel">
+                            <!-- Top part of the slider -->
+                            <div class="row">
+                                <div class="col-sm-12" id="carousel-bounding-box">
+                                    <div class="carousel slide" id="myCarousel">
 
-                                    <!-- Carousel items -->
-                                    <div class="carousel-inner">
-                                        <div class="active item" data-slide-number="0">
-                                            <img src="/saleImages/<%= saleListing[0].imageId %>.jpg"></div>
+                                        <!-- Carousel items -->
+                                        <div class="carousel-inner">
+                                            <div class="active item" data-slide-number="0">
+                                                <img src="/saleImages/<%= saleListing[0].imageId %>.jpg"></div>
 
-                                        <div class="item" data-slide-number="1">
-                                            <img src="/saleImages/<%= saleListing[0].imageId %>.jpg"></div>
+                                            <div class="item" data-slide-number="1">
+                                                <img src="/saleImages/<%= saleListing[0].imageId %>.jpg"></div>
 
+                                        </div>
+
+                                        <!-- Carousel nav -->
+                                        <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                                            <span class="glyphicon glyphicon-chevron-left"></span>
+                                        </a>
+                                        <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                                            <span class="glyphicon glyphicon-chevron-right"></span>
+                                        </a>
                                     </div>
-
-                                    <!-- Carousel nav -->
-                                    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-                                        <span class="glyphicon glyphicon-chevron-left"></span>
-                                    </a>
-                                    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-                                        <span class="glyphicon glyphicon-chevron-right"></span>
-                                    </a>
                                 </div>
                             </div>
+                            <br>
                         </div>
                     </div>
+                    <div id="menu1" class="tab-pane fade">
+                        <br>
+                        <div style="height: 500px; width: 500px; border: 3px black solid; display: block;"><h1>MAP HERE</h1></div>
+                    </div>
+                </div>
+                        
+
+
                 </div>
                 <!--/Slider-->
             </div><!-- Row -->  
@@ -84,58 +103,11 @@
      </div> <!-- Container -->
 </div><!-- Row Main -->
 
-<hr>
-<!-- <div class="row">
-    <div class="col-lg-12">
-         <h3 class="page-header" style="width: 400px;">For Sale: <strong>$<%= saleListing[0].price %> </strong> </h3>
-         <button type="button" class="btn btn-info">Message Agent</button>
-    </div>
-</div> -->
- 
-<!--  <div class="row">
-            <div class="col-lg-12">
-             <h3 class="page-header" style="width: 400px;">Home Details</h3>
-            </div>
-            <div class="col-md-6">
-              
-                    <ul style="width:50%; float:left;">
-                        <li><strong>Year Built:</strong> <%= saleListing[0].yearBuilt%></li>
-                        <li><strong>Bedrooms:</strong> <%= saleListing[0].beds%></li>
-                        <li><strong>Bathrooms:</strong> <%= saleListing[0].baths%></li>
-                    </ul>
-                    <ul style="width:50%; float:left;">
-                        <li><strong>Lot Type:</strong> <%= saleListing[0].lotType%></li>
-                        <li><strong>Floor Size:</strong> <%= saleListing[0].sqFt%> SqFt</li>
-                        <li><strong>Lot Size:</strong> <%= saleListing[0].lotSqFt%> SqFt</li>
-                    </ul>
-                    
-                </div>   
-            </div>
-
-   <div class="row">
-            <div class="col-lg-12">
-             <h3 class="page-header" style="width: 400px;">Description</h3>
-            </div>
-            <div class="col-md-6 description">
-              
-                    <p style="width: 1000px;"><%= saleListing[0].description %> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            </div>   
-    </div> -->
-
 
     <!-- Contains body of page -->
     
     <!-- End of search box area -->
+
 
   <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>

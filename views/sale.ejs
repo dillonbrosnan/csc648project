@@ -23,16 +23,17 @@
       
     </div>
     <div class="listContainer col-md-7">
+      <h3><b>Found <%= saleListings.length %> Results</b></h3>
       <table class="table">
         <thead>
           <tr>
-            <th>Formatted Address</th>
+            <th>Address</th>
             <th>Beds</th>
             <th>Baths</th>
             <th>Square Feet</th>
             <th>Price</th>
-            <th>Message</th>
             <th>View</th>
+            <th>Message</th>
           </tr>
         </thead>
   
@@ -43,9 +44,10 @@
           <td><%= saleListings[i].beds %></td>
           <td><%= saleListings[i].baths %></td>
           <td><%= saleListings[i].sqFt %></td>
-          <td><%= saleListings[i].price %></td>
-          <td><a href="/user/message/<%= saleListings[i].saleId %>/">Message</a></td>
-          <td><a href="/forSale/<%= saleListings[i].saleId %>/">View</a></td>
+          <td>$<%= saleListings[i].price %></td>
+          <td><a class="btn btn-info" href="/forSale/<%= saleListings[i].saleId %>/">View</a></td>
+          <td><a class="btn btn-primary" href="/user/message/<%= saleListings[i].saleId %>/">Message</a></td>
+
         </tr>
       <% } %>
         </tbody>

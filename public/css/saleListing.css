@@ -1,6 +1,7 @@
 /*
-/* Created by Filipe Pina
- * Specific styles of signin, register, component
+/* Created by Darryl Raveche
+ * All CSS styles for saleListing.ejs
+ *
  */
 /*
  * General styles
@@ -28,6 +29,10 @@ h2 {
 .price {
 	text-align: center;
 	font-size: 45px;
+    font-family: 'Helvetica Neue';
+}
+.page-header {
+    text-align: center;
     font-family: 'Helvetica Neue';
 }
 .page-header.header {
@@ -78,7 +83,9 @@ label{
     padding: 40px 40px;
 
 }
-
+#map {
+    height: 100%;
+}
 .login-register{
     font-size: 11px;
     text-align: center;
@@ -89,8 +96,15 @@ label{
 .col-md-6.description{
     text-align: center;
 }
-.page-header {
-    text-align: center;
-    font-family: 'Helvetica Neue';
+.nav-tabs > li, .nav-pills > li {
+    float:none;
+    display:inline-block;
+    *display:inline; /* ie7 fix */
+     zoom:1; /* hasLayout ie7 trigger */
+     font-size: 16px;
+}
+
+.nav-tabs, .nav-pills {
+    text-align:center;
 }
 
