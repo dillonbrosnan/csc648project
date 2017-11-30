@@ -76,7 +76,7 @@ router.post('/', function(req,res){
       res.send("File wrong");
   }
   else  {
-    req.files.saleImage.mv('./fa17g07/public/saleImages/' + imageId + '.jpg', function(err)  {
+    req.files.saleImage.mv('/fa17g07/public/saleImages/' + imageId + '.jpg', function(err)  {
       if(err) {
         console.log(err);
         res.send(err);
