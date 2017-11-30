@@ -34,30 +34,28 @@ app.use(session({
 var server = require('http').createServer(app);  
 
 //All routes for application
-// var index = require('./routes/index.js');
-// var sale = require('./routes/sale.js');
-// var portfolio = require('./routes/portfolio.js');
-// var login = require('./routes/login.js');
-// var register = require('./routes/register.js');
-// var team = require('./routes/team.js');
-// var post = require('./routes/post.js');
-// var userChat = require('./routes/userChat.js');
-// var saleListing = require('./routes/saleListing.js');
+var index = require('./routes/index.js');
+var sale = require('./routes/sale.js');
+var portfolio = require('./routes/portfolio.js');
+var login = require('./routes/login.js');
+var register = require('./routes/register.js');
+var team = require('./routes/team.js');
+var post = require('./routes/post.js');
+var userChat = require('./routes/userChat.js');
+var saleListing = require('./routes/saleListing.js');
 
 app.use('/fa17g07/', express.static(__dirname + '/public'));
 
 <!-- Routes -->
-// app.use('', index);
-// app.use('/forSale', sale);
-// app.use('', portfolio);
-// app.use('/login', login);
-// app.use('/register', register);
-// app.use('/team', team);
-// app.use('/agent/post', post);
-// app.use('/user/message', userChat);
-// app.use('/forSale', saleListing);
-require('./routes')(app);
-
+app.use('', index);
+app.use('/forSale', sale);
+app.use('', portfolio);
+app.use('/login', login);
+app.use('/register', register);
+app.use('/team', team);
+app.use('/agent/post', post);
+app.use('/user/message', userChat);
+app.use('/forSale', saleListing);
 
 <!-- Listening port -->
 server.listen(port, function () {
