@@ -46,15 +46,15 @@ var saleListing = require('./routes/saleListing.js');
 app.use('/public',express.static(path.join(__dirname, '/public')));
 
 <!-- Routes -->
-app.use('', index);
-app.use('forSale', sale);
-app.use('', portfolio);
-app.use('login', login);
-app.use('register', register);
-app.use('team', team);
-app.use('agent/post', post);
-app.use('user/message', userChat);
-app.use('forSale', saleListing);
+app.use('/fa17g07', index);
+app.use('/fa17g07/forSale', sale);
+app.use('/fa17g07', portfolio);
+app.use('/fa17g07/login', login);
+app.use('/fa17g07/register', register);
+app.use('/fa17g07/team', team);
+app.use('/fa17g07/agent/post', post);
+app.use('/fa17g07/user/message', userChat);
+app.use('/fa17g07/forSale', saleListing);
 
 <!-- Listening port -->
 server.listen(port, function () {
