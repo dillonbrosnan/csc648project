@@ -18,7 +18,7 @@
 
 		<div class="row main">
 			<div class="main-login main-center">
-				<form class="form-horizontal" method="post" action="/register/<%= role %>" onsubmit="return validateRegistration()">
+				<form class="form-horizontal" method="post" action="/fa17g07/register/<%= role %>" onsubmit="return validateRegistration()">
 				
 					<div class="form-group">
 						<label for="firstName" class="cols-sm-1 control-label">Your First Name</label>
@@ -91,9 +91,9 @@
 					</div>
 
 					<% if(role == 'agent')	{ %>
-						<a href="/register">Looking for user registration? Click here</a>
+						<a href="/fa17g07//register">Looking for user registration? Click here</a>
 					<% } else if(role == 'user') { %>
-						<a href="/register/agent">Looking for agent registration? Click here</a>
+						<a href="/fa17g07//register/agent">Looking for agent registration? Click here</a>
 					<% } 	%>
 					
 				</form>
