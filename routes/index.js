@@ -8,7 +8,6 @@ router.get('/', function(req, res) {
   	res.render('index', { userId: req.session.userId });
   }	else	{
   	res.render('index');
-  	// Did it work
   }
   
 });
