@@ -42,10 +42,8 @@ router.post('/user',function(req,res){
 	pool.getConnection(function(err, connection){ //Get connection to pool
 
     connection.query(checkUsernameEmailQuery, [username, email], function (err, usernameEmailResult)  {
-      if(err) {
-        console.log(err);
-        res.redirect('/register');
-      }
+      if (err)
+        return res.send(400);
       if(usernameEmailResult.length > 0)  { //Logic for if user exists should be put in here
         if(usernameEmailResult[0].username == username && usernameEmailResult[0].email == email)  {
           console.log("Email and username taken");
