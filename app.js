@@ -47,15 +47,15 @@ var saleListing = require('./routes/saleListing.js');
 app.use('/fa17g07/', express.static(__dirname + '/public'));
 
 <!-- Routes -->
-app.use('', index);
-app.use('/forSale', sale);
-app.use('', portfolio);
-app.use('/login', login);
-app.use('/register', register);
-app.use('/team', team);
-app.use('/agent/post', post);
-app.use('/user/message', userChat);
-app.use('/forSale', saleListing);
+router.use('', index);
+router.use('/forSale', sale);
+router.use('', portfolio);
+router.use('/login', login);
+router.use('/register', register);
+router.use('/team', team);
+router.use('/agent/post', post);
+router.use('/user/message', userChat);
+router.use('/forSale', saleListing);
 
 <!-- Listening port -->
 server.listen(port, function () {
