@@ -174,7 +174,7 @@ router.post('/agent',function(req,res){
               req.session.isLoggedIn = true;
               req.session.role = "agent";
               console.log(req.session.role);
-              res.redirect('/');
+              res.redirect('/fa17g07/');
             } else  { //If username doesn't match database
               res.redirect('/login?incorrectPassword=' + username);
             }
