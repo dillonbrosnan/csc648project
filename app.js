@@ -49,7 +49,7 @@ app.use('/public',express.static(path.join(__dirname, '/public')));
 app.use('', index);
 app.use('forSale', sale);
 app.use('', portfolio);
-app.use('login', login);
+app.use('/login', login);
 app.use('register', register);
 app.use('team', team);
 app.use('agent/post', post);
