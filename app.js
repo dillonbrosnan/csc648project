@@ -12,6 +12,7 @@ var session = require('express-session');
 var busboyBodyParser = require('busboy-body-parser');
 var fileUpload = require('express-fileupload');
 var port = process.env.PORT || 17007;
+var router = express.Router();
 
 
 //App delcaration
@@ -25,7 +26,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(busboyBodyParser());
 app.use(validator());
 app.use(session({
-	cookie: { maxAge: 60*10000 },
+	cookie: { maxAge: 24 * 60 * 60 * 1000 },
     secret: '4F33-5ZDE-ZggpE3D',
     resave: true,
     saveUninitialized: true
