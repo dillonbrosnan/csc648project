@@ -4,7 +4,7 @@
 <!-- Contains head of website -->
 <head>
   <% include partials/head %>
-  <link rel="stylesheet" href="public/css/login.css"></link>
+  <link rel="stylesheet" href="../public/css/login.css"></link>
 </head>
 
 
@@ -23,7 +23,7 @@
 		<div class="row main">
 			<div class="main-login main-center">
 
-				<form class="form-horizontal" method="post" action="/fa17g07/login/<%= role %>">
+				<form class="form-horizontal" method="post" action="<%= role %>">
 					<div class="form-group">
 						<label for="username" class="cols-sm-2 control-label">Username</label>
 						<div class="cols-sm-10">
@@ -55,9 +55,9 @@
 					</div>
 					
 					<% if(role == 'agent')	{ %>
-						<a href="/fa17g07/login">Looking for user login? Click here</a>
+						<a href="login">Looking for user login? Click here</a>
 					<% } else if(role == 'user') { %>
-						<a href="/fa17g07/login/agent">Looking for agent login? Click here</a>
+						<a href="login/agent">Looking for agent login? Click here</a>
 					<% } 	%>
 
 				</form>
