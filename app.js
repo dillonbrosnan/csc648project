@@ -47,7 +47,7 @@ app.use('/public',express.static(path.join(__dirname, '/public')));
 
 <!-- Routes -->
 app.use('', index);
-app.use('forSale', sale);
+app.use('/forSale', sale);
 app.use('', portfolio);
 app.use('/login', login);
 app.use('/register', register);
