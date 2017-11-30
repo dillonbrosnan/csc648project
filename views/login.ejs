@@ -4,11 +4,7 @@
 <!-- Contains head of website -->
 <head>
 	<% include partials/head %>
-	<% if(role == 'agent')	{ %>
-		<link rel="stylesheet" href="../..public//css/login.css"></link>
-	<% } else if(role == 'user') { %>
-		<link rel="stylesheet" href="../public/css/login.css"></link>
-	<% } 	%>
+		<link rel="stylesheet" href="/css/login.css"></link>
   
 </head>
 
@@ -60,9 +56,9 @@
 					</div>
 					
 					<% if(role == 'agent')	{ %>
-						<a href="../../login">Looking for user login? Click here</a>
+						<a href="/login">Looking for user login? Click here</a>
 					<% } else if(role == 'user') { %>
-						<a href="../login/agent">Looking for agent login? Click here</a>
+						<a href="/login/agent">Looking for agent login? Click here</a>
 					<% } 	%>
 
 				</form>
