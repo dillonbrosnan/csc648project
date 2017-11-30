@@ -4,7 +4,7 @@
   "description": "A way of buying/selling real estate.",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./bin/www/app.js"
   },
   "author": "Team 07",
   "license": "ISC",
