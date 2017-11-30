@@ -47,14 +47,14 @@ app.use(‘/public’,express.static(path.join(__dirname, '/public')));
 
 <!-- Routes -->
 app.use('', index);
-app.use('/forSale', sale);
+app.use('forSale', sale);
 app.use('', portfolio);
-app.use('/login', login);
-app.use('/register', register);
-app.use('/team', team);
-app.use('/agent/post', post);
-app.use('/user/message', userChat);
-app.use('/forSale', saleListing);
+app.use('login', login);
+app.use('register', register);
+app.use('team', team);
+app.use('agent/post', post);
+app.use('user/message', userChat);
+app.use('forSale', saleListing);
 
 <!-- Listening port -->
 server.listen(port, function () {
