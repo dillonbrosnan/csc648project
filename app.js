@@ -14,8 +14,6 @@ var port = process.env.PORT || 17007;
 //App delcaration
 var app = express();
 
-app.use('/css', express.static('/fa17g07/css'));
-
 app.use(express.static('/fa17g07/public'));
 
 app.set('view engine', 'ejs');
@@ -58,7 +56,7 @@ app.use('/forSale', saleListing);
 
 <!-- Listening port -->
 server.listen(port, function () {
-  console.log('Real estate app listening on port 17007!');
+  console.log('App listening on port ' + port + '!');
 })
 
 
