@@ -5,7 +5,7 @@
 <!-- Contains head of website -->
 <head>
 	<% include partials/head %>
-		
+		<link rel="stylesheet" href="css/login.css"></link>
   
 </head>
 
@@ -57,9 +57,9 @@
 					</div>
 					
 					<% if(role == 'agent')	{ %>
-						<a href="/login">Looking for user login? Click here</a>
+						<a href="login">Looking for user login? Click here</a>
 					<% } else if(role == 'user') { %>
-						<a href="/login/agent">Looking for agent login? Click here</a>
+						<a href="login/agent">Looking for agent login? Click here</a>
 					<% } 	%>
 
 				</form>
@@ -77,7 +77,7 @@
     <% include partials/footer %>
   </footer>
 
-  <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 </body>
 </html>
