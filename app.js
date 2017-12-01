@@ -57,7 +57,7 @@ var saleListing = require('./routes/saleListing.js');
 
 console.log(__dirname + '/public');
 
-app.use(express.static(__dirname + '/public'));
+app.use(express.static("/home/fa17g07/public_html/csc648-fall17-team07/public"));
 
 <!-- Routes -->
 app.use('', index);
