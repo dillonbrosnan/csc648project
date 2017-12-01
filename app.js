@@ -44,8 +44,6 @@ var post = require('./routes/post.js');
 var userChat = require('./routes/userChat.js');
 var saleListing = require('./routes/saleListing.js');
 
-app.use(express.static("/fa17g07/public"));
-
 <!-- Routes -->
 app.use('', index);
 app.use('/forSale', sale);
@@ -56,6 +54,8 @@ app.use('/team', team);
 app.use('/agent/post', post);
 app.use('/user/message', userChat);
 app.use('/forSale', saleListing);
+
+app.use(express.static("/fa17g07/public"));
 
 <!-- Listening port -->
 server.listen(port, function () {
