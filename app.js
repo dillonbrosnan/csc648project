@@ -18,6 +18,8 @@ var port = process.env.PORT || 17007;
 //App delcaration
 var app = express();
 
+app.use(express.static('/fa17g07/public'));
+
 app.set('view engine', 'ejs');
 app.set('port', port);
 app.use(fileUpload());
@@ -55,8 +57,6 @@ app.use('/agent/post', post);
 app.use('/user/message', userChat);
 app.use('/forSale', saleListing);
 
-
-app.use(express.static('fa17g07/public/'));
 
 <!-- Listening port -->
 server.listen(port, function () {
