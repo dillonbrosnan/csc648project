@@ -55,7 +55,7 @@ app.use('/agent/post', post);
 app.use('/user/message', userChat);
 app.use('/forSale', saleListing);
 
-app.use(express.static('fa17g07/public'))
+app.use(express.static('/fa17g07' +  __dirname + '/public'));
 
 <!-- Listening port -->
 server.listen(port, function () {
