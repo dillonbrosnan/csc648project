@@ -14,6 +14,8 @@ var port = process.env.PORT || 17007;
 //App delcaration
 var app = express();
 
+app.use('/css', express.static('/fa17g07/css'));
+
 app.use(express.static('/fa17g07/public'));
 
 app.set('view engine', 'ejs');
