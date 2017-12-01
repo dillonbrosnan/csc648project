@@ -1,7 +1,3 @@
-
-'use strict';
-'use strict';
-
 var express = require('express');
 var db = require('./db');
 var path = require('path');
