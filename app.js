@@ -8,7 +8,6 @@ var session = require('express-session');
 var busboyBodyParser = require('busboy-body-parser');
 var fileUpload = require('express-fileupload');
 var port = process.env.PORT || 17007;
-// var router = express.Router();
 
 
 //App delcaration
@@ -29,8 +28,6 @@ var port = process.env.PORT || 17007;
 
 //App delcaration
 var app = express();
-
-app.use(express.static('/fa17g07/public'));
 
 app.set('view engine', 'ejs');
 app.set('port', port);
@@ -58,6 +55,9 @@ var post = require('./routes/post.js');
 var userChat = require('./routes/userChat.js');
 var saleListing = require('./routes/saleListing.js');
 
+app.use('/public', express.static('fa17g07/public'));
+app.use('/css', express.static('fa17g07/public/css'));
+
 <!-- Routes -->
 app.use('', index);
 app.use('/forSale', sale);
@@ -69,10 +69,6 @@ app.use('/agent/post', post);
 app.use('/user/message', userChat);
 app.use('/forSale', saleListing);
 
-app.use('/public', express.static('fa17g07/public'));
-app.use('/css', express.static('fa17g07/public/css'));
-
-// app.use(express.static('/fa17g07/public'));
 
 app.set('view engine', 'ejs');
 app.set('port', port);
