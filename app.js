@@ -69,15 +69,6 @@ app.use('/agent/post', post);
 app.use('/user/message', userChat);
 app.use('/forSale', saleListing);
 
-
-<!-- Listening port -->
-server.listen(port, function () {
-  console.log('Real estate app listening on port 17007!');
-})
-
-
-
-
 app.use('/public', express.static('fa17g07/public'));
 app.use('/css', express.static('fa17g07/public/css'));
 
