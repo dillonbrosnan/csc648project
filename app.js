@@ -55,7 +55,9 @@ var post = require('./routes/post.js');
 var userChat = require('./routes/userChat.js');
 var saleListing = require('./routes/saleListing.js');
 
-app.use(express.static('/public'));
+console.log(__dirname + '/public');
+
+app.use(express.static(__dirname + '/public'));
 
 <!-- Routes -->
 app.use('', index);
