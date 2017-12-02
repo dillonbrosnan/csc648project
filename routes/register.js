@@ -6,15 +6,11 @@ var uuidv4 = require('uuid/v4');
 
 // Route
 router.get('/',function(req,res){
-  res.render('register',
-    {role: "user"}
-  );
+  res.render('register', {role: "user"} );
 });
 
 router.get('/agent',function(req,res){
-  res.render('register',
-    {role: "agent"}
-  );
+  res.render('register', {role: "agent"});
 });
 
 // Route
