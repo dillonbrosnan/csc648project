@@ -1,6 +1,7 @@
 <!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" dir="ltr">
-<base href="https://sfsuse.com/fa17g07/">
+<base href="/fa17g07/">
+
 
 <!-- Contains head of website -->
 <head>
@@ -19,7 +20,7 @@
 
 		<div class="row main">
 			<div class="main-login main-center">
-				<form class="form-horizontal" method="post" action="/fa17g07/register/<%= role %>" onsubmit="return validateRegistration()">
+				<form class="form-horizontal" method="post" action="register/<%= role %>" onsubmit="return validateRegistration()">
 				
 					<div class="form-group">
 						<label for="firstName" class="cols-sm-1 control-label">Your First Name</label>
@@ -92,9 +93,9 @@
 					</div>
 
 					<% if(role == 'agent')	{ %>
-						<a href="/fa17g07//register">Looking for user registration? Click here</a>
+						<a href="register">Looking for user registration? Click here</a>
 					<% } else if(role == 'user') { %>
-						<a href="/fa17g07//register/agent">Looking for agent registration? Click here</a>
+						<a href="register/agent">Looking for agent registration? Click here</a>
 					<% } 	%>
 					
 				</form>
@@ -208,7 +209,7 @@
 	</script>
 
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPXF-zkLqKND8w5ktBN5bdlTkQSVbw950&libraries=places&callback=initAutocomplete" async defer></script>
-  <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 </body>
 </html>

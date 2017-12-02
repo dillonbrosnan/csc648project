@@ -1,10 +1,11 @@
 <!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" dir="ltr">
+<base href="/fa17g07/">
 
 <!-- Contains head of website -->
 <head>
     <% include partials/head %>
-    <link rel="stylesheet" href="/fa17g07/public/css/saleListing.css"></link>
+    <link rel="stylesheet" href="css/saleListing.css"></link>
 </head>
 
 
@@ -24,7 +25,7 @@
                 <ul class="hide-bullets">
                     <li class="col-sm-3">
                         <a class="thumbnail" id="carousel-selector-0">
-                            <img src="/saleImages/<%= saleListing[0].imageId %>.jpg">
+                            <img src="saleImages/<%= saleListing[0].imageId %>.jpg">
                         </a>
                     </li>
                 </ul>
@@ -38,10 +39,10 @@
                                 <!-- Carousel items -->
                                 <div class="carousel-inner">
                                     <div class="active item" data-slide-number="0">
-                                        <img src="/saleImages/<%= saleListing[0].imageId %>.jpg"></div>
+                                        <img src="saleImages/<%= saleListing[0].imageId %>.jpg"></div>
 
                                     <div class="item" data-slide-number="1">
-                                        <img src="/saleImages/<%= saleListing[0].imageId %>.jpg"></div>
+                                        <img src="saleImages/<%= saleListing[0].imageId %>.jpg"></div>
 
                                 </div>
                                 <!-- Carousel nav -->
@@ -97,7 +98,7 @@
     
     <!-- End of search box area -->
 
-  <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 </body>
 </html>
