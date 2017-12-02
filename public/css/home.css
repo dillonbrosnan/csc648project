@@ -1,5 +1,6 @@
 body	{
 	margin-top: 50px;
+  background-image: url('../images/keys.jpg');
 }
 
 	* {
@@ -15,10 +16,15 @@ section {
   text-align: center;
 }
 
+label {
+  color: white;
+}
+
 .searchContainer  {
   margin-left: 10%;
   margin-right: 10%;
-  padding-top: 25px;
+  padding-top: 20%;
+  background-color: 
 }
 
 #latInput, #lngInput  {
@@ -36,3 +42,6 @@ section {
 #searchForm :input  {
   z-index: 9999;
 }
+
+
+/**********************************roy style**********************/
