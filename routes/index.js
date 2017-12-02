@@ -5,7 +5,10 @@ var db = require('../db');
 router.get('/', function(req, res) {  
 
   if(req.session.isLoggedIn)	{
-  	res.render('index', { userId: req.session.userId });
+  	res.render('index', { 
+  		userId: req.session.userId,
+  		role: req.session.role 
+  	});
   }	else	{
   	res.render('index');
   }

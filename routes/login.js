@@ -12,6 +12,8 @@ router.get('/',function(req,res){
       role: "user",
       username: username
     });
+  } else if(req.session.isLoggedIn) {
+    res.redirect('');
   } else  {
     res.render('login', {role: "user"});
   }
@@ -26,6 +28,8 @@ router.get('/agent',function(req,res){
       role: "agent",
       username: username
     });
+  } else if(req.session.isLoggedIn) {
+    res.redirect('');
   } else  {
     res.render('login', {role: "agent"});
   }
@@ -40,6 +44,8 @@ router.get('/admin',function(req,res){
       role: "admin",
       username: username
     });
+  } else if(req.session.isLoggedIn) {
+    res.redirect('');
   } else  {
     res.render('login', {role: "admin"});
   }
@@ -79,7 +85,7 @@ router.post('/user',function(req,res){
               req.session.userId = usernames[0].userId;
               req.session.isLoggedIn = true;
               req.session.role = "user";
-              res.redirect('/');
+              res.redirect('');
             } else  { //If username doesn't match database
               res.redirect('/login?incorrectPassword=' + username);
             }
@@ -126,7 +132,7 @@ router.post('/admin',function(req,res){
               req.session.adminId = usernames[0].adminId;
               req.session.isLoggedIn = true;
               req.session.role = "admin";
-              res.redirect('/');
+              res.redirect('');
             } else  { //If username doesn't match database
               res.redirect('/login?incorrectPassword=' + username);
             }
@@ -174,7 +180,7 @@ router.post('/agent',function(req,res){
               req.session.isLoggedIn = true;
               req.session.role = "agent";
               console.log(req.session.role);
-              res.redirect('/fa17g07/');
+              res.redirect('');
             } else  { //If username doesn't match database
               res.redirect('/login?incorrectPassword=' + username);
             }
