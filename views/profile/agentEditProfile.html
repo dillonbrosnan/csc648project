@@ -19,7 +19,6 @@
 
 
 <body>
-
   <!-- Contains header of website 
   <% include partials/header %>
   <! — views/partials/header.ejs -->
@@ -44,7 +43,6 @@
     </div>
   </div>
 </nav> -->
-
 <div class="container navigation">
     <nav class="navbar navbar-default">
       <div class="container-fluid">
@@ -81,7 +79,7 @@
       </div>
     </nav>
   </div>
-
+<!-- container for agent edit profile section start -->
   <div class="container">
       <h1>Edit Profile</h1>
       <hr>
@@ -109,13 +107,13 @@
             <div class="form-group">
               <label class="col-lg-3 control-label">First name:</label>
               <div class="col-lg-8">
-                <input class="form-control" type="text" placeholder="Roy">
+                <input class="form-control" type="text" placeholder="Roy" name="firstName" id="firstName">
               </div>
             </div>
             <div class="form-group">
               <label class="col-lg-3 control-label">Last name:</label>
               <div class="col-lg-8">
-                <input class="form-control" type="text" placeholder="Bishop">
+                <input class="form-control" type="text" placeholder="Bishop" name="lastName" id="lastName">
               </div>
             </div>
             <div class="form-group">
@@ -127,25 +125,25 @@
             <div class="form-group">
               <label class="col-lg-3 control-label">Username:</label>
               <div class="col-lg-8">
-                <input class="form-control" type="text" placeholder="roy.kid16@gmail.com">
+                <input class="form-control" type="text" placeholder="roy.kid16@gmail.com" name="username" id="username">
               </div>
             </div>
             <div class="form-group">
               <label class="col-lg-3 control-label">Address:</label>
               <div class="col-lg-8">
-                <input class="form-control" type="text" placeholder="2142 22 ave, san francisco, CA 92116">
+                <input class="form-control" type="text" placeholder="2142 22 ave, san francisco, CA 92116" name="formattedAddress" id="formattedAddress">
               </div>
             </div>
             <div class="form-group">
               <label class="col-lg-3 control-label">Email:</label>
               <div class="col-lg-8">
-                <input class="form-control" type="text" placeholder="janesemail@gmail.com">
+                <input class="form-control" type="text" placeholder="janesemail@gmail.com" name="email" id="email">
               </div>
             </div>
             <!-- <div class="form-group">
               <label class="col-md-3 control-label">Password:</label>
               <div class="col-md-8">
-                <input class="form-control" type="password" placeholder="*********">
+                <input class="form-control" type="password" placeholder="*********" name="password" id="password">
               </div>
             </div>
             <div class="form-group">
@@ -166,6 +164,9 @@
         </div>
     </div>
   </div>
+
+  <!-- container for agent edit profile section start -->
+
   <hr>
 
   <!--   FOOTER START================== -->
