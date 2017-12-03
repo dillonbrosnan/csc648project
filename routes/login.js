@@ -64,7 +64,7 @@ router.post('/',function(req,res){
           var hash = usernames[0].password;
           bcrypt.compare(password, hash, function(err, response) {
             if(response == true) { //If username matches database
-              req.session.userId = usernames[0].userId;
+              req.session.id = usernames[0].userId;
               req.session.isLoggedIn = true;
               req.session.role = "user";
               res.redirect('..');
@@ -115,7 +115,7 @@ router.post('/admin',function(req,res){
           var hash = usernames[0].password;
           bcrypt.compare(password, hash, function(err, response) {
             if(response == true) { //If username matches database
-              req.session.adminId = usernames[0].adminId;
+              req.session.id = usernames[0].adminId;
               req.session.isLoggedIn = true;
               req.session.role = "admin";
               res.redirect('../..');
@@ -166,7 +166,7 @@ router.post('/agent',function(req,res){
           var hash = usernames[0].password;
           bcrypt.compare(password, hash, function(err, response) {
             if(response == true) { //If username matches database
-              req.session.agentId = usernames[0].agentId;
+              req.session.id = usernames[0].agentId;
               req.session.isLoggedIn = true;
               req.session.role = "agent";
               console.log(req.session.role);

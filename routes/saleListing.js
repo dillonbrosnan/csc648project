@@ -10,14 +10,21 @@ router.get('/:saleId', function(req,res){
 	SaleListingModel.getSaleInfo(saleId)
 	.then(function(saleListing){
 		if(saleListing.length == 0)	{
-			res.redirect('/');
+			res.redirect('../..');
+		}
+		else if(saleListing.length == 1 && req.session.isLoggedIn){
+			res.render('saleListing', {
+				saleId: req.params.saleId,
+				saleListing : saleListing,
+				id: req.session.id,
+				role: req.session.role
+			});
 		}
 		else if(saleListing.length == 1){
 			res.render('saleListing', {
 				saleId: req.params.saleId,
 				saleListing : saleListing
 			});
-			console.log(saleId);
 		}
 	})
 	.catch(function(err){

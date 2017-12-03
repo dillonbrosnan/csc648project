@@ -50,6 +50,9 @@ app.use('/team', team);
 app.use('/agent/post', post);
 app.use('/user/message', userChat);
 app.use('/forSale', saleListing);
+app.get('*', function(req, res){
+  res.redirect('/');
+});
 
 
 <!-- Listening port -->
