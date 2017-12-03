@@ -12,7 +12,7 @@ html, body{
 }
 
 .saleContainer	{
-	margin-top: 50px;
+	//margin-top: 50px;
 	height: calc(100vh - 50px);
 	bottom: 0;
 }
@@ -30,3 +30,4 @@ html, body{
 #map {
 	height: 100%;
 }
+

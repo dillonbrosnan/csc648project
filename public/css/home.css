@@ -46,7 +46,7 @@ label {
 #searchContainer{
   background-color: #80808085;
   width: 70%; 
-  margin-top: 30%;
+  margin-top: 24%;
 }
 
 #latInput, #lngInput  {
@@ -65,8 +65,7 @@ label {
   z-index: 9999;
 }
 
-
-/**********************************roy style**********************/
+/*============= form styling ================*/
 
 .searchContainer input{
   height: 40px;
@@ -81,41 +80,3 @@ label {
   font-size: 15px; 
 }
 
-/* navigation sytle*/
-.navbar-brand {
-  padding: 0px;
-}
-.navbar-brand>img {
-  height: 100%;
-  width: auto;
-}
-
-.navigation{
-  width: 100%;
-}
-
-.navbar-default{
-  background-color: black;
-}
-
-#mainlogo{
-      /* height: 100%; */
-      width: 300px;
-      padding-left: auto;
-      /* margin-left: 50%; */
-      padding: auto;
-      position: absolute;
-      left: 50%;
-      margin-left: -157px !important;
-      display: block;
-}
-
-/* ----------- iPhone 6, 6S, 7 and 8 ----------- */
-
-/* Portrait and Landscape */
-@media (max-width: 730px) { 
-  #searchContainer{
-    width: 100%; 
-    margin-top: 50%; 
-  }
-}
