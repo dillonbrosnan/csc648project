@@ -31,7 +31,7 @@ var loginAsAdmin = function (username, password)	{
 
 	return new Promise(function(resolve, reject)	{
 	
-		var sql = 'SELECT admindId, password FROM Admin WHERE username = ?';
+		var sql = 'SELECT adminId, password FROM Admin WHERE username = ?';
 
 	    pool.getConnection(function(err, connection){ //Get connection to pool
 	      
