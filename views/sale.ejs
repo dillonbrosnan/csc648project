@@ -23,7 +23,8 @@
     <div class="mapContainer col-md-5" id="map">
       
     </div>
-    <div class="listContainer col-md-7">
+    
+   <!--  <div class="listContainer col-md-7"> -->
       <!-- <table class="table">
         <thead>
           <tr>
@@ -36,53 +37,51 @@
             <th>View</th>
           </tr>
         </thead>
-  
-      <tbody> -->
+      <tbody>
+      
       <% for(var i = 0; i < saleListings.length; i++) { %>
-
-        <div class="container">
-            <% for(var i = 0; i < saleListings.length; i++) { %>
-              <div class="row">
-                  <div class="col-lg-4 col-md-4 col-sm-6">
-                       <div class="thumbnail img-thumb-bg">
-                           <div class="overlay"></div>
-                           <div class="caption">
-                               <div class="tag"><a href="/forSale/<%= saleListings[i].saleId %>/">$ <%= saleListings[i].price %> </a></div>
-                               <div class="title"><a href="/forSale/<%= saleListings[i].saleId %>/"><%= saleListings[i].formattedAddress %></a></div>
-                               <div class="clearfix">
-                                   <span class="meta-data"><%= saleListings[i].sqFt %> SqFt | <%= saleListings[i].beds %> Beds | <%= saleListings[i].baths %> Baths </span>
-                                   <span class="meta-data pull-right"><a href=""><i class="fa fa-heart-o"></i> 4</a></span>
-                               </div>
-                               <div class="content">
-                                   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo nulla porro qui quo expedita voluptas ab iure dolore.</p>
-                               </div>
-                           </div>
-                       </div>
-                  </div>
-                                <!-- End Listing-->
-             <% } %>
-            
-             </div>
-            </div>
-
-
-        <!-- <tr>
+        <tr>
           <td><%= saleListings[i].formattedAddress %></td>
           <td><%= saleListings[i].beds %></td>
           <td><%= saleListings[i].baths %></td>
           <td><%= saleListings[i].sqFt %></td>
           <td><%= saleListings[i].price %></td>
           <td><a href="/user/message/<%= saleListings[i].saleId %>/">Message</a></td>
-          <td><a href="/forSale/<%= saleListings[i].saleId %>/">View</a></td> -->
-        <!-- </tr> -->
+          <td><a href="/forSale/<%= saleListings[i].saleId %>/">View</a></td>
+        </tr>
       <% } %>
-        <!-- </tbody>
-      </table> -->
-    </div>
+        
     
+      </tbody>
+      </table> -->
 
-  </div>
+<!-- ********************************************************************************-->
+<!-- <div class="container container-pad" id="property-listings"> -->
+<div class="row" >
+    <% for(var i = 0; i < saleListings.length; i++) { %>
 
+      <div class="col-lg-4 col-md-4 col-sm-6">
+          <div class="thumbnail img-thumb-bg">
+              <div class="overlay"></div>
+              <div class="caption">
+                  <div class="tag"><a href="/forSale/<%= saleListings[i].saleId %>/"> $ <%= saleListings[i].price %> </a></div>
+                  <div class="title"><a href="/forSale/<%= saleListings[i].saleId %>/"> <%= saleListings[i].formattedAddress %> </a></div>
+                  <div class="clearfix">
+                      <span class="meta-data">Sqft: <%= saleListings[i].sqFt %> SqFt , <%= saleListings[i].beds %> Beds ,  <%= saleListings[i].baths %> Baths</span>
+                      <!-- <span class="meta-data pull-right"><a href=""><i class="fa fa-heart-o"></i> 4</a></span> -->
+                  </div>
+                  <div class="content">
+                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo nulla porro qui quo expedita voluptas ab iure dolore.</p>
+                  </div>
+              </div>
+          </div>
+       </div>
+     <% } %>
+        <!-- </div> -->
+    <!-- ********************************************************************************-->
+    <!-- </div> -->
+      
+      </div>
   <script>
   function initMap() {
     var latInput = <%- JSON.stringify(lat) %>;
