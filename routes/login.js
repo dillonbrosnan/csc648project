@@ -6,14 +6,8 @@ var LoginModel = require('../models/loginModel');
 // Route
 router.get('/',function(req,res){
   
-  if(typeof req.query.incorrectPassword != "undefined") {
-    var username = req.query.incorrectPassword;
-    res.render('login', {
-      role: "user",
-      username: username
-    });
-  } else if(req.session.isLoggedIn) {
-    res.redirect('');
+  if(req.session.isLoggedIn) {
+    res.redirect('..');
   } else  {
     res.render('login', {role: "user"});
   }
@@ -22,14 +16,8 @@ router.get('/',function(req,res){
 
 router.get('/agent',function(req,res){
   
-  if(typeof req.query.incorrectPassword != "undefined") {
-    var username = req.query.incorrectPassword;
-    res.render('login', {
-      role: "agent",
-      username: username
-    });
-  } else if(req.session.isLoggedIn) {
-    res.redirect('');
+  if(req.session.isLoggedIn) {
+    res.redirect('../..');
   } else  {
     res.render('login', {role: "agent"});
   }
@@ -38,14 +26,8 @@ router.get('/agent',function(req,res){
 
 router.get('/admin',function(req,res){
   
-  if(typeof req.query.incorrectPassword != "undefined") {
-    var username = req.query.incorrectPassword;
-    res.render('login', {
-      role: "admin",
-      username: username
-    });
-  } else if(req.session.isLoggedIn) {
-    res.redirect('');
+  if(req.session.isLoggedIn) {
+    res.redirect('../..');
   } else  {
     res.render('login', {role: "admin"});
   }
@@ -53,7 +35,7 @@ router.get('/admin',function(req,res){
 });
 
 // Route
-router.post('/user',function(req,res){
+router.post('/',function(req,res){
   var username = req.body.username;
   var password = req.body.password;
   
@@ -76,7 +58,7 @@ router.post('/user',function(req,res){
     LoginModel.loginAsUser(username, password)
       .then(function(usernames)  {
         if(usernames.length == 0) {
-          res.redirect('/register');
+          res.redirect('../register/');
         }
         if(usernames.length == 1) {
           var hash = usernames[0].password;
@@ -85,9 +67,13 @@ router.post('/user',function(req,res){
               req.session.userId = usernames[0].userId;
               req.session.isLoggedIn = true;
               req.session.role = "user";
-              res.redirect('');
+              res.redirect('..');
             } else  { //If username doesn't match database
-              res.redirect('/login?incorrectPassword=' + username);
+              res.render('login', {
+                role: "user",
+                errors: "Password incorrect",
+                username: username
+              });
             }
           });
         }
@@ -123,7 +109,7 @@ router.post('/admin',function(req,res){
     LoginModel.loginAsAdmin(username, password)
       .then(function(usernames)  {
         if(usernames.length == 0) {
-          res.redirect('/register');
+          res.redirect('../..');
         }
         if(usernames.length == 1) {
           var hash = usernames[0].password;
@@ -132,9 +118,13 @@ router.post('/admin',function(req,res){
               req.session.adminId = usernames[0].adminId;
               req.session.isLoggedIn = true;
               req.session.role = "admin";
-              res.redirect('');
+              res.redirect('../..');
             } else  { //If username doesn't match database
-              res.redirect('/login?incorrectPassword=' + username);
+              res.render('login', {
+                role: "admin",
+                errors: "Password incorrect",
+                username: username
+              });
             }
           });
         }
@@ -170,7 +160,7 @@ router.post('/agent',function(req,res){
     LoginModel.loginAsAgent(username, password)
       .then(function(usernames)  {
         if(usernames.length == 0) {
-          res.redirect('/register');
+          res.redirect('../../register/agent');
         }
         if(usernames.length == 1) {
           var hash = usernames[0].password;
@@ -180,9 +170,13 @@ router.post('/agent',function(req,res){
               req.session.isLoggedIn = true;
               req.session.role = "agent";
               console.log(req.session.role);
-              res.redirect('');
+              res.redirect('../..');
             } else  { //If username doesn't match database
-              res.redirect('/login?incorrectPassword=' + username);
+              res.render('login', {
+                role: "agent",
+                errors: "Password incorrect",
+                username: username
+              });
             }
           });
         }

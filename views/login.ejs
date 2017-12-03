@@ -25,7 +25,14 @@
 		<div class="row main">
 			<div class="main-login main-center">
 
-				<form class="form-horizontal" method="post" action="login/<%= role %>">
+				<% if(role == 'agent')	{ %>
+					<form class="form-horizontal" method="post" action="login/<%= role %>">
+				<% } else if(role == 'user') { %>
+					<form class="form-horizontal" method="post" action="login/">
+				<% } else if(role == 'admin') { %>
+					<form class="form-horizontal" method="post" action="login/<%= role %>">
+				<% } 	%>
+
 					<div class="form-group">
 						<label for="username" class="cols-sm-2 control-label">Username</label>
 						<div class="cols-sm-10">
@@ -64,9 +71,6 @@
 
 				</form>
 
-				<% if(typeof username != 'undefined')	{ %>
-					<p style="color:red; text-align:center">Incorrect password</p>
-				<% }  %>
 			</div>
 
 		</div>
