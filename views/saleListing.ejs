@@ -1,6 +1,6 @@
 <!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" dir="ltr">
-
+<base href="/fa17g07/">
 <!-- Contains head of website -->
 <head>
     <% include partials/head %>
@@ -51,11 +51,11 @@
                 <!--For map and Images -->
                 <div class="col-sm-6">
                   <ul class="nav nav-tabs">
-                    <li class="active"><a data-toggle="tab" href="#home">Images</a></li>
-                    <li><a data-toggle="tab" href="#menu1">Map</a></li>
+                    <li class="active"><a data-toggle="tab" href="#images">Images</a></li>
+                    <li><a data-toggle="tab" href="#map">Map</a></li>
                   </ul>
                   <div class="tab-content">
-                    <div id="home" class="tab-pane fade in active">
+                    <div id="images" class="tab-pane fade in active">
                         <br>
                         <div class="col-xs-12" id="slider">
 
@@ -87,9 +87,10 @@
                             <br>
                         </div>
                     </div>
-                    <div id="menu1" class="tab-pane fade">
+                    <div id="map" class="tab-pane fade">
                         <br>
-                        <div style="height: 500px; width: 500px; border: 3px black solid; display: block;"><h1>MAP HERE</h1></div>
+                        <div class="mapContainer col-md-5" id="map"> </div>
+                        <!-- <div style="height: 500px; width: 500px; border: 3px black solid; display: block;"><h1>MAP HERE</h1></div> -->
                     </div>
                 </div>
                         
@@ -104,12 +105,57 @@
 </div><!-- Row Main -->
 
 
+<script>
+  function initMap() {
+    var latInput =  saleListing[0].lat;
+    var lngInput = saleListing[0].lon;
+
+
+    latInput = parseFloat(latInput);
+    lngInput = parseFloat(lngInput);
+
+    var uluru = {lat: latInput, lng: lngInput};
+
+    var map = new google.maps.Map(document.getElementById('map'), {
+      center: uluru,
+      mapTypeId: 'terrain'
+    });
+
+    // // Add the circle for this city to the map.
+    // var milesCircle = new google.maps.Circle({
+    //   strokeColor: '#FF0000',
+    //   strokeOpacity: 0.8,
+    //   strokeWeight: 2,
+    //   fillColor: '#FF0000',
+    //   fillOpacity: 0.35,
+    //   map: map,
+    //   center: uluru,
+    //   radius: milesRadius * 1609.34
+    // });
+
+
+      var marker = new google.maps.Marker({
+          position: uluru,
+          map: map,
+          title: saleListing[0].formattedAddress
+      });
+    
+
+    // var bounds = milesCircle.getBounds();
+    // map.fitBounds(bounds);
+
+
+  }
+</script>
     <!-- Contains body of page -->
     
     <!-- End of search box area -->
 
-
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPXF-zkLqKND8w5ktBN5bdlTkQSVbw950&libraries=places&callback=initMap" async defer></script>
   <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 </body>
+<foot>
+  <% include partials/footer %>
+</foot>
 </html>
