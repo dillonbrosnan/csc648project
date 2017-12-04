@@ -48,3 +48,7 @@ label{
 	font-size: 11px;
 	text-align: center;
 }
+
+#map{
+	height: 500px; 
+}
