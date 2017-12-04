@@ -4,7 +4,7 @@ var Promise = require('promise');
 var getSaleInfo = function(saleId){
 	return new Promise(function(resolve, reject){
 		
-		var sql = 'SELECT lotType, beds, baths, yearBuilt, lotSqFt, sqFt, price, formattedAddress, ' +
+		var sql = 'SELECT lotType, beds, baths, yearBuilt, lotSqFt, sqFt, price, formattedAddress, lat, lon, ' +
 		'description, SaleImages.imageId FROM Sale, SaleImages where SaleImages.saleId = ? and Sale.saleId = ?;';
 		
 		var array = [saleId, saleId];
