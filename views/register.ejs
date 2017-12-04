@@ -20,8 +20,14 @@
 
 		<div class="row main">
 			<div class="main-login main-center">
+<!-- 				local
 				<form class="form-horizontal" method="post" action="register/<%= role %>" onsubmit="return validateRegistration()">
-				
+				server -->
+				<% if(role == 'agent')	{ %>
+					<form class="form-horizontal" method="post" action="register/<%= role %>" onsubmit="return validateRegistration()">
+				<% } else if(role == 'user') { %>
+					<form class="form-horizontal" method="post" action="register/" onsubmit="return validateRegistration()">
+				<% } 	%>
 					<div class="form-group">
 						<label for="firstName" class="cols-sm-1 control-label">Your First Name</label>
 						<div class="cols-sm-5">
