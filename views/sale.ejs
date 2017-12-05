@@ -33,7 +33,7 @@
                   <div class="tag"><a href="forSale/<%= saleListings[i].saleId %>/"> $ <%= saleListings[i].price %> </a></div>
                   <div class="title"><a href="forSale/<%= saleListings[i].saleId %>/"> <%= saleListings[i].formattedAddress %> </a></div>
                   <div class="clearfix">
-                      <span class="meta-data">Sqft: <%= saleListings[i].sqFt %> SqFt , Beds: <%= saleListings[i].beds %>, Baths:  <%= saleListings[i].baths %> </span>
+                      <span class="meta-data">Sqft: <%= saleListings[i].sqFt %>, Beds: <%= saleListings[i].beds %>, Baths:  <%= saleListings[i].baths %></span>
                       <!-- <span class="meta-data pull-right"><a href=""><i class="fa fa-heart-o"></i> 4</a></span> -->
                   </div>
                   <div class="content">
@@ -48,13 +48,9 @@
     </div>
   </div>
   <script>
-
-    
+  function initMap() {
     var latInput = <%- JSON.stringify(lat) %>;
     var lngInput = <%- JSON.stringify(lon) %>;
-  function initMap() {
-    // var latInput = <%- JSON.stringify(lat) %>;
-    // var lngInput = <%- JSON.stringify(lon) %>;
     var milesRadius = <%= JSON.stringify(milesRadius) %>; 
     var saleListings = <%- JSON.stringify(saleListings) %>;
 
@@ -95,67 +91,6 @@
     var bounds = milesCircle.getBounds();
     map.fitBounds(bounds);
   }
-
-  //set distance to every location on window load
-  (function addEventsAndStuff() {
-     setLocationforListing(); 
-    })();
-
-     //convert lat and lng to distance from each search result
-     function getDistance(lat2,lon2) {
-      let lat1 = latInput, 
-          lon1 = lngInput;
-          
-      var R = 6371; // Radius of the earth in km
-      var dLat = deg2rad(lat2-lat1);  // deg2rad below
-      var dLon = deg2rad(lon2-lon1); 
-      var a = 
-              Math.sin(dLat/2) * Math.sin(dLat/2) +
-              Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
-              Math.sin(dLon/2) * Math.sin(dLon/2); 
-
-      var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
-      var d = R * c; // Distance in km
-      return d;
-    }
-    //convert degrees to radians
-    function deg2rad(deg) {
-      return deg * (Math.PI/180)
-    }
-
-    //sets the distance property to each listing 
-    function setLocationforListing(){
-      var listSection = document.getElementsByClassName('listContainer');
-        
-        for(let i = 0; i < listSection[0].children.length; i++){
-          if(listSection[0].children[i].className == 'row'){
-            var parent = listSection[0].children[i]; 
-          }
-        }
-
-        var children = [];
-        //get all childNodes
-        for (var i = 0; i < parent.childNodes.length; i++) {
-            if (parent.childNodes[i].className == "col-lg-4 col-md-4 col-sm-6") {
-              children.push(parent.childNodes[i]); 
-            }        
-        }
-
-
-        let childrenLength = children.length; 
-        var location = [], i, len;
-        
-        for (i = 0, len = children.length; i < len; i++) {
-          location.push(getDistance(children[i].attributes[2].nodeValue, children[i].attributes[3].nodeValue));
-        }
-
-        for(let i = 0; i < location.length; i++){
-          var att = document.createAttribute("distance");       // Create a "class" attribute
-          att.value = location[i];                           // Set the value of the class attribute
-          children[i].setAttributeNode(att);                          // Add the class attribute to <h1>
-        }
-    }
-
   </script>
   <script src="js/sale.js"></script> <!-- Client side code for sale.ejs -->
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPXF-zkLqKND8w5ktBN5bdlTkQSVbw950&libraries=places&callback=initMap" async defer></script>
