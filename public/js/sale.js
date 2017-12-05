@@ -17,6 +17,7 @@ if($( window ).width() >= 992)  {
 }
 });
 
+
     //set distance to every location on window load
     (function addEventsAndStuff() {
      setLocationforListing(); 
@@ -24,12 +25,18 @@ if($( window ).width() >= 992)  {
 
     //sort listings based on price acending order
     function acendingsort() {
-        var parent = document.getElementsByClassName('row');
+        var listSection = document.getElementsByClassName('listContainer');
+        
+        for(let i = 0; i < listSection[0].children.length; i++){
+          if(listSection[0].children[i].className == 'row'){
+            var parent = listSection[0].children[i]; 
+          }
+        }
 
         var children = [];
-        for (var i = 0; i < parent[0].childNodes.length; i++) {
-            if (parent[0].childNodes[i].className == "col-lg-4 col-md-4 col-sm-6") {
-              children.push(parent[0].childNodes[i]); 
+        for (var i = 0; i < parent.childNodes.length; i++) {
+            if (parent.childNodes[i].className == "col-lg-4 col-md-4 col-sm-6") {
+              children.push(parent.childNodes[i]); 
             }        
         }
         let childrenLength = children.length; 
@@ -41,21 +48,25 @@ if($( window ).width() >= 992)  {
         prices.sort(function(a, b) {return(a - b);});
 
          for (i = 0, len = prices.length; i < len; i++) {
-             parent[0].appendChild(findChild(prices[i], children));
-             $(parent).hide().appendTo(document.body).fadeIn(200);
+             parent.appendChild(findChild(prices[i], children));
+             $(listSection.parent).hide().appendTo(document.body.listSection).fadeIn(200);
          }
          document.getElementById("sortingbutton").setAttribute('onclick',  'decendingsort()');
          document.getElementById("sortingbutton").innerHTML = 'Prices <i class="fa fa-angle-double-up" aria-hidden="true"></i>';
     }
-
     //sort listings based on price in desending order
     function decendingsort() {
-        var parent = document.getElementsByClassName('row');
-
+      var listSection = document.getElementsByClassName('listContainer');
+      
+      for(let i = 0; i < listSection[0].children.length; i++){
+        if(listSection[0].children[i].className == 'row'){
+          var parent = listSection[0].children[i]; 
+        }
+      }
         var children = [];
-        for (var i = 0; i < parent[0].childNodes.length; i++) {
-            if (parent[0].childNodes[i].className == "col-lg-4 col-md-4 col-sm-6") {
-              children.push(parent[0].childNodes[i]); 
+        for (var i = 0; i < parent.childNodes.length; i++) {
+            if (parent.childNodes[i].className == "col-lg-4 col-md-4 col-sm-6") {
+              children.push(parent.childNodes[i]); 
             }        
         }
         let childrenLength = children.length; 
@@ -67,13 +78,12 @@ if($( window ).width() >= 992)  {
         prices.sort(function(a, b) {return(b - a);});
 
          for (i = 0, len = prices.length; i < len; i++) {
-             parent[0].appendChild(findChild(prices[i], children));
-             $(parent).hide().appendTo(document.body).fadeIn(200);
+             parent.appendChild(findChild(prices[i], children));
+             $(listSection.parent).hide().appendTo(document.body).fadeIn(200);
          }
          document.getElementById("sortingbutton").setAttribute('onclick',  'acendingsort()');
          document.getElementById("sortingbutton").innerHTML = 'Prices <i class="fa fa-angle-double-down" aria-hidden="true">';
     }
-
     //convert lat and lng to distance from each search result
     function getDistance(lat2,lon2) {
       let lat1 = 37.77397, 
@@ -91,7 +101,6 @@ if($( window ).width() >= 992)  {
       var d = R * c; // Distance in km
       return d;
     }
-
     //convert degrees to radians
     function deg2rad(deg) {
       return deg * (Math.PI/180)
@@ -99,15 +108,22 @@ if($( window ).width() >= 992)  {
 
     //sets the distance property to each listing 
     function setLocationforListing(){
-      var parent = document.getElementsByClassName('row');
+      var listSection = document.getElementsByClassName('listContainer');
+        
+        for(let i = 0; i < listSection[0].children.length; i++){
+          if(listSection[0].children[i].className == 'row'){
+            var parent = listSection[0].children[i]; 
+          }
+        }
 
         var children = [];
         //get all childNodes
-        for (var i = 0; i < parent[0].childNodes.length; i++) {
-            if (parent[0].childNodes[i].className == "col-lg-4 col-md-4 col-sm-6") {
-              children.push(parent[0].childNodes[i]); 
+        for (var i = 0; i < parent.childNodes.length; i++) {
+            if (parent.childNodes[i].className == "col-lg-4 col-md-4 col-sm-6") {
+              children.push(parent.childNodes[i]); 
             }        
         }
+
 
         let childrenLength = children.length; 
         var location = [], i, len;
@@ -125,16 +141,21 @@ if($( window ).width() >= 992)  {
 
     //find houses nearest the users search input location
     function locationDecendingSort() {
-        var parent = document.getElementsByClassName('row');
+        var listSection = document.getElementsByClassName('listContainer');
+        
+        for(let i = 0; i < listSection[0].children.length; i++){
+          if(listSection[0].children[i].className == 'row'){
+            var parent = listSection[0].children[i]; 
+          }
+        }
 
         var children = [];
         //get all childNodes
-        for (var i = 0; i < parent[0].childNodes.length; i++) {
-            if (parent[0].childNodes[i].className == "col-lg-4 col-md-4 col-sm-6") {
-              children.push(parent[0].childNodes[i]); 
+        for (var i = 0; i < parent.childNodes.length; i++) {
+            if (parent.childNodes[i].className == "col-lg-4 col-md-4 col-sm-6") {
+              children.push(parent.childNodes[i]); 
             }        
         }
-
         let childrenLength = children.length; 
         var distance = [], i, len;
         
@@ -145,37 +166,42 @@ if($( window ).width() >= 992)  {
         distance.sort(function(a, b) {return(a - b);});
 
          for (i = 0, len = distance.length; i < len; i++) {
-             parent[0].appendChild(findChild(distance[i], children));
-             $(parent).hide().appendTo(document.body).fadeIn(200);
+             parent.appendChild(findChild(distance[i], children));
+             $(listSection.parent).hide().appendTo(document.body).fadeIn(200);
          }
 
-         document.getElementById("sortLocation").setAttribute('onclick',  'locationAsendingSort()');
-         document.getElementById("sortLocation").innerHTML = 'Location <i class="fa fa-location-arrow" aria-hidden="true"></i>';
+        //  document.getElementById("sortLocation").setAttribute('onclick',  'locationAsendingSort()');
+        //  document.getElementById("sortLocation").innerHTML = 'Location <i class="fa fa-location-arrow" aria-hidden="true"></i>';
     }
-
+    
     //find houses further the users search input location
     function locationAsendingSort() {
-        var parent = document.getElementsByClassName('row');
-
-        var children = [];
-        for (var i = 0; i < parent[0].childNodes.length; i++) {
-            if (parent[0].childNodes[i].className == "col-lg-4 col-md-4 col-sm-6") {
-              children.push(parent[0].childNodes[i]); 
-            }        
+      var listSection = document.getElementsByClassName('listContainer');
+        
+        for(let i = 0; i < listSection[0].children.length; i++){
+          if(listSection[0].children[i].className == 'row'){
+            var parent = listSection[0].children[i]; 
+          }
         }
 
+        var children = [];
+        for (var i = 0; i < parent.childNodes.length; i++) {
+            if (parent.childNodes[i].className == "col-lg-4 col-md-4 col-sm-6") {
+              children.push(parent.childNodes[i]); 
+            }        
+        }
         let childrenLength = children.length; 
         var distance = [], i, len;
+        
         for (i = 0, len = children.length; i < len; i++) {
           distance.push(parseInt(children[i].attributes[1].nodeValue, 10));
         }
         distance.sort(function(a, b) {return(b - a);});
 
          for (i = 0, len = distance.length; i < len; i++) {
-             parent[0].appendChild(findChild(distance[i], children));
-             $(parent).hide().appendTo(document.body).fadeIn(200);
+             parent.appendChild(findChild(distance[i], children));
+             $(listSection.parent).hide().appendTo(document.body).fadeIn(200);
          }
-         
          document.getElementById("sortLocation").setAttribute('onclick',  'locationDecendingSort()');
          document.getElementById("sortLocation").innerHTML = 'Location <i class="fa fa-map-marker" aria-hidden="true"></i>';
     }
@@ -184,6 +210,7 @@ if($( window ).width() >= 992)  {
     function findChild(value, children){
       for(let i = 0; i < children.length; i++){
         for(let j = 1; j < children[i].attributes.length; j++){
+
           if(children[i].attributes[j].name == 'price'){
             if(children[i].attributes[j].nodeValue == value)
             return children[i]; 
@@ -195,3 +222,4 @@ if($( window ).width() >= 992)  {
         }
       }
     }
+
