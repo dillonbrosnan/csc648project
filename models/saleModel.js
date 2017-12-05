@@ -16,20 +16,16 @@ var getSaleListings = function (lat, lon, milesRadius)	{
 
 	    pool.getConnection(function(err, connection){ //Get connection to pool
 	      
-	      if(err) console.log(err);
+		if(err) reject(err);
 
-	      connection.query(sql, array, function (err, rows) {
-
-
-	      		console.log(this.sql);
+		connection.query(sql, array, function (err, rows) {
 	          
-	          if(err)	{
-	          	return reject(err);
-	          }
-	          resolve(rows);
-	      })
+			if(err)	return reject(err);
 
-	      connection.release();
+			resolve(rows);
+		})
+
+		connection.release();
 
       	}); //End of connection pool
 
@@ -62,20 +58,17 @@ var getAdvancedSaleListings = function (lat, lon, milesRadius, bedsMin, bedsMax,
 
 	    pool.getConnection(function(err, connection){ //Get connection to pool
 	      
-	      if(err) console.log(err);
+		if(err) reject(err);
 
-	      connection.query(sql, array, function (err, rows) {
-
-	      		console.log(this.sql);
+		connection.query(sql, array, function (err, rows) {
 	          
-	          if(err)	{
-	          	console.log(err);
-	          	return reject(err);
-	          }
-	          resolve(rows);
-	      })
+			if(err)	return reject(err);
 
-	      connection.release();
+			resolve(rows);
+	      
+		})
+
+		connection.release();
 
       	}); //End of connection pool
 

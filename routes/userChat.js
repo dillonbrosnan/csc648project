@@ -11,7 +11,7 @@ router.get('/:saleId', function(req, res) {
 	if(req.session.role != "user")	{
 		res.redirect("/login/");
 	}	else if(req.params.saleId)	{
-		var userId = req.session.userId;
+		var userId = req.session.id;
 		var saleId = req.params.saleId;
 		UserChatModel.getSaleMessages(saleId, userId)
 		.then(function(messages)  {
@@ -30,7 +30,7 @@ router.get('/:saleId', function(req, res) {
 
 router.post('/', function(req, res) {
 
-	var userId = req.session.userId, role = req.session.role;
+	var userId = req.session.id, role = req.session.role;
 	var messageContent = req.body.messageContent;
 	var saleId = req.body.saleId;
 	req.checkBody('messageContent', 'Message must be less than 255 characters').notEmpty().isLength({ min: 0, max: 255 });

@@ -11,7 +11,7 @@ router.get('/',function(req,res){
   console.log(req.session.role);
   console.log(req.session.agentId);
   if(req.session.role != "agent") {
-    res.redirect('/login/agent/');
+    res.redirect('/fa17g07/login/agent/');
   } else  {
   res.render('post');
   }
@@ -76,7 +76,7 @@ router.post('/', function(req,res){
       res.send("File wrong");
   }
   else  {
-    req.files.saleImage.mv('./public/saleImages/' + imageId + '.jpg', function(err)  {
+    req.files.saleImage.mv('public/images/' + imageId + '.jpg', function(err)  {
       if(err) {
         console.log(err);
         res.send(err);
@@ -91,7 +91,7 @@ router.post('/', function(req,res){
       hoa, lotType, price, lat, lng, formattedAddress, saleId, datePosted, description)]); 
     })
     .then(function() {
-      res.redirect('/forSale/' + saleId + '/')
+      res.redirect('/fa17g07/forSale/' + saleId + '/')
     })
     .catch(function(err) {
       console.log(err);

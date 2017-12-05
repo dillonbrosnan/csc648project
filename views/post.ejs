@@ -1,10 +1,11 @@
 <!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" dir="ltr">
+<base href="/fa17g07/">
 
 <!-- Contains head of website -->
 <head>
   <% include partials/head %>
-  <link rel="stylesheet" href="/css/post.css"></link>
+  <link rel="stylesheet" href="css/post.css"></link>
 </head>
 
 
@@ -18,7 +19,7 @@
 
     <div class="row main">
       <div class="main-login main-center">
-        <form ref='postForm' action="/agent/post/" method="post" id="postForm" enctype="multipart/form-data" onsubmit="return postValidation()">
+        <form ref='postForm' action="agent/post/" method="post" id="postForm" enctype="multipart/form-data" onsubmit="return postValidation()">
           <input id="latInput" name="lat"></input>
           <input id="lngInput" name="lng"></input>
           <div class="form-group">
@@ -91,9 +92,9 @@
     <!-- End of search box area -->
 
 
-  <script src="/js/post.js"></script> <!-- Contains client side javascript -->
+  <script src="js/post.js"></script> <!-- Contains client side javascript -->
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPXF-zkLqKND8w5ktBN5bdlTkQSVbw950&libraries=places&callback=initAutocomplete" async defer></script>
-  <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 </body>
 </html>
