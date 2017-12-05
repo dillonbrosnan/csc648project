@@ -80,7 +80,7 @@
       </div>
     </nav>
   </div>
-
+  <div class="listContainer">
 <div class="filterContainer">
 <button onclick="acendingsort()" id="sortingbutton">Price <i class="fa fa-angle-double-down" aria-hidden="true"></i></button>
 <button onclick="locationDecendingSort()" id="sortLocation">Location <i class="fa fa-map-marker" aria-hidden="true"></i></button>
@@ -181,6 +181,7 @@
         </div>
     </div>
 </div>
+</div>
 </body>
 
    
@@ -193,12 +194,18 @@
 
     //sort listings based on price acending order
     function acendingsort() {
-        var parent = document.getElementsByClassName('row');
+        var listSection = document.getElementsByClassName('listContainer');
+        
+        for(let i = 0; i < listSection[0].children.length; i++){
+          if(listSection[0].children[i].className == 'row'){
+            var parent = listSection[0].children[i]; 
+          }
+        }
 
         var children = [];
-        for (var i = 0; i < parent[0].childNodes.length; i++) {
-            if (parent[0].childNodes[i].className == "col-lg-4 col-md-4 col-sm-6") {
-              children.push(parent[0].childNodes[i]); 
+        for (var i = 0; i < parent.childNodes.length; i++) {
+            if (parent.childNodes[i].className == "col-lg-4 col-md-4 col-sm-6") {
+              children.push(parent.childNodes[i]); 
             }        
         }
         let childrenLength = children.length; 
@@ -210,20 +217,25 @@
         prices.sort(function(a, b) {return(a - b);});
 
          for (i = 0, len = prices.length; i < len; i++) {
-             parent[0].appendChild(findChild(prices[i], children));
-             $(parent).hide().appendTo(document.body).fadeIn(200);
+             parent.appendChild(findChild(prices[i], children));
+             $(listSection.parent).hide().appendTo(document.body.listSection).fadeIn(200);
          }
          document.getElementById("sortingbutton").setAttribute('onclick',  'decendingsort()');
          document.getElementById("sortingbutton").innerHTML = 'Prices <i class="fa fa-angle-double-up" aria-hidden="true"></i>';
     }
     //sort listings based on price in desending order
     function decendingsort() {
-        var parent = document.getElementsByClassName('row');
-
+      var listSection = document.getElementsByClassName('listContainer');
+      
+      for(let i = 0; i < listSection[0].children.length; i++){
+        if(listSection[0].children[i].className == 'row'){
+          var parent = listSection[0].children[i]; 
+        }
+      }
         var children = [];
-        for (var i = 0; i < parent[0].childNodes.length; i++) {
-            if (parent[0].childNodes[i].className == "col-lg-4 col-md-4 col-sm-6") {
-              children.push(parent[0].childNodes[i]); 
+        for (var i = 0; i < parent.childNodes.length; i++) {
+            if (parent.childNodes[i].className == "col-lg-4 col-md-4 col-sm-6") {
+              children.push(parent.childNodes[i]); 
             }        
         }
         let childrenLength = children.length; 
@@ -235,8 +247,8 @@
         prices.sort(function(a, b) {return(b - a);});
 
          for (i = 0, len = prices.length; i < len; i++) {
-             parent[0].appendChild(findChild(prices[i], children));
-             $(parent).hide().appendTo(document.body).fadeIn(200);
+             parent.appendChild(findChild(prices[i], children));
+             $(listSection.parent).hide().appendTo(document.body).fadeIn(200);
          }
          document.getElementById("sortingbutton").setAttribute('onclick',  'acendingsort()');
          document.getElementById("sortingbutton").innerHTML = 'Prices <i class="fa fa-angle-double-down" aria-hidden="true">';
@@ -265,13 +277,19 @@
 
     //sets the distance property to each listing 
     function setLocationforListing(){
-      var parent = document.getElementsByClassName('row');
+      var listSection = document.getElementsByClassName('listContainer');
+        
+        for(let i = 0; i < listSection[0].children.length; i++){
+          if(listSection[0].children[i].className == 'row'){
+            var parent = listSection[0].children[i]; 
+          }
+        }
 
         var children = [];
         //get all childNodes
-        for (var i = 0; i < parent[0].childNodes.length; i++) {
-            if (parent[0].childNodes[i].className == "col-lg-4 col-md-4 col-sm-6") {
-              children.push(parent[0].childNodes[i]); 
+        for (var i = 0; i < parent.childNodes.length; i++) {
+            if (parent.childNodes[i].className == "col-lg-4 col-md-4 col-sm-6") {
+              children.push(parent.childNodes[i]); 
             }        
         }
 
@@ -292,13 +310,19 @@
 
     //find houses nearest the users search input location
     function locationDecendingSort() {
-        var parent = document.getElementsByClassName('row');
+        var listSection = document.getElementsByClassName('listContainer');
+        
+        for(let i = 0; i < listSection[0].children.length; i++){
+          if(listSection[0].children[i].className == 'row'){
+            var parent = listSection[0].children[i]; 
+          }
+        }
 
         var children = [];
         //get all childNodes
-        for (var i = 0; i < parent[0].childNodes.length; i++) {
-            if (parent[0].childNodes[i].className == "col-lg-4 col-md-4 col-sm-6") {
-              children.push(parent[0].childNodes[i]); 
+        for (var i = 0; i < parent.childNodes.length; i++) {
+            if (parent.childNodes[i].className == "col-lg-4 col-md-4 col-sm-6") {
+              children.push(parent.childNodes[i]); 
             }        
         }
         let childrenLength = children.length; 
@@ -311,21 +335,27 @@
         distance.sort(function(a, b) {return(a - b);});
 
          for (i = 0, len = distance.length; i < len; i++) {
-             parent[0].appendChild(findChild(distance[i], children));
-             $(parent).hide().appendTo(document.body).fadeIn(200);
+             parent.appendChild(findChild(distance[i], children));
+             $(listSection.parent).hide().appendTo(document.body).fadeIn(200);
          }
 
-         document.getElementById("sortLocation").setAttribute('onclick',  'locationAsendingSort()');
-         document.getElementById("sortLocation").innerHTML = 'Location <i class="fa fa-location-arrow" aria-hidden="true"></i>';
+        //  document.getElementById("sortLocation").setAttribute('onclick',  'locationAsendingSort()');
+        //  document.getElementById("sortLocation").innerHTML = 'Location <i class="fa fa-location-arrow" aria-hidden="true"></i>';
     }
     //find houses further the users search input location
     function locationAsendingSort() {
-        var parent = document.getElementsByClassName('row');
+      var listSection = document.getElementsByClassName('listContainer');
+        
+        for(let i = 0; i < listSection[0].children.length; i++){
+          if(listSection[0].children[i].className == 'row'){
+            var parent = listSection[0].children[i]; 
+          }
+        }
 
         var children = [];
-        for (var i = 0; i < parent[0].childNodes.length; i++) {
-            if (parent[0].childNodes[i].className == "col-lg-4 col-md-4 col-sm-6") {
-              children.push(parent[0].childNodes[i]); 
+        for (var i = 0; i < parent.childNodes.length; i++) {
+            if (parent.childNodes[i].className == "col-lg-4 col-md-4 col-sm-6") {
+              children.push(parent.childNodes[i]); 
             }        
         }
         let childrenLength = children.length; 
@@ -337,8 +367,8 @@
         distance.sort(function(a, b) {return(b - a);});
 
          for (i = 0, len = distance.length; i < len; i++) {
-             parent[0].appendChild(findChild(distance[i], children));
-             $(parent).hide().appendTo(document.body).fadeIn(200);
+             parent.appendChild(findChild(distance[i], children));
+             $(listSection.parent).hide().appendTo(document.body).fadeIn(200);
          }
          document.getElementById("sortLocation").setAttribute('onclick',  'locationDecendingSort()');
          document.getElementById("sortLocation").innerHTML = 'Location <i class="fa fa-map-marker" aria-hidden="true"></i>';
