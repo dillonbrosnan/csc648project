@@ -1,19 +1,13 @@
 <!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" dir="ltr">
-
 <!-- Contains head of website -->
 <head>
   <% include partials/head %>
   <link rel="stylesheet" href="/css/sale.css"></link> <!-- styleing for sale page -->
-  
 </head>
-
-
 <body>
-
   <!-- Contains header of website -->
   <% include partials/header %>
-
   <!-- Contains body of page -->
   <div class="container-fluid saleContainer">
     <div class="btn-group btn-group-justified hidden-md hidden-lg">
@@ -24,10 +18,13 @@
       
     </div>
     <div class="listContainer">
+      <div class="filterContainer">
+          <button onclick="acendingsort()" id="sortingbutton">Price <i class="fa fa-angle-double-down" aria-hidden="true"></i></button>
+          <button onclick="locationDecendingSort()" id="sortLocation">Location <i class="fa fa-map-marker" aria-hidden="true"></i></button>
+      </div>
         <div class="row" >
       <% for(var i = 0; i < saleListings.length; i++) { %>
-
-        <div class="col-lg-4 col-md-4 col-sm-6">
+        <div class="col-lg-4 col-md-4 col-sm-6" price="<%= saleListings[i].price %>" lat="<%= saleListings[i].lat %>" lng="<%= saleListings[i].lng %>">
             <div class="thumbnail img-thumb-bg">
                 <div class="overlay"></div>
                 <img alt="img" class="img-responsive" src="/images/house1.jpeg"> <!-- pull image from db --> 
@@ -49,21 +46,16 @@
         </div>
     </div>
   </div>
-
- 
-
   <script>
   function initMap() {
     var latInput = <%- JSON.stringify(lat) %>;
     var lngInput = <%- JSON.stringify(lon) %>;
-    var milesRadius = <%= JSON.stringify(milesRadius) %>
+    var milesRadius = <%= JSON.stringify(milesRadius) %>; 
     var saleListings = <%- JSON.stringify(saleListings) %>;
-
 
     latInput = parseFloat(latInput);
     lngInput = parseFloat(lngInput);
     milesRadius = parseInt(milesRadius);
-
     var uluru = {lat: latInput, lng: lngInput};
 
     var map = new google.maps.Map(document.getElementById('map'), {
@@ -97,8 +89,6 @@
 
     var bounds = milesCircle.getBounds();
     map.fitBounds(bounds);
-
-
   }
   </script>
   <script src="/js/sale.js"></script> <!-- Client side code for sale.ejs -->

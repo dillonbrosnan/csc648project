@@ -1,0 +1,373 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" dir="ltr">
+
+<!-- Contains head of website -->
+<head>
+<!-- Contains head of website
+  <% include partials/head %>-->
+  <meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8" />
+
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="google" value="notranslate">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <link rel="stylesheet" href="../public/css/sale.css"></link>
+</head>
+
+
+<body>
+
+  <!-- Contains header of website 
+  <% include partials/header %>
+  <! — views/partials/header.ejs -->
+
+<!-- <nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">My App</a>
+    </div>
+    <div class="collapse navbar-collapse" id="navbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/">Home</a></li>
+        <li><a href="/login">Login</a></li>
+        <li><a href="/register">Register</a></li>
+      </ul>
+    </div>
+  </div>
+</nav> -->
+<div class="container navigation">
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar2">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#"><img src="../public/images/logo.png" alt="Dispute Bills" style="width: 50px; ">
+          </a>
+        </div>
+        <div id="navbar2" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#">Rent</a></li>
+            <li><a href="#">Buy</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Settings <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="#">Profile</a></li>
+                <li><a href="#">Post Listing</a></li>
+                <li><a href="#">Contact Support</a></li> 
+                <li><a href="#">Log out</a></li>
+                <li class="divider"></li>
+                <li class="dropdown-header">Nav header</li>
+                <li><a href="#">Separated link</a></li>
+                <li><a href="#">One more separated link</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+
+<div class="filterContainer">
+<button onclick="acendingsort()" id="sortingbutton">Price <i class="fa fa-angle-double-down" aria-hidden="true"></i></button>
+<button onclick="locationDecendingSort()" id="sortLocation">Location <i class="fa fa-map-marker" aria-hidden="true"></i></button>
+</div>
+    
+<div class="row">
+  <div class="col-lg-4 col-md-4 col-sm-6" price="300" lat="100" lng="400">
+        <div class="thumbnail img-thumb-bg" class="200.00">
+            <div class="overlay"></div>
+            <img alt="img" class="img-responsive" src="../public/images/house1.jpeg"> 
+            <div class="caption">
+                <div class="tag"><a href="/forSale/<%= saleListings[i].saleId %>/">300.00</a></div>
+                <div class="title"><a href="/forSale/<%= saleListings[i].saleId %>/">9142 22 ave, san fransico </a></div>
+                <div class="clearfix">
+                    <span class="meta-data">Sqft: 656 , 3Beds , 4 Baths</span>
+                    <span class="meta-data pull-right"><a href=""><i class="fa fa-heart-o"></i> 4</a></span>
+                </div>
+                <div class="content">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo nulla porro qui quo expedita voluptas ab iure dolore.</p>
+                    <hr>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4 col-md-4 col-sm-6" price="100" lat="1000" lng="400" >
+            <div class="thumbnail img-thumb-bg" class="200.00">
+                <div class="overlay"></div>
+                <img alt="img" class="img-responsive" src="../public/images/house2.jpg"> 
+                <div class="caption">
+                    <div class="tag"><a href="/forSale/<%= saleListings[i].saleId %>/">100.00</a></div>
+                    <div class="title"><a href="/forSale/<%= saleListings[i].saleId %>/">2242 22 ave, san fransico </a></div>
+                    <div class="clearfix">
+                        <span class="meta-data">Sqft: 656 , 3Beds , 4 Baths</span>
+                        <span class="meta-data pull-right"><a href=""><i class="fa fa-heart-o"></i> 4</a></span>
+                    </div>
+                    <div class="content">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo nulla porro qui quo expedita voluptas ab iure dolore.</p>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-4 col-sm-6" price="200" lat="100" lng="4002">
+                <div class="thumbnail img-thumb-bg" class="200.00">
+                    <div class="overlay"></div>
+                    <img alt="img" class="img-responsive" src="../public/images/house3.jpg"> 
+                    <div class="caption">
+                        <div class="tag"><a href="/forSale/<%= saleListings[i].saleId %>/" class="price" name="price">200.00</a></div>
+                        <div class="title"><a href="/forSale/<%= saleListings[i].saleId %>/" class="formattedAddress" name="formattedAddress">1142 22 ave, san fransico </a></div>
+                        <div class="clearfix">
+                            <span class="meta-data">Sqft: 656 , 3Beds , 4 Baths</span>
+                            <span class="meta-data pull-right"><a href=""><i class="fa fa-heart-o"></i> 4</a></span>
+                        </div>
+                        <div class="content">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo nulla porro qui quo expedita voluptas ab iure dolore.</p>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <div class="col-lg-4 col-md-4 col-sm-6" price="500" lat="13300" lng="400" >
+            <div class="thumbnail img-thumb-bg" class="500.00">
+                <div class="overlay"></div>
+                <img alt="img" class="img-responsive" src="../public/images/house4.jpg"> 
+                <div class="caption">
+                    <div class="tag"><a href="/forSale/<%= saleListings[i].saleId %>/" class="price" name="price">500.00</a></div>
+                    <div class="title"><a href="/forSale/<%= saleListings[i].saleId %>/" class="formattedAddress" name="formattedAddress">1142 22 ave, san fransico </a></div>
+                    <div class="clearfix">
+                        <span class="meta-data">Sqft: 656 , 3Beds , 4 Baths</span>
+                        <span class="meta-data pull-right"><a href=""><i class="fa fa-heart-o"></i> 4</a></span>
+                    </div>
+                    <div class="content">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo nulla porro qui quo expedita voluptas ab iure dolore.</p>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+    <div class="col-lg-4 col-md-4 col-sm-6" price="20" lat="100" lng="4400" >
+        <div class="thumbnail img-thumb-bg" class="20.00">
+            <div class="overlay"></div>
+            <img alt="img" class="img-responsive" src="../public/images/house5.jpg"> 
+            <div class="caption">
+                <div class="tag"><a href="/forSale/<%= saleListings[i].saleId %>/" class="price" name="price">20.00</a></div>
+                <div class="title"><a href="/forSale/<%= saleListings[i].saleId %>/" class="formattedAddress" name="formattedAddress">1142 22 ave, san fransico </a></div>
+                <div class="clearfix">
+                    <span class="meta-data">Sqft: 656 , 3Beds , 4 Baths</span>
+                    <span class="meta-data pull-right"><a href=""><i class="fa fa-heart-o"></i> 4</a></span>
+                </div>
+                <div class="content">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo nulla porro qui quo expedita voluptas ab iure dolore.</p>
+                    <hr>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+   
+<script>
+
+    //set distance to every location on window load
+    (function addEventsAndStuff() {
+     setLocationforListing(); 
+    })();
+
+    //sort listings based on price acending order
+    function acendingsort() {
+        var parent = document.getElementsByClassName('row');
+
+        var children = [];
+        for (var i = 0; i < parent[0].childNodes.length; i++) {
+            if (parent[0].childNodes[i].className == "col-lg-4 col-md-4 col-sm-6") {
+              children.push(parent[0].childNodes[i]); 
+            }        
+        }
+        let childrenLength = children.length; 
+        var prices = [], i, len;
+
+        for (i = 0, len = children.length; i < len; i++) {
+          prices.push(parseInt(children[i].attributes[1].value, 10));
+        }
+        prices.sort(function(a, b) {return(a - b);});
+
+         for (i = 0, len = prices.length; i < len; i++) {
+             parent[0].appendChild(findChild(prices[i], children));
+             $(parent).hide().appendTo(document.body).fadeIn(200);
+         }
+         document.getElementById("sortingbutton").setAttribute('onclick',  'decendingsort()');
+         document.getElementById("sortingbutton").innerHTML = 'Prices <i class="fa fa-angle-double-up" aria-hidden="true"></i>';
+    }
+    //sort listings based on price in desending order
+    function decendingsort() {
+        var parent = document.getElementsByClassName('row');
+
+        var children = [];
+        for (var i = 0; i < parent[0].childNodes.length; i++) {
+            if (parent[0].childNodes[i].className == "col-lg-4 col-md-4 col-sm-6") {
+              children.push(parent[0].childNodes[i]); 
+            }        
+        }
+        let childrenLength = children.length; 
+        var prices = [], i, len;
+        
+        for (i = 0, len = children.length; i < len; i++) {
+          prices.push(parseInt(children[i].attributes[1].nodeValue, 10));
+        }
+        prices.sort(function(a, b) {return(b - a);});
+
+         for (i = 0, len = prices.length; i < len; i++) {
+             parent[0].appendChild(findChild(prices[i], children));
+             $(parent).hide().appendTo(document.body).fadeIn(200);
+         }
+         document.getElementById("sortingbutton").setAttribute('onclick',  'acendingsort()');
+         document.getElementById("sortingbutton").innerHTML = 'Prices <i class="fa fa-angle-double-down" aria-hidden="true">';
+    }
+    //convert lat and lng to distance from each search result
+    function getDistance(lat2,lon2) {
+      let lat1 = 37.77397, 
+          lon1 = -122.431297;
+          
+      var R = 6371; // Radius of the earth in km
+      var dLat = deg2rad(lat2-lat1);  // deg2rad below
+      var dLon = deg2rad(lon2-lon1); 
+      var a = 
+              Math.sin(dLat/2) * Math.sin(dLat/2) +
+              Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
+              Math.sin(dLon/2) * Math.sin(dLon/2); 
+
+      var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+      var d = R * c; // Distance in km
+      return d;
+    }
+    //convert degrees to radians
+    function deg2rad(deg) {
+      return deg * (Math.PI/180)
+    }
+
+    //sets the distance property to each listing 
+    function setLocationforListing(){
+      var parent = document.getElementsByClassName('row');
+
+        var children = [];
+        //get all childNodes
+        for (var i = 0; i < parent[0].childNodes.length; i++) {
+            if (parent[0].childNodes[i].className == "col-lg-4 col-md-4 col-sm-6") {
+              children.push(parent[0].childNodes[i]); 
+            }        
+        }
+
+
+        let childrenLength = children.length; 
+        var location = [], i, len;
+        
+        for (i = 0, len = children.length; i < len; i++) {
+          location.push(getDistance(children[i].attributes[2].nodeValue, children[i].attributes[3].nodeValue));
+        }
+
+        for(let i = 0; i < location.length; i++){
+          var att = document.createAttribute("distance");       // Create a "class" attribute
+          att.value = location[i];                           // Set the value of the class attribute
+          children[i].setAttributeNode(att);                          // Add the class attribute to <h1>
+        }
+    }
+
+    //find houses nearest the users search input location
+    function locationDecendingSort() {
+        var parent = document.getElementsByClassName('row');
+
+        var children = [];
+        //get all childNodes
+        for (var i = 0; i < parent[0].childNodes.length; i++) {
+            if (parent[0].childNodes[i].className == "col-lg-4 col-md-4 col-sm-6") {
+              children.push(parent[0].childNodes[i]); 
+            }        
+        }
+        let childrenLength = children.length; 
+        var distance = [], i, len;
+        
+        for (i = 0, len = children.length; i < len; i++) {
+          distance.push(children[i].attributes[4].nodeValue);
+        }
+
+        distance.sort(function(a, b) {return(a - b);});
+
+         for (i = 0, len = distance.length; i < len; i++) {
+             parent[0].appendChild(findChild(distance[i], children));
+             $(parent).hide().appendTo(document.body).fadeIn(200);
+         }
+
+         document.getElementById("sortLocation").setAttribute('onclick',  'locationAsendingSort()');
+         document.getElementById("sortLocation").innerHTML = 'Location <i class="fa fa-location-arrow" aria-hidden="true"></i>';
+    }
+    //find houses further the users search input location
+    function locationAsendingSort() {
+        var parent = document.getElementsByClassName('row');
+
+        var children = [];
+        for (var i = 0; i < parent[0].childNodes.length; i++) {
+            if (parent[0].childNodes[i].className == "col-lg-4 col-md-4 col-sm-6") {
+              children.push(parent[0].childNodes[i]); 
+            }        
+        }
+        let childrenLength = children.length; 
+        var distance = [], i, len;
+        
+        for (i = 0, len = children.length; i < len; i++) {
+          distance.push(parseInt(children[i].attributes[1].nodeValue, 10));
+        }
+        distance.sort(function(a, b) {return(b - a);});
+
+         for (i = 0, len = distance.length; i < len; i++) {
+             parent[0].appendChild(findChild(distance[i], children));
+             $(parent).hide().appendTo(document.body).fadeIn(200);
+         }
+         document.getElementById("sortLocation").setAttribute('onclick',  'locationDecendingSort()');
+         document.getElementById("sortLocation").innerHTML = 'Location <i class="fa fa-map-marker" aria-hidden="true"></i>';
+    }
+
+    //helper function to find child divs of parent class
+    function findChild(value, children){
+            for(let i = 0; i < children.length; i++){
+              for(let j = 1; j < children[i].attributes.length; j++){
+
+                if(children[i].attributes[j].name == 'price'){
+                  if(children[i].attributes[j].nodeValue == value)
+                  return children[i]; 
+                } else if (children[i].attributes[j].name == 'distance'){
+                  if(children[i].attributes[j].nodeValue == value){
+                    return children[i]; 
+                  }
+                }
+              }
+            }
+         }
+
+
+    </script>
+
+  <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPXF-zkLqKND8w5ktBN5bdlTkQSVbw950&libraries=places&callback=initAutocomplete" async defer></script> -->
+  <!--<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+</html>

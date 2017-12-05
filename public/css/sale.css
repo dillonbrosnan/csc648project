@@ -149,3 +149,51 @@ a {
   .img-thumb-bg:hover .caption .content {
 	display: block;
   }
+
+	.col{
+		width: 400px; 
+	}
+
+	.row{
+		height: 900px; 
+		overflow: scroll; 
+	}
+
+#sortingbutton, #sortLocation{
+	display: inline-block;
+  border-radius: 4px;
+  background-color: #2c9e2c;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 28px;
+  width: 200px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+#sortingbutton i,  #sortLocation i {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+#sortingbutton i:after, #sortLocation i:after {
+ 
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+#sortingbutton:hover i, #sortLocation:hover i{
+  padding-right: 10px;
+}
+
+#sortingbutton i:after, #sortLocation i:after {
+  opacity: 1;
+  right: 0;
+}
