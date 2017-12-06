@@ -35,15 +35,15 @@ var checkFormattedAddress = function (formattedAddress)	{
 
 }
 
-var insertPosting = function(beds, baths, sqFt, lotSqFt, yearBuilt, hoa, lotType, price, lat, lng, formattedAddress, saleId, datePosted, description)	{
+var insertPosting = function(beds, baths, sqFt, lotSqFt, yearBuilt, hoa, lotType, price, lat, lng, formattedAddress, saleId, datePosted, description, agentId)	{
 
 	return new Promise(function(resolve, reject)	{
 
-		var array = [beds, baths, sqFt, lotSqFt, yearBuilt, hoa, lotType, price, lat, lng, formattedAddress, saleId, datePosted, description];
+		var array = [beds, baths, sqFt, lotSqFt, yearBuilt, hoa, lotType, price, lat, lng, formattedAddress, saleId, datePosted, description, agentId];
 		
 		var insertPostQuery = "INSERT INTO `fa17g07`.`Sale` (`beds`, `baths`, `sqFt`, `lotSqFt`, `yearBuilt`, `hoa`, " +
-      		"`lotType`, `price`, `lat`, `lon`, `formattedAddress`, `saleId`, `datePosted`, `description`) " +
-			"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+      		"`lotType`, `price`, `lat`, `lon`, `formattedAddress`, `saleId`, `datePosted`, `description`, `agentId`) " +
+			"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
 	    pool.getConnection(function(err, connection){ //Get connection to pool
 

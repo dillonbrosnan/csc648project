@@ -43,22 +43,22 @@ router.post('/',function(req,res){
       if(usernameEmailResult.length > 0)  { //Logic for if user exists should be put in here
         if(usernameEmailResult[0].username == username && usernameEmailResult[0].email == email)  {
           console.log("Email and username taken");
-          res.redirect('/fa17g07/register');
+          res.redirect('../register');
         } else if(usernameEmailResult[0].username == username) {
           console.log("Username taken");
-          res.redirect('/fa17g07/register'); 
+          res.redirect('../register'); 
         } else  {
           console.log("Email taken");
-          res.redirect('/fa17g07/register');
+          res.redirect('../register');
         }
       } else  { //Logic for creating user should be put in here
         connection.query(insertUserQuery, [userId, hash, email, firstName, lastName, username, lat, lng, formattedAddress], function (err, registrationResult)  {
         if(err) {
           console.log(err);
-          res.redirect('/fa17g07/register');
+          res.redirect('../register');
         }
         console.log("Successfully created user");
-        res.redirect('/fa17g07/');
+        res.redirect('../login');
         connection.release();
         });
       }
@@ -96,27 +96,27 @@ router.post('/agent',function(req,res){
     connection.query(checkUsernameEmailQuery, [username, email], function (err, usernameEmailResult)  {
       if(err) {
         console.log(err);
-        res.redirect('/fa17g07/register');
+        res.redirect('../../register');
       }
       if(usernameEmailResult.length > 0)  { //Logic for if user exists should be put in here
         if(usernameEmailResult[0].username == username && usernameEmailResult[0].email == email)  {
           console.log("Email and username taken");
-          res.redirect('/fa17g07/register');
+          res.redirect('../../register/agent');
         } else if(usernameEmailResult[0].username == username) {
           console.log("Username taken");
-          res.redirect('/fa17g07/register'); 
+          res.redirect('../../register/agent'); 
         } else  {
           console.log("Email taken");
-          res.redirect('/fa17g07/register');
+          res.redirect('../../register/agent');
         }
       } else  { //Logic for creating user should be put in here
         connection.query(insertUserQuery, [userId, hash, email, firstName, lastName, username, lat, lng, formattedAddress], function (err, registrationResult)  {
         if(err) {
           console.log(err);
-          res.redirect('/fa17g07/register');
+          res.redirect('../../register/agent');
         }
         console.log("Successfully created user");
-        res.redirect('/fa17g07/');
+        res.redirect('../../login/agent');
         connection.release();
         });
       }

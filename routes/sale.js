@@ -41,7 +41,7 @@ router.post('/', function(req, res) {
                 saleListings: saleListings,
                 milesRadius: milesRadius,
                 role: req.session.role,
-                id: req.session.id
+                id: req.session.sessionId
             });
           } else if(saleListings.length >= 0 && !req.session.isLoggedIn) {
             res.render('sale', {
@@ -144,7 +144,7 @@ router.post('/advancedSearch/', function(req, res) {
                 saleListings: saleListings,
                 milesRadius: milesRadius,
                 role: req.session.role,
-                id: req.session.id
+                id: req.session.sessionId
             });
           } else if(saleListings.length >= 0 && !req.session.isLoggedIn) {
             res.render('sale', {

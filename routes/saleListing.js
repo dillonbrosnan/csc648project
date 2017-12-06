@@ -16,7 +16,7 @@ router.get('/:saleId', function(req,res){
 			res.render('saleListing', {
 				saleId: req.params.saleId,
 				saleListing : saleListing,
-				id: req.session.id,
+				id: req.session.sessionId,
 				role: req.session.role
 			});
 		}
