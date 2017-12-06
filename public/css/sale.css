@@ -34,7 +34,6 @@ html, body{
 
 
 /* sale listing results styling */
-
 a {
 	text-decoration: none;
 	transition: all 0.3s ease-in-out;
@@ -149,7 +148,9 @@ a {
   .img-thumb-bg:hover .caption .content {
 	display: block;
   }
+/* sale listing results styling end */
 
+/* sale listing filter styling start */
 	.col{
 		width: 400px; 
 	}
@@ -161,16 +162,16 @@ a {
 
 #sortingbutton, #sortLocation{
 	display: inline-block;
-  border-radius: 4px;
-  background-color: #2c9e2c;
-  border: none;
-  color: #FFFFFF;
-  text-align: center;
-  font-size: 28px;
-  width: 200px;
-  transition: all 0.5s;
-  cursor: pointer;
-  margin: 5px;
+	border-radius: 4px;
+	background-color: #798779;
+	border: none;
+	color: #FFFFFF;
+	text-align: center;
+	font-size: 20px;
+	width: 155px;
+	transition: all 0.5s;
+	cursor: pointer;
+	margin: 3px;
 }
 
 #sortingbutton i,  #sortLocation i {
@@ -197,3 +198,5 @@ a {
   opacity: 1;
   right: 0;
 }
+
+/* sale listing filter styling end */
