@@ -107,7 +107,7 @@ function validateAdvancedSearch() {
 }
 
 $("#openAdvancedSearchBtn").click(function(){
-  var currentAction = $('#buyBtn').hasClass('active') ? "/sale/" : "/rent/";
+  var currentAction = $('#buyBtn').hasClass('active') ? "sale/" : "/rent/";
   if($('#advancedSearchInputs').css('display') == 'none') {
     $('#advancedSearchInputs').css('display', 'block');
     $('#openAdvancedSearchBtn').text('▲ Advanced Search');
@@ -131,7 +131,7 @@ $("#openAdvancedSearchBtn").click(function(){
 $(".btn-group > .btn").click(function(){
   $(this).addClass("active").siblings().removeClass("active");
   var action = $(this).text();
-  var advancedSearch = $('#advancedSearchInputs').css('display') == 'none' ? '/' : '/advancedSearch/';
+  var advancedSearch = $('#advancedSearchInputs').css('display') == 'none' ? '/' : 'advancedSearch/';
   if(action == "Buy") {
     action = "sale";
   } else  {

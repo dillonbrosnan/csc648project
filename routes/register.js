@@ -14,7 +14,7 @@ router.get('/agent',function(req,res){
 });
 
 // Route
-router.post('/user',function(req,res){
+router.post('/',function(req,res){
 
   var username = req.body.username;
 	var password = req.body.password;
