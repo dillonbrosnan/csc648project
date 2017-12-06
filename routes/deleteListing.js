@@ -8,17 +8,22 @@ router.get('/:saleId', function(req,res){
 		return res.redirect('../../../login/agent');
 	}
 	
+	var agentId = req.session.sessionId;
 	var saleId = req.params.saleId;
 	DeleteListingModel.getPermission(agentId, saleId)
 		.then(function(listings)	{
-			if(listing.length == 0)	{
+			if(listings.length == 0)	{
 				return res.redirect('../../viewListings');
 			}	else	{
 				return DeleteListingModel.deleteListing(agentId, saleId);
 			}
 		})
 		.then(function(deleteRows)	{
-			return res.redirect('../../viewListings');
+			return res.send({
+				deletedRows: deleteRows,
+				id: req.session.sessionId,
+				role: req.session.role
+			})
 		})
 	
 	.catch(function(err){

@@ -169,7 +169,6 @@ router.post('/agent',function(req,res){
               req.session.sessionId = usernames[0].agentId;
               req.session.isLoggedIn = true;
               req.session.role = "agent";
-              console.log(req.session.role);
               res.redirect('../..');
             } else  { //If username doesn't match database
               res.render('login', {

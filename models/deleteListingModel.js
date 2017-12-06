@@ -34,9 +34,9 @@ var deleteListing = function(agentId, saleId)	{
 	return new Promise(function(resolve, reject)	{
 
 
-		var array = [agentId, saleId];
-		var sql = ["DELETE FROM `fa17g07`.`Sale` WHERE",
-		"`saleId`= ?",
+		var array = [saleId, agentId];
+		var sql = ["DELETE FROM Sale WHERE",
+		"saleId = ?",
 		"and agentId = ?;"].join(" ");
 
 	    pool.getConnection(function(err, connection){ //Get connection to pool
