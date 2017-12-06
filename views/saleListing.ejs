@@ -28,13 +28,13 @@
                             <li class="a"><b>Year Built:</b> <%= saleListing[0].yearBuilt%></li>
                             <li class="a"><b>Bedrooms:</b> <%= saleListing[0].beds%></li>
                             <li class="a"><b>Bathrooms:</b> <%= saleListing[0].baths%></li>
+                            <li class="a"><b>Latitude:</b> <%= saleListing[0].lat%></li>
                         </ul>
                         <ul class="listing">
                             <li class="a"><b>Lot Type:</b> <%= saleListing[0].lotType%></li>
                             <li class="a"><b>Floor Size:</b> <%= saleListing[0].sqFt%> sq. ft.</li>
                             <li class="a"><b>Lot Size:</b> <%= saleListing[0].lotSqFt%> sq. ft.</li>
-                            <li class="a"><b>Lot Size:</b> <%= saleListing[0].lat%> sq. ft.</li>
-                            <li class="a"><b>Lot Size:</b> <%= saleListing[0].lon%> sq. ft.</li>
+                            <li class="a"><b>Longitude:</b> <%= saleListing[0].lon%></li>
                         </ul>
                         <hr class="separation">
                         <h3 class="page-header header">Description</h3>
@@ -53,56 +53,55 @@
                 <!--For map and Images -->
                 <div class="col-sm-6">
                   <ul class="nav nav-tabs">
+                    <li class="active">
+                        <a data-toggle="tab" href="#mapTab">Map</a>
+                    </li>
                     <li>
                         <a data-toggle="tab" href="#images">Images</a>
                     </li>
-                    <li class="active">
-                        <a data-toggle="tab" href="#map">Map</a>
-                    </li>
                   </ul>
 
-                  <div class="tab-content">
-                   
-                   
-                    <div id="mapTab" class="tab-pane in fade in active"> <div class="mapContainer col-md-5" id="map"></div>
+                    <div class="tab-content">
+                        <div id="mapTab" class="tab-pane in fade in active"> 
+                            <div class="mapContainer col-sm-12" id="map"></div>
+                            
+                        </div>
                         <br>
                         <div id="images" class="tab-pane fade">
-                        <br>
-                        <div class="col-xs-12" id="slider">
+                            <br>
+                            <div class="col-xs-12" id="slider">
 
-                            <!-- Top part of the slider -->
-                            <div class="row">
-                                <div class="col-sm-12" id="carousel-bounding-box">
-                                    <div class="carousel slide" id="myCarousel">
+                                <!-- Top part of the slider -->
 
-                                        <!-- Carousel items -->
-                                        <div class="carousel-inner">
-                                            <div class="active item" data-slide-number="0">
-                                                <img src="/saleImages/<%= saleListing[0].imageId %>.jpg"></div>
+                                    <div class="col-sm-12" id="carousel-bounding-box">
 
-                                            <div class="item" data-slide-number="1">
-                                                <img src="/saleImages/<%= saleListing[0].imageId %>.jpg"></div>
+                                        <div class="carousel slide" id="myCarousel">
 
+                                            <!-- Carousel items -->
+                                            <div class="carousel-inner">
+                                                <div class="active item" data-slide-number="0">
+                                                    <img src="/saleImages/<%= saleListing[0].imageId %>.jpg"></div>
+
+                                                <div class="item" data-slide-number="1">
+                                                    <img src="/saleImages/<%= saleListing[0].imageId %>.jpg"></div>
+
+                                            </div>
+
+                                            <!-- Carousel nav -->
+                                            <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                                                <span class="glyphicon glyphicon-chevron-left"></span>
+                                            </a>
+                                            <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                                                <span class="glyphicon glyphicon-chevron-right"></span>
+                                            </a>
                                         </div>
 
-                                        <!-- Carousel nav -->
-                                        <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-                                            <span class="glyphicon glyphicon-chevron-left"></span>
-                                        </a>
-                                        <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-                                            <span class="glyphicon glyphicon-chevron-right"></span>
-                                        </a>
                                     </div>
-                                </div>
+                                <br>
                             </div>
-                            <br>
                         </div>
-                    </div>
-                    
+                    </div>    
                 </div>
-                        
-
-
                 </div>
                 <!--/Slider-->
             </div><!-- Row -->  
@@ -122,7 +121,7 @@
         lngInput = parseFloat(lngInput);
         map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: latInput, lng: lngInput},
-          zoom: 4
+          zoom: 14
         });
         var marker = new google.maps.Marker({
           position: {lat: latInput, lng: lngInput},
