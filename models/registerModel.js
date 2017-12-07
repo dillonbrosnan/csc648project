@@ -33,7 +33,7 @@ var insertUser = function(userId, hash, email, firstName, lastName, username, la
 
 		var array = [userId, hash, email, firstName, lastName, username, lat, lng, formattedAddress];
 		var sql = "INSERT INTO User (`userId`, `password`, `email`, `firstName`, `lastName`, `username`, " +
-      "`lat`, `lon`, `formattedAddress`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";;
+      "`lat`, `lon`, `formattedAddress`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
 	    pool.getConnection(function(err, connection){ //Get connection to pool
 	      
