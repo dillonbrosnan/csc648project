@@ -11,7 +11,7 @@ router.get('/',function(req,res){
   console.log(req.session.role);
   console.log(req.session.agentId);
   if(req.session.role != "agent") {
-    res.redirect('/login/agent/');
+    res.redirect('../../login/agent');
   } else  {
   res.render('post');
   }
@@ -35,6 +35,7 @@ router.post('/', function(req,res){
   var datePosted = moment(currentTimestamp*1000).format("YYYY-MM-DD HH:mm:ss");
   var saleId = uuidv4({msecs: new Date().getTime()});
   var imageId = uuidv4({msecs: new Date().getTime()});
+  var agentId = req.session.sessionId;
 
   beds = Number(beds);
   baths = Number(baths);
@@ -76,7 +77,7 @@ router.post('/', function(req,res){
       res.send("File wrong");
   }
   else  {
-    req.files.saleImage.mv('./public/saleImages/' + imageId + '.jpg', function(err)  {
+    req.files.saleImage.mv('public/images/' + imageId + '.jpg', function(err)  {
       if(err) {
         console.log(err);
         res.send(err);
@@ -87,11 +88,11 @@ router.post('/', function(req,res){
       return Promise.all([PostModel.insertImage(saleId, imageId)]); 
     })
     .then(function() {
-      return Promise.all([, PostModel.insertPosting(beds, baths, sqFt, lotSqFt, yearBuilt, 
-      hoa, lotType, price, lat, lng, formattedAddress, saleId, datePosted, description)]); 
+      return Promise.all([PostModel.insertPosting(beds, baths, sqFt, lotSqFt, yearBuilt, 
+      hoa, lotType, price, lat, lng, formattedAddress, saleId, datePosted, description, agentId)]); 
     })
     .then(function() {
-      res.redirect('/forSale/' + saleId + '/')
+      return res.redirect('../../forSale/' + saleId + '/')
     })
     .catch(function(err) {
       console.log(err);

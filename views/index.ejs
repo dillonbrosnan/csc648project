@@ -1,20 +1,25 @@
 <!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" dir="ltr">
+<base href="/fa17g07/">
+
 
 <!-- Contains head of website -->
 <head>
   <% include partials/head %>
-  <link rel="stylesheet" href="/css/home.css"></link>
-</head>
+  <link rel="stylesheet" href="css/home.css"></link>
 
+</head>
 
 <body>
 
   <!-- Contains header of website -->
   <% include partials/header %>
 
+<!-- logo section -->
+<img alt="logo" id="mainlogo" src="images/logo.png" />
+
   <!-- Contains body of page -->
-  <div class="container">
+  <div class="container" id="searchContainer">
 
     <!-- Area contains search box, buttons, and options -->
     <div class="searchContainer">
@@ -24,7 +29,7 @@
         <a class="btn btn-default" id="rentBtn">Rent</a>
       </div>
 
-      <form id="searchForm" method="post" action="/forSale/" onsubmit="return validateSearch()">
+      <form id="searchForm" method="post" action="forSale/" onsubmit="return validateSearch()">
         <input id="latInput" name="lat"></input>
         <input id="lngInput" name="lng"></input>
         <div class="row">
@@ -94,7 +99,7 @@
           <div class="col-xs-6 col-md-3"> <!-- Min Year Built Input -->
             <div class="form-group">
               <label for="yearBuiltMin">Min Year Built</label>
-              <input type="number" class="form-control" id="yearBuiltMin" name="yearBuiltMin" min="1700" value="1700"></input>
+              <input type="number" class="form-control" id="yearBuiltMin" name="yearBuiltMin" min="1700" value="1700" value="new Date().getFullYear()"></input>
             </div>
           </div>
           <div class="col-xs-6 col-md-3"> <!-- Max Year Built Input -->
@@ -151,12 +156,12 @@
 
     </div>
     <!-- End of search box area -->
-
   </div>
-
-  <script src="/js/index.js"></script> <!-- Contains client side javascript -->
+ <!-- Contains header of website -->
+  <% include partials/footer %>
+  <script src="js/index.js"></script> <!-- Contains client side javascript -->
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPXF-zkLqKND8w5ktBN5bdlTkQSVbw950&libraries=places&callback=initAutocomplete" async defer></script>
-  <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 </body>
 </html>

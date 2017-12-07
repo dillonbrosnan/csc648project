@@ -34,7 +34,16 @@ router.post('/', function(req, res) {
 
       SaleModel.getSaleListings(lat, lon, milesRadius)
         .then(function(saleListings)  {
-          if(saleListings.length >= 0) {
+          if(saleListings.length >= 0 && req.session.isLoggedIn) {
+            res.render('sale', {
+                lat: lat, 
+                lon: lon, 
+                saleListings: saleListings,
+                milesRadius: milesRadius,
+                role: req.session.role,
+                id: req.session.sessionId
+            });
+          } else if(saleListings.length >= 0 && !req.session.isLoggedIn) {
             res.render('sale', {
                 lat: lat, 
                 lon: lon, 
@@ -44,7 +53,8 @@ router.post('/', function(req, res) {
           }
         })
         .catch(function(err) {
-          res.redirect("http://www.google.com");
+            console.log(err);
+          res.redirect("/error");
         });
     }
 
@@ -127,7 +137,16 @@ router.post('/advancedSearch/', function(req, res) {
       SaleModel.getAdvancedSaleListings(lat, lon, milesRadius, bedsMin, bedsMax, bathsMin, bathsMax, sqFtMin,
         sqFtMax, lotSqFtMin, lotSqFtMax, yearBuiltMin, yearBuiltMax, hoaMin, hoaMax, lotType, priceMin, priceMax)
         .then(function(saleListings)  {
-          if(saleListings.length >= 0) {
+          if(saleListings.length >= 0 && req.session.isLoggedIn) {
+            res.render('sale', {
+                lat: lat, 
+                lon: lon, 
+                saleListings: saleListings,
+                milesRadius: milesRadius,
+                role: req.session.role,
+                id: req.session.sessionId
+            });
+          } else if(saleListings.length >= 0 && !req.session.isLoggedIn) {
             res.render('sale', {
                 lat: lat, 
                 lon: lon, 
@@ -137,6 +156,7 @@ router.post('/advancedSearch/', function(req, res) {
           }
         })
         .catch(function(err) {
+            console.log(err);
           res.redirect("/error");
         });
     }
