@@ -5,6 +5,10 @@ var moment = require('moment');
 var MessageAgentModel = require('../models/messageAgentModel');
 
 router.post('/:saleId/message', function(req,res){
+
+	if(!req.session.isLoggedIn || req.session.role != "user")	{
+		return res.redirect('..');
+	}
 	var phoneNo = req.body.phoneNo;
 	var messageContent = req.body.messageContent;
 	var saleId= req.params.saleId;
