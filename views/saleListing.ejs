@@ -1,6 +1,6 @@
 <!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" dir="ltr">
-<base href="/fa17g07/">
+<base href="/">
 <!-- Contains head of website -->
 <head>
     <% include partials/head %>
@@ -21,14 +21,41 @@
                 <div class="col-md-6 left-block" id="slider-thumbs"> 
                         <h3 class="page-header price"><strong>$<%= saleListing[0].price %> </strong> </h3>
                         <!-- TODO: Route this button below correctly to the messaging page -->
-                        <button type="button" class="btn btn-info center-block">Message Agent</button>
+                        <!-- If User, they will be able to see this form -->
+                       <!--  <a href="/login/" class="btn btn-info center-block">Message Agent</a> -->
+                        <% if(role == 'user') { %>
+                        <div class= "col-sm-6 col-sm-offset-3">
+                            <form class="form-horizontal" method="post" action="forSale/<%= saleId%>/message">
+                                <div class="form-group">
+                                    <label for="email">Email:</label>
+                                    <input name="email" type="text" class="form-control" id="email" min="0">
+                                </div>
+                                <div class="form-group">
+                                    <label for="phoneNo">Phone #:</label>
+                                    <input name="phoneNo" type="text" class="form-control" id="phoneNo" min="0" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="messageContent">Message:</label>
+                                    <textarea style="resize:none;" name="messageContent" class="form-control" id="messageContent" min="0" rows="4" required>Hi! I am interested to buy this house. Please contact me at the number and email provided. Thanks!</textarea>
+                                </div>
+
+                                <div class="form-group ">
+                                    <input type="submit" class="btn btn-info btn-block" value='Message Agent'></input>
+                                </div>
+                            </form>
+                        </div>
+                       <% } else if(role == null) { %>
+                            <a href="/login/" class="btn btn-info center-block">Message Agent</a>
+                       <% }%>
                         <hr class="separation">
+
                         <h3 class="page-header header"><%= saleListing[0].lotType%> Details</h3>
                         <ul class="listing">
                             <li class="a"><b>Year Built:</b> <%= saleListing[0].yearBuilt%></li>
                             <li class="a"><b>Bedrooms:</b> <%= saleListing[0].beds%></li>
                             <li class="a"><b>Bathrooms:</b> <%= saleListing[0].baths%></li>
-                            <li class="a"><b>Latitude:</b> <%= saleListing[0].lat%></li>
+                            <li class="a"><b>Latitude:</b> <%= saleListing[0].saleId%></li>
                         </ul>
                         <ul class="listing">
                             <li class="a"><b>Lot Type:</b> <%= saleListing[0].lotType%></li>
@@ -100,7 +127,8 @@
                                 <br>
                             </div>
                         </div>
-                    </div>    
+                    </div> 
+                    <hr class="separation">   
                 </div>
                 </div>
                 <!--/Slider-->

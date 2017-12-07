@@ -23,7 +23,8 @@ router.get('/:saleId', function(req,res){
 		else if(saleListing.length == 1){
 			res.render('saleListing', {
 				saleId: req.params.saleId,
-				saleListing : saleListing
+				saleListing : saleListing,
+				role: null
 			});
 		}
 	})
