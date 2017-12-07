@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var bcrypt = require('bcrypt');
-var ViewListingsModel = require('../models/ViewListingsModel');
+var ViewListingsModel = require('../models/viewListingsModel');
 
 // Route
 router.get('/',function(req,res){
