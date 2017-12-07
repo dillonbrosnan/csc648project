@@ -3,13 +3,20 @@ var router = express.Router();
 var pool = require('../db');
 var bcrypt = require('bcrypt');
 var uuidv4 = require('uuid/v4');
+var RegisterModel = require('../models/registerModel.js');
 
 // Route
 router.get('/',function(req,res){
+  if(req.session.isLoggedIn)  {
+    return res.redirect('..');
+  }
   res.render('register', {role: "user"} );
 });
 
 router.get('/agent',function(req,res){
+  if(req.session.isLoggedIn)  {
+    return res.redirect('../..');
+  }
   res.render('register', {role: "agent"});
 });
 
@@ -24,48 +31,44 @@ router.post('/',function(req,res){
   var formattedAddress = req.body.formattedAddress;
   var lat = Number(req.body.lat);
   var lng = Number(req.body.lng);
-  var userId = uuidv4({msecs: new Date('2011-11-01').getTime()});
-
-	// Db queries
-  var checkUsernameEmailQuery = "SELECT username, email FROM fa17g07.User WHERE username=? OR email=?;";
-	var insertUserQuery = "INSERT INTO `fa17g07`.`User` (`userId`, `password`, `email`, `firstName`, `lastName`, `username`, " +
-      "`lat`, `lon`, `formattedAddress`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
+  var userId = uuidv4({msecs: new Date().getTime()});
 
 	var salt = bcrypt.genSaltSync(10);
 	// Salt and hash password
 	var hash = bcrypt.hashSync(password, salt);
 
-	pool.getConnection(function(err, connection){ //Get connection to pool
-
-    connection.query(checkUsernameEmailQuery, [username, email], function (err, usernameEmailResult)  {
-      if (err)
-        return res.send(400);
-      if(usernameEmailResult.length > 0)  { //Logic for if user exists should be put in here
-        if(usernameEmailResult[0].username == username && usernameEmailResult[0].email == email)  {
-          console.log("Email and username taken");
-          res.redirect('../register');
-        } else if(usernameEmailResult[0].username == username) {
-          console.log("Username taken");
-          res.redirect('../register'); 
+  RegisterModel.userCheck(username, email)
+    .then(function(duplicateUsers)  {
+        if(duplicateUsers.length > 0) { // Duplicate users check
+          if(duplicateUsers[0].username == username && duplicateUsers[0].email == email)  {
+            return res.render('register', {
+              role: 'user',
+              error: 'Username ' + username + ' and email ' + email + ' taken'
+            })
+          } else if(duplicateUsers[0].username == username) {
+            return res.render('register', {
+              role: 'user',
+              error: 'Username ' + username + 'taken',
+              email: email
+            })
+          } else  {
+            return res.render('register', {
+              role: 'user',
+              error: 'Email ' + email + ' taken',
+              username: username
+            })
+          }
         } else  {
-          console.log("Email taken");
-          res.redirect('../register');
+          return RegisterModel.insertUser(userId, hash, email, firstName, 
+            lastName, username, lat, lng, formattedAddress);
         }
-      } else  { //Logic for creating user should be put in here
-        connection.query(insertUserQuery, [userId, hash, email, firstName, lastName, username, lat, lng, formattedAddress], function (err, registrationResult)  {
-        if(err) {
-          console.log(err);
-          res.redirect('../register');
-        }
-        console.log("Successfully created user");
-        res.redirect('../login');
-        connection.release();
-        });
-      }
-
-    });
-
-	}); //End of connection pool
+    })
+    .then(function(insertedRows)  {
+        return res.redirect('../login');
+    })
+    .catch(function(error)  {
+      return res.status(500).send( { error : error });
+    })
 
 });
 
@@ -80,50 +83,45 @@ router.post('/agent',function(req,res){
   var formattedAddress = req.body.formattedAddress;
   var lat = Number(req.body.lat);
   var lng = Number(req.body.lng);
-  var userId = uuidv4({msecs: new Date('2011-11-01').getTime()});
-
-  // Db queries
-  var checkUsernameEmailQuery = "SELECT username, email FROM fa17g07.Agent WHERE username=? OR email=?;";
-  var insertUserQuery = "INSERT INTO `fa17g07`.`Agent` (`agentId`, `password`, `email`, `firstName`, `lastName`, `username`, " +
-      "`lat`, `lon`, `formattedAddress`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
+  var userId = uuidv4({msecs: new Date().getTime()});
 
   var salt = bcrypt.genSaltSync(10);
   // Salt and hash password
   var hash = bcrypt.hashSync(password, salt);
 
-  pool.getConnection(function(err, connection){ //Get connection to pool
-
-    connection.query(checkUsernameEmailQuery, [username, email], function (err, usernameEmailResult)  {
-      if(err) {
-        console.log(err);
-        res.redirect('../../register');
-      }
-      if(usernameEmailResult.length > 0)  { //Logic for if user exists should be put in here
-        if(usernameEmailResult[0].username == username && usernameEmailResult[0].email == email)  {
-          console.log("Email and username taken");
-          res.redirect('../../register/agent');
-        } else if(usernameEmailResult[0].username == username) {
-          console.log("Username taken");
-          res.redirect('../../register/agent'); 
+  RegisterModel.agentCheck(username, email)
+    .then(function(duplicateUsers)  {
+        if(duplicateUsers.length > 0) { // Duplicate users check
+          if(duplicateUsers[0].username == username && duplicateUsers[0].email == email)  {
+            return res.render('register', {
+              role: 'agent',
+              error: 'Username ' + username + ' and email ' + email + ' taken'
+            })
+          } else if(duplicateUsers[0].username == username) {
+            return res.render('register', {
+              role: 'agent',
+              error: 'Username ' + username + 'taken',
+              email: email
+            })
+          } else  {
+            return res.render('register', {
+              role: 'agent',
+              error: 'Email ' + email + ' taken',
+              username: username
+            })
+          }
         } else  {
-          console.log("Email taken");
-          res.redirect('../../register/agent');
+          return RegisterModel.insertAgent(userId, hash, email, firstName, 
+            lastName, username, lat, lng, formattedAddress);
         }
-      } else  { //Logic for creating user should be put in here
-        connection.query(insertUserQuery, [userId, hash, email, firstName, lastName, username, lat, lng, formattedAddress], function (err, registrationResult)  {
-        if(err) {
-          console.log(err);
-          res.redirect('../../register/agent');
-        }
-        console.log("Successfully created user");
-        res.redirect('../../login/agent');
-        connection.release();
-        });
-      }
+    })
+    .then(function(insertedRows)  {
+        return res.redirect('../../login/agent');
+    })
+    .catch(function(error)  {
+      return res.status(500).send( { error : error });
+    })
 
-    });
-
-  }); //End of connection pool
 
 });
 
