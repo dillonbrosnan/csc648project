@@ -1,12 +1,11 @@
 <!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" dir="ltr">
-<base href="/fa17g07/">
-
+<base href="/">
 
 <!-- Contains head of website -->
 <head>
   <% include partials/head %>
-  <link rel="stylesheet" href="css/register.css"></link>
+  <link rel="stylesheet" href="/css/register.css"></link>
 </head>
 
 
@@ -20,44 +19,35 @@
 
 		<div class="row main">
 			<div class="main-login main-center">
-<!-- 				local
-				<form class="form-horizontal" method="post" action="register/<%= role %>" onsubmit="return validateRegistration()">
-				server -->
+
+					<% if(role == 'agent')	{ %>
+						<h1><strong>Registration for Agents</strong></h1>
+						<p>As an <strong>agent</strong>, you are:</p>
+						<ul>
+							<li>Able to post full for sale listings, with pictures.</li>
+							<li>Able to post full for rent listings, with pictures.</li>
+							<li>Able to message buyers that are interested. </li>
+						</ul>
+						<a href="/register">Looking for user registration? Click here</a><br>
+						<span>Already have an account?<a href="/login/agent"> Click here to Login</a></span>
+					<% } else if(role == 'user') { %>
+						<h1> <strong>Registration for Users</strong></h1>
+						<p>As a <strong>user</strong>, you are:</p>
+						<ul>
+							<li>Able to message agents through the listings.</li>
+						</ul>
+						<a href="/register/agent">Looking for agent registration? Click here</a><br>
+						<span>Already have an account?<a href="/login"> Click here to Login</a></span>
+					<% } 	%>
 				<% if(role == 'agent')	{ %>
 					<form class="form-horizontal" method="post" action="register/<%= role %>" onsubmit="return validateRegistration()">
 				<% } else if(role == 'user') { %>
 					<form class="form-horizontal" method="post" action="register/" onsubmit="return validateRegistration()">
 				<% } 	%>
-					<div class="form-group">
-						<label for="firstName" class="cols-sm-1 control-label">Your First Name</label>
-						<div class="cols-sm-5">
-							<div class="input-group">
-								<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-								<input type="text" class="form-control" name="firstName" id="firstName"  placeholder="Enter your first name" required/>
-							</div>
-						</div>
-					</div>
 
-					<div class="form-group">
-						<label for="lastName" class="cols-sm-1 control-label">Your Last Name</label>
-						<div class="cols-sm-5">
-							<div class="input-group">
-								<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-								<input type="text" class="form-control" name="lastName" id="lastName"  placeholder="Enter your last name" required/>
-							</div>
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label for="email" class="cols-sm-2 control-label">Your Email</label>
-						<div class="cols-sm-10">
-							<div class="input-group">
-								<span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-								<input type="text" class="form-control" name="email" id="email"  placeholder="Enter your Email" required/>
-							</div>
-						</div>
-					</div>
-
+				
+					<hr class="separation">
+					<h2><strong>Required Information </strong></h2>
 					<div class="form-group">
 						<label for="username" class="cols-sm-2 control-label">Username</label>
 						<div class="cols-sm-10">
@@ -67,7 +57,6 @@
 							</div>
 						</div>
 					</div>
-
 					<div class="form-group">
 						<label for="password" class="cols-sm-2 control-label">Password</label>
 						<div class="cols-sm-10">
@@ -77,7 +66,35 @@
 							</div>
 						</div>
 					</div>
-
+					<div class="form-group">
+						<label for="email" class="cols-sm-2 control-label">Your Email</label>
+						<div class="cols-sm-10">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+								<input type="text" class="form-control" name="email" id="email"  placeholder="Enter your Email" required/>
+							</div>
+						</div>
+					</div>
+					<hr class="separation">
+					<h2><strong>General Information </strong></h2>
+					<div class="form-group">
+						<label for="firstName" class="cols-sm-1 control-label">Your First Name:</label>
+						<div class="cols-sm-5">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+								<input type="text" class="form-control" name="firstName" id="firstName"  placeholder="Enter your first name" required/>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="lastName" class="cols-sm-1 control-label">Your Last Name</label>
+						<div class="cols-sm-5">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+								<input type="text" class="form-control" name="lastName" id="lastName"  placeholder="Enter your last name" required/>
+							</div>
+						</div>
+					</div>
 					<div class="form-group">
 						<label for="address" class="cols-sm-2 control-label">Enter Address</label>
 						<div class="cols-sm-10">
@@ -87,21 +104,28 @@
 							</div>
 						</div>
 					</div>
-
+					<div class="form-group">
+						<label for="tos" class="cols-sm-2 control-label">Terms and Conditions</label>
+						<div class="cols-sm-10">
+							<input type="checkbox" name="tos" value="checkmarked"> I have read the <a target="_blank" href="/termsconditions"> Terms and Condtions</a>.<br>
+						</div>
+					</div>
 					<div class="form-group" id="hidden-form">
 						<input id="latInput" name="lat"></input>
         				<input id="lngInput" name="lng"></input>
         				<input id="formattedAddress" name="formattedAddress"></input>
 					</div>
-
+					<br>
 					<div class="form-group">
 						<input type="submit" class="btn btn-primary btn-block login-button" value='Register'></input>
 					</div>
-
+					<hr class="separation">
 					<% if(role == 'agent')	{ %>
-						<a href="register">Looking for user registration? Click here</a>
+						<a href="/register">Looking for user registration? Click here</a><br>
+						<span>Already have an account?<a href="/login/agent"> Click here to Login</a></span>
 					<% } else if(role == 'user') { %>
-						<a href="register/agent">Looking for agent registration? Click here</a>
+						<a href="/register/agent">Looking for agent registration? Click here</a><br>
+						<span>Already have an account?<a href="/login"> Click here to Login</a></span>
 					<% } 	%>
 					
 				</form>
@@ -113,21 +137,17 @@
   	<footer>
     	<% include partials/footer %>
   	</footer>
-
   	<!-- Contains autocomplete functionality -->
   	<script>
 	    // Create the search box and link it to the UI element.
 	    function initAutocomplete() {
 	      var input = document.getElementById('address');
 	      var searchBox = new google.maps.places.SearchBox(input);
-
 	      searchBox.addListener('places_changed', function() {
 	            var places = searchBox.getPlaces();
-
 	            if (places.length == 0) {
 	              return;
 	            }
-
 	            places.forEach(function(place) {
 	                var location = place.geometry.location;
 	                // var zipCodeFound = false;
@@ -141,11 +161,9 @@
 		                    }
 		                }
                 	}
-
                 	// if(!zipCodeFound)	{
                 	// 	alert("Please narrow down to a specific area");
                 	// }
-
 	                lat = location.lat();
 	                lng = location.lng();
 	                formattedAddress = place.formatted_address;
@@ -156,13 +174,11 @@
 	            });
 	      });
 	    }
-
 	    function validateRegistration()	{
 	    	
 	    	var username = document.getElementById('username').value;
 	    	var password = document.getElementById('password').value;
 	    	var role = "<%= role %>";
-
 	    	if(role == "agent" && typeof streetNumber === 'undefined')	{
 	    		var alertMessage = "Specify address";
 	    		alert(alertMessage);
@@ -189,19 +205,14 @@
 	    	
 			return true;
 	    }
-
 	    function validateLength(text, lengthRestriction)	{
 	    	if(text.length > lengthRestriction || text.length == 0) return false;
-
 	    	return true;
 	    }
-
 	    function validateUndefined(text)	{
 	    	if(text == "" || text == null || text.length == 0) return false;
-
 	    	return true;
 	    }
-
 	    function validateUser(username, password)	{
 	    	if(!/^[a-zA-Z]+$/.test(username) || !validateLength(username, 20))	{
 	    		return false;
@@ -211,11 +222,9 @@
 	    	}
 	    	return true;
 	    }
-
 	</script>
-
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPXF-zkLqKND8w5ktBN5bdlTkQSVbw950&libraries=places&callback=initAutocomplete" async defer></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 </body>
 </html>

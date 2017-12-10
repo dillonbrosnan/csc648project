@@ -1,6 +1,6 @@
 <!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" dir="ltr">
-<base href="/fa17g07/">
+<base href="/">
 	<!-- Contains header of website -->
   	<% include partials/head %>
 
@@ -26,6 +26,15 @@
 		<div class="row main">
 			<div class="main-login main-center">
 
+				<% if(role == 'agent')	{ %>
+					<h1><strong>Login for Agents</strong></h1>
+					<a href="/login">Looking for user login? Click here</a>
+				<% } else if(role == 'user') { %>
+					<h1> <strong>Login for Users</strong></h1>
+					<a href="/login/agent">Looking for agent login? Click here</a>
+				<% } 	%>
+
+				<!-- To determine what form to use for each role -->
 				<% if(role == 'agent')	{ %>
 					<form class="form-horizontal" method="post" action="login/<%= role %>">
 				<% } else if(role == 'user') { %>
@@ -64,10 +73,13 @@
 						<input type="submit" class="btn btn-primary btn-block login-button" value='Login'></input>
 					</div>
 					
+					<hr class = "separation">
 					<% if(role == 'agent')	{ %>
-						<a href="login">Looking for user login? Click here</a>
+						<a href="/login">Looking for user login? Click here</a>
+						<br><span>Don't have an account?<a href="/register/agent"> Create one here!</a></span>
 					<% } else if(role == 'user') { %>
-						<a href="login/agent">Looking for agent login? Click here</a>
+						<a href="/login/agent">Looking for agent login? Click here</a>
+						<br><span>Don't have an account?<a href="/register"> Create one here!</a></span>
 					<% } 	%>
 
 				</form>
