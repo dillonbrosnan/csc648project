@@ -41,48 +41,32 @@ router.post('/', function(req, res) {
                     var saleId = saleListing.saleId;
                     return SaleModel.getSaleImages(saleId).then(function(result)  {
                         console.log(result);
-                        return result.imageId;
+                        return result;
                     })
                 }))
             }
-          // if(saleListings.length >= 0 && req.session.isLoggedIn) {
-            
-          //   res.render('sale', {
-          //       lat: lat, 
-          //       lon: lon, 
-          //       saleListings: saleListings,
-          //       milesRadius: milesRadius,
-          //       role: req.session.role,
-          //       id: req.session.sessionId
-          //   });
-          // } else if(saleListings.length >= 0 && !req.session.isLoggedIn) {
-          //   res.render('sale', {
-          //       lat: lat, 
-          //       lon: lon, 
-          //       saleListings: saleListings,
-          //       milesRadius: milesRadius
-          //   });
-          // }
         })
-        .then(function()    {
-        if(saleListings.length >= 0 && req.session.isLoggedIn) {
-
-            res.render('sale', {
-                lat: lat, 
-                lon: lon, 
-                saleListings: saleListings,
-                milesRadius: milesRadius,
-                role: req.session.role,
-                id: req.session.sessionId
-            })
-        } else if(saleListings.length >= 0 && !req.session.isLoggedIn) {
-            res.render('sale', {
-                lat: lat, 
-                lon: lon, 
-                saleListings: saleListings,
-                milesRadius: milesRadius
-            })
-        }
+        .then(function(saleImages)    {
+            if(saleListings.length >= 0 && req.session.isLoggedIn) {
+                console.log(saleListings);
+                console.log(saleImages);
+                res.render('sale', {
+                    lat: lat, 
+                    lon: lon, 
+                    saleListings: saleListings,
+                    saleImages: saleListings,
+                    milesRadius: milesRadius,
+                    role: req.session.role,
+                    id: req.session.sessionId
+                })
+            } else if(saleListings.length >= 0 && !req.session.isLoggedIn) {
+                res.render('sale', {
+                    lat: lat, 
+                    lon: lon, 
+                    saleListings: saleListings,
+                    milesRadius: milesRadius
+                })
+            }
         })
         .catch(function(err) {
             console.log(err);
@@ -166,26 +150,41 @@ router.post('/advancedSearch/', function(req, res) {
 
     } else  {
 
-      SaleModel.getAdvancedSaleListings(lat, lon, milesRadius, bedsMin, bedsMax, bathsMin, bathsMax, sqFtMin,
+        SaleModel.getAdvancedSaleListings(lat, lon, milesRadius, bedsMin, bedsMax, bathsMin, bathsMax, sqFtMin,
         sqFtMax, lotSqFtMin, lotSqFtMax, yearBuiltMin, yearBuiltMax, hoaMin, hoaMax, lotType, priceMin, priceMax)
-        .then(function(saleListings)  {
-          if(saleListings.length >= 0 && req.session.isLoggedIn) {
-            res.render('sale', {
-                lat: lat, 
-                lon: lon, 
-                saleListings: saleListings,
-                milesRadius: milesRadius,
-                role: req.session.role,
-                id: req.session.sessionId
-            });
-          } else if(saleListings.length >= 0 && !req.session.isLoggedIn) {
-            res.render('sale', {
-                lat: lat, 
-                lon: lon, 
-                saleListings: saleListings,
-                milesRadius: milesRadius
-            });
-          }
+        .then(function(saleListingResults)  {
+            saleListings = saleListingResults;
+            if(saleListings.length > 0) {
+                return Promise.all(saleListings.map(function(saleListing)  {
+                    var saleId = saleListing.saleId;
+                    return SaleModel.getSaleImages(saleId).then(function(result)  {
+                        console.log(result);
+                        return result;
+                    })
+                }))
+            }
+        })
+        .then(function(saleImages)    {
+            if(saleListings.length >= 0 && req.session.isLoggedIn) {
+                console.log(saleListings);
+                console.log(saleImages);
+                res.render('sale', {
+                    lat: lat, 
+                    lon: lon, 
+                    saleListings: saleListings,
+                    saleImages: saleListings,
+                    milesRadius: milesRadius,
+                    role: req.session.role,
+                    id: req.session.sessionId
+                })
+            } else if(saleListings.length >= 0 && !req.session.isLoggedIn) {
+                res.render('sale', {
+                    lat: lat, 
+                    lon: lon, 
+                    saleListings: saleListings,
+                    milesRadius: milesRadius
+                })
+            }
         })
         .catch(function(err) {
             console.log(err);
