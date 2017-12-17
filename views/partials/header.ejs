@@ -25,9 +25,9 @@
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> More <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
-              <li><a href="profile">Profile</a></li> 
-              <li><a href="/">Post Listing</a></li>  
-              <li><a href="logout">Log out</a></li>     
+              <li><a href="/portfolio">Profile</a></li> 
+              <li><a href="/viewListings/">Post Listing</a></li>  
+              <li><a href="/logout">Log out</a></li>     
             </ul>
           </li>
         </ul>
@@ -58,8 +58,8 @@
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> More <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
-              <li><a href="profile"> Profile </a></li>  
-              <li><a href="logout"> Log out </a></li>  
+              <li><a href="/viewListings/"> Profile </a></li>  
+              <li><a href="/logout"> Log out </a></li>  
             </ul>
           </li>
         </ul>
@@ -88,12 +88,12 @@
         <ul class="nav navbar-nav navbar-right">
           <li class="active"><a href=" "> Home </a></li>
           <li><a href=""> Buy </a></li>
-          <li><a href="login/"> Login </a></li>
-          <li><a href="register/"> Register </a></li>
+          <li><a href="/login"> Login </a></li>
+          <li><a href="/register"> Register </a></li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> More <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
-              <li><a href="portfolio/"> About Us </a></li>
+              <li><a href="/portfolio"> About Us </a></li>
             </ul>
           </li>
         </ul>
@@ -108,15 +108,16 @@
     }
   </script> -->
   <script>
-      let role = 'user'; 
+    let role = "ss"
+         if(role == 'agent')	{
+           console.log('agent nav')
+            $('#navigation-agent').show(); 
+             } else if(role == 'user') {
+              console.log('user nav')
+              $('#navigation-buyer').show();
+				 } else {
+          console.log('nonagent, nonuser nav')
+            $('#navigation').show(); 
+          }
     
-      if(role == 'agent'){
-        $('#navigation-agent').show();  
-      } else if (role == 'user'){
-        console.log('user nav')
-        $('#navigation-buyer').show(); 
-      } else {
-        console.log('un register user nav')
-        $('#navigation').show(); 
-      }
     </script>
