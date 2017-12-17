@@ -17,104 +17,28 @@
       <p>Dummy data</p> 
     </div>
 </div>
+
 <div class="container">
     <div class="row">
-        <div class="col-lg-4 col-md-4 col-sm-6">
+    <% for(var i = 0; i < listings.length; i++) { %>
+        <div class="col-lg-4 col-md-4 col-sm-6" price="<%= listings[i].price %>" lat="<%= listings[i].lat %>" lng="<%= listings[i].lng %>">
            <div class="thumbnail img-thumb-bg">
                <div class="overlay"></div>
+               <img alt="img" class="img-responsive" src="images/house1.jpeg"> <!-- pull image from db --> 
                <div class="caption">
-                   <div class="price"><a href="#" id="price" name="price">$6534</a></div>
-                   <div class="address"><a href="#" id="formattedAddress" name="formattedAddress">2142 22 ave, San Francisco</a></div>
+                   <div class="price"><a href="forSale/<%= listings[i].saleId %>/"id="price" name="price"> $ <%= listings[i].price %> </a></div>
+                   <div class="address"><a href="forSale/<%= listings[i].saleId %>/" id="formattedAddress" name="formattedAddress">  <%= listings[i].formattedAddress %>  </a></div>
                    <div class="date">
-                       <span class="meta-data">By Admin on <p id="datePosted" name="datePosted">29/06/2016</p></span>
+                       <!-- <span class="meta-data">By Admin on <p id="datePosted" name="datePosted">29/06/2016</p></span> -->
                        <!-- <span class="meta-data pull-right"><a href=""><i class="fa fa-heart-o"></i> 4</a></span> -->
                    </div>
                    <div class="description">
-                       <p id="description" name="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo nulla porro qui quo expedita voluptas ab iure dolore.</p>
+                    <input type="submit" class="btn btn-primary btn-block login-button" value='Delete'></input>
                    </div>
                </div>
            </div>
         </div>
-        <div class="col-lg-4 col-md-4 col-sm-6">
-                <div class="thumbnail img-thumb-bg">
-                    <div class="overlay"></div>
-                    <div class="caption">
-                        <div class="price"><a href="#" id="price" name="price">$6534</a></div>
-                        <div class="address"><a href="#" id="formattedAddress" name="formattedAddress">2142 22 ave, San Francisco</a></div>
-                        <div class="date">
-                            <span class="meta-data">By Admin on <p id="datePosted" name="datePosted">29/06/2016</p></span>
-                            <!-- <span class="meta-data pull-right"><a href=""><i class="fa fa-heart-o"></i> 4</a></span> -->
-                        </div>
-                        <div class="description">
-                            <p id="description" name="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo nulla porro qui quo expedita voluptas ab iure dolore.</p>
-                        </div>
-                    </div>
-                </div>
-             </div>
-        <div class="col-lg-4 col-md-4 col-sm-6">
-            <div class="thumbnail img-thumb-bg">
-                <div class="overlay"></div>
-                <div class="caption">
-                    <div class="price"><a href="#" id="price" name="price">$6534</a></div>
-                    <div class="address"><a href="#" id="formattedAddress" name="formattedAddress">2142 22 ave, San Francisco</a></div>
-                    <div class="date">
-                        <span class="meta-data">By Admin on <p id="datePosted" name="datePosted">29/06/2016</p></span>
-                        <!-- <span class="meta-data pull-right"><a href=""><i class="fa fa-heart-o"></i> 4</a></span> -->
-                    </div>
-                    <div class="description">
-                        <p id="description" name="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo nulla porro qui quo expedita voluptas ab iure dolore.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4 col-md-4 col-sm-6">
-            <div class="thumbnail img-thumb-bg">
-                <div class="overlay"></div>
-                <div class="caption">
-                    <div class="price"><a href="#" id="price" name="price">$6534</a></div>
-                    <div class="address"><a href="#" id="formattedAddress" name="formattedAddress">2142 22 ave, San Francisco</a></div>
-                    <div class="date">
-                        <span class="meta-data">By Admin on <p id="datePosted" name="datePosted">29/06/2016</p></span>
-                        <!-- <span class="meta-data pull-right"><a href=""><i class="fa fa-heart-o"></i> 4</a></span> -->
-                    </div>
-                    <div class="description">
-                        <p id="description" name="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo nulla porro qui quo expedita voluptas ab iure dolore.</p>
-                    </div>
-                </div>
-            </div>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-6">
-                <div class="thumbnail img-thumb-bg">
-                    <div class="overlay"></div>
-                    <div class="caption">
-                        <div class="price"><a href="#" id="price" name="price">$6534</a></div>
-                        <div class="address"><a href="#" id="formattedAddress" name="formattedAddress">2142 22 ave, San Francisco</a></div>
-                        <div class="date">
-                            <span class="meta-data">By Admin on <p id="datePosted" name="datePosted">29/06/2016</p></span>
-                            <!-- <span class="meta-data pull-right"><a href=""><i class="fa fa-heart-o"></i> 4</a></span> -->
-                        </div>
-                        <div class="description">
-                            <p id="description" name="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo nulla porro qui quo expedita voluptas ab iure dolore.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-6">
-                <div class="thumbnail img-thumb-bg">
-                    <div class="overlay"></div>
-                    <div class="caption">
-                        <div class="price"><a href="#" id="price" name="price">$6534</a></div>
-                        <div class="address"><a href="#" id="formattedAddress" name="formattedAddress">2142 22 ave, San Francisco</a></div>
-                        <div class="date">
-                            <span class="meta-data">By Admin on <p id="datePosted" name="datePosted">29/06/2016</p></span>
-                            <!-- <span class="meta-data pull-right"><a href=""><i class="fa fa-heart-o"></i> 4</a></span> -->
-                        </div>
-                        <div class="description">
-                            <p id="description" name="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo nulla porro qui quo expedita voluptas ab iure dolore.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <% } %}
     </div>
 </div>
 
