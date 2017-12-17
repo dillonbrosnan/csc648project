@@ -76,5 +76,30 @@ var getAdvancedSaleListings = function (lat, lon, milesRadius, bedsMin, bedsMax,
 
 }
 
+var getSaleImages = function(saleId)	{
+	
+	return new Promise(function(resolve, reject){
+		
+		var sql = 'SELECT imageId FROM SaleImages WHERE saleId = ?;';
+		
+		var array = [saleId];
+		
+		pool.getConnection(function(err, connection){
+			
+			if(err) return reject(err);
+			
+			connection.query(sql, array, function(err, rows){
+				
+				if(err)	return reject(err);
+
+				resolve(rows);
+			})
+			
+			connection.release();
+		});
+	});
+}
+
+module.exports.getSaleImages = getSaleImages;
 module.exports.getSaleListings = getSaleListings;
 module.exports.getAdvancedSaleListings = getAdvancedSaleListings;

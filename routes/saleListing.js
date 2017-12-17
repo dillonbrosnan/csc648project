@@ -7,23 +7,26 @@ var SaleListingModel = require('../models/saleListingModel');
 
 router.get('/:saleId', function(req,res){
 	var saleId = req.params.saleId;
-	SaleListingModel.getSaleInfo(saleId)
+	Promise.all([SaleListingModel.getSaleInfo(saleId), SaleListingModel.getSaleImages(saleId)])
+	// SaleListingModel.getSaleInfo(saleId)
 	.then(function(saleListing){
-		if(saleListing.length == 0)	{
+		if(saleListing[0].length == 0)	{
 			res.redirect('../..');
 		}
-		else if(saleListing.length == 1 && req.session.isLoggedIn){
+		else if(saleListing[0].length == 1 && req.session.isLoggedIn){
 			res.render('saleListing', {
 				saleId: req.params.saleId,
-				saleListing : saleListing,
-				id: req.session.id,
+				saleListing : saleListing[0],
+				saleImages : saleListing[1],
+				id: req.session.sessionId,
 				role: req.session.role
 			});
 		}
-		else if(saleListing.length == 1){
+		else if(saleListing[0].length == 1){
 			res.render('saleListing', {
 				saleId: req.params.saleId,
-				saleListing : saleListing
+				saleListing : saleListing[0],
+				saleImages : saleListing[1]
 			});
 		}
 	})

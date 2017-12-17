@@ -14,8 +14,6 @@ var checkFormattedAddress = function (formattedAddress)	{
 			if(err) console.log(err);
 
 			connection.query(sql, [formattedAddress], function (err, postingsWithAddress) {
-
-      		console.log(this.sql);
 	          
 			if(err)	{
 				return reject(err);
@@ -35,15 +33,15 @@ var checkFormattedAddress = function (formattedAddress)	{
 
 }
 
-var insertPosting = function(beds, baths, sqFt, lotSqFt, yearBuilt, hoa, lotType, price, lat, lng, formattedAddress, saleId, datePosted, description)	{
+var insertPosting = function(beds, baths, sqFt, lotSqFt, yearBuilt, hoa, lotType, price, lat, lng, formattedAddress, saleId, datePosted, description, agentId)	{
 
 	return new Promise(function(resolve, reject)	{
 
-		var array = [beds, baths, sqFt, lotSqFt, yearBuilt, hoa, lotType, price, lat, lng, formattedAddress, saleId, datePosted, description];
+		var array = [beds, baths, sqFt, lotSqFt, yearBuilt, hoa, lotType, price, lat, lng, formattedAddress, saleId, datePosted, description, agentId];
 		
 		var insertPostQuery = "INSERT INTO `fa17g07`.`Sale` (`beds`, `baths`, `sqFt`, `lotSqFt`, `yearBuilt`, `hoa`, " +
-      		"`lotType`, `price`, `lat`, `lon`, `formattedAddress`, `saleId`, `datePosted`, `description`) " +
-			"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+      		"`lotType`, `price`, `lat`, `lon`, `formattedAddress`, `saleId`, `datePosted`, `description`, `agentId`) " +
+			"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
 	    pool.getConnection(function(err, connection){ //Get connection to pool
 
@@ -59,13 +57,15 @@ var insertPosting = function(beds, baths, sqFt, lotSqFt, yearBuilt, hoa, lotType
 			
 	    });
 
+	    connection.release();
+
 	  }); //End of connection pool
 
   	});
 
 }
 
-var insertImage = function(saleId, imageId)	{
+var insertImageDb = function(saleId, imageId)	{
 
 	return new Promise(function(resolve, reject)	{
 
@@ -75,17 +75,19 @@ var insertImage = function(saleId, imageId)	{
 
 	    pool.getConnection(function(err, connection){ //Get connection to pool
 
-	    	if(err) reject(err);
+	    	if(err) return reject(err);
 
 	    connection.query(insertPostQuery, array, function (err, insertImageCheck)  {
 			
 			if(err) {
-				reject(err);
+				return reject(err);
 			}
 
-			resolve(insertImageCheck);
+			return resolve(imageId);
 			
 	    });
+
+	    connection.release();
 
 	  }); //End of connection pool
 		
@@ -94,6 +96,22 @@ var insertImage = function(saleId, imageId)	{
 
 }
 
-module.exports.insertImage = insertImage;
+var insertImageFile = function(image, imageId, saleId)	{
+
+	return new Promise(function(resolve, reject)	{
+
+	    image.mv('public/saleImages/' + imageId + '.jpg', function(err) {
+			if (err)
+			  return reject(err);
+
+			return resolve( imageId);
+		});
+
+	});
+}
+
+
+module.exports.insertImageFile = insertImageFile;
+module.exports.insertImageDb = insertImageDb;
 module.exports.checkFormattedAddress = checkFormattedAddress;
 module.exports.insertPosting = insertPosting;

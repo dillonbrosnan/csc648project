@@ -37,6 +37,10 @@ var team = require('./routes/team.js');
 var post = require('./routes/post.js');
 var userChat = require('./routes/userChat.js');
 var saleListing = require('./routes/saleListing.js');
+var viewListings = require('./routes/viewListings.js');
+var deleteListing = require('./routes/deleteListing.js');
+var logout = require('./routes/logout.js');
+var messageAgent = require('./routes/messageAgent.js');
 
 app.use(express.static(__dirname + '/public'));
 
@@ -50,6 +54,13 @@ app.use('/team', team);
 app.use('/agent/post', post);
 app.use('/user/message', userChat);
 app.use('/forSale', saleListing);
+app.use('/agent/viewListings', viewListings);
+app.use('/agent/deleteListing', deleteListing);
+app.use('/forSale', messageAgent);
+app.use('/logout', logout);
+
+
+
 app.get('*', function(req, res){
   res.redirect('/');
 });

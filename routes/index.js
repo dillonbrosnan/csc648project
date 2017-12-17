@@ -6,7 +6,7 @@ router.get('/', function(req, res) {
 
   if(req.session.isLoggedIn)	{
   	res.render('index', { 
-  		id: req.session.id,
+  		id: req.session.sessionId,
   		role: req.session.role 
   	});
   }	else	{

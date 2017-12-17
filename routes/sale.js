@@ -32,25 +32,57 @@ router.post('/', function(req, res) {
 
     } else  {
 
-      SaleModel.getSaleListings(lat, lon, milesRadius)
-        .then(function(saleListings)  {
-          if(saleListings.length >= 0 && req.session.isLoggedIn) {
+        var saleListings;
+        SaleModel.getSaleListings(lat, lon, milesRadius)
+        .then(function(saleListingResults)  {
+            saleListings = saleListingResults;
+            if(saleListings.length > 0) {
+                return Promise.all(saleListings.map(function(saleListing)  {
+                    var saleId = saleListing.saleId;
+                    return SaleModel.getSaleImages(saleId).then(function(result)  {
+                        console.log(result);
+                        return result.imageId;
+                    })
+                }))
+            }
+          // if(saleListings.length >= 0 && req.session.isLoggedIn) {
+            
+          //   res.render('sale', {
+          //       lat: lat, 
+          //       lon: lon, 
+          //       saleListings: saleListings,
+          //       milesRadius: milesRadius,
+          //       role: req.session.role,
+          //       id: req.session.sessionId
+          //   });
+          // } else if(saleListings.length >= 0 && !req.session.isLoggedIn) {
+          //   res.render('sale', {
+          //       lat: lat, 
+          //       lon: lon, 
+          //       saleListings: saleListings,
+          //       milesRadius: milesRadius
+          //   });
+          // }
+        })
+        .then(function()    {
+        if(saleListings.length >= 0 && req.session.isLoggedIn) {
+
             res.render('sale', {
                 lat: lat, 
                 lon: lon, 
                 saleListings: saleListings,
                 milesRadius: milesRadius,
                 role: req.session.role,
-                id: req.session.id
-            });
-          } else if(saleListings.length >= 0 && !req.session.isLoggedIn) {
+                id: req.session.sessionId
+            })
+        } else if(saleListings.length >= 0 && !req.session.isLoggedIn) {
             res.render('sale', {
                 lat: lat, 
                 lon: lon, 
                 saleListings: saleListings,
                 milesRadius: milesRadius
-            });
-          }
+            })
+        }
         })
         .catch(function(err) {
             console.log(err);
@@ -144,7 +176,7 @@ router.post('/advancedSearch/', function(req, res) {
                 saleListings: saleListings,
                 milesRadius: milesRadius,
                 role: req.session.role,
-                id: req.session.id
+                id: req.session.sessionId
             });
           } else if(saleListings.length >= 0 && !req.session.isLoggedIn) {
             res.render('sale', {
