@@ -11,7 +11,10 @@ router.get('/',function(req,res){
   if(req.session.role != "agent") {
     res.redirect('../../login/agent');
   } else  {
-  res.render('post');
+  res.render('post',{
+    role: req.session.role,
+    id: req.session.sessionId
+  });
   }
 });
 
