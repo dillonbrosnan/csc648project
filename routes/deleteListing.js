@@ -19,11 +19,7 @@ router.get('/:saleId', function(req,res){
 			}
 		})
 		.then(function(deleteRows)	{
-			return res.send({
-				deletedRows: deleteRows,
-				id: req.session.sessionId,
-				role: req.session.role
-			})
+			return res.redirect('../../viewListings')
 		})
 	
 	.catch(function(err){

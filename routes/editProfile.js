@@ -11,7 +11,7 @@ router.get('agent/editProfile',function(req,res){
   res.render('agentEditProfile', {role: "agent"} );
 });
 
-router.get('user/editProfile',function(req,res){
+router.get('editProfile',function(req,res){
   if(req.session.isLoggedIn && req.session.role != 'user')  {
     return res.redirect('..');
   }
@@ -19,21 +19,16 @@ router.get('user/editProfile',function(req,res){
 });
 
 // Route
-router.post('/',function(req,res){
+router.post('editProfile',function(req,res){
 
   var username = req.body.username;
-	var password = req.body.password;
   var firstName = req.body.firstName;
   var lastName = req.body.lastName;
   var email = req.body.email;
   var formattedAddress = req.body.formattedAddress;
   var lat = Number(req.body.lat);
   var lng = Number(req.body.lng);
-  var userId = uuidv4({msecs: new Date().getTime()});
-
-	var salt = bcrypt.genSaltSync(10);
-	// Salt and hash password
-	var hash = bcrypt.hashSync(password, salt);
+  var userId = req.session.sessionId;
 
   RegisterModel.userCheck(username, email)
     .then(function(duplicateUsers)  {
@@ -71,7 +66,7 @@ router.post('/',function(req,res){
 });
 
 // Route
-router.post('/agent',function(req,res){
+router.post('agent/editProfile',function(req,res){
 
   var username = req.body.username;
   var password = req.body.password;
