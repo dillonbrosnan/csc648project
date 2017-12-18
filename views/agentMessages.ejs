@@ -9,23 +9,7 @@
 <body>
   <!-- Contains header of website -->
   <% include partials/header %>
-        <div class="container">
             <h2>Messages from Potentail Buyers:</h2>
-                <% for(var i = 0; i < messages.length; i++) { %>
-                    <div class="media">
-                    <div class="media-left media-top">
-                        <img src="img_avatar1.png" class="media-object" style="width:80px">
-                    </div>
-                    <div class="media-body">
-                        <h4 class="media-heading"><a href="forSale/<%= messages[i].saleId %>/">Label of ink</a></h4>
-                        <h4 class="media-heading"><%= messages[i].phoneNo %></h4>
-                        <p><%= messages[i].messageContent %></p>
-                    </div>
-                    </div>
-                <hr>
-                <% } %>
-        </div>
-        
         <table class="table table-striped" width = "70%" >
                 <thead>
                   <tr>
