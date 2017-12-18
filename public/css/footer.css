@@ -17,17 +17,19 @@
 .footer1{
 	position: fixed;
 	width: 100%; 
-	bottom: 0px; 
+	bottom: 0;
+	margin-top: -20px; 
 }
 .footer1 .footer {
 	background-color: #2E3436 ;
-	padding: 35px 0;
-	margin-top: 5em;
+	padding: 10px 0 0 0;
+	
+
 }
 
 .footer1 .footer .footer-desc p {
 	color: #DDD;
-	 margin: 15px 0 8px;
+	margin: 10px 0;
 }
 
 .footer1 .footer .social {
@@ -84,7 +86,7 @@
 
 .footer1 .footer-bottom {
 	background-color: #222728 ;
-	padding: 15px 0;
+	padding: 5px 0;
 	color: #DDD;
 	font-size: 13px;
 }
@@ -115,4 +117,7 @@
 			 padding: 10px;
 			 text-align: center;
 	 }
+}
+.row-footer {
+	height: 20px;
 }

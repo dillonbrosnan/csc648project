@@ -10,6 +10,7 @@ body, html{
     background-repeat: no-repeat;
     background-color: white;
     font-family: sans-serif;
+    margin-bottom: 250px;
 }
 .main{
     margin-top: 70px;

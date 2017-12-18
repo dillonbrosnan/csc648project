@@ -26,6 +26,8 @@ body	{
 body {
   font-size: 1.25rem;
   font-family: sans-serif;
+  position: relative;
+  margin-bottom: 50px;
 }
 
 section {
