@@ -13,7 +13,7 @@ router.get('/',function(req,res){
   var agentId = req.session.sessionId;
   ViewListingsModel.getListings(agentId).
   	then(function(listings)	{
-  		return res.send({
+  		return res.render('agentListings', {
   			listings: listings,
   			id: req.session.sessionId,
   			role: req.session.role
