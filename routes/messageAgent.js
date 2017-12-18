@@ -17,6 +17,7 @@ router.post('/:saleId/message', function(req,res){
 	var messageId = uuidv4({msecs: new Date().getTime()});
 	req.checkBody('phoneNo', 'Phone number must be less than 45 characters').isLength({min: 0, max: 45});
 	req.checkBody('messageContent', 'Message cannot be more than 255 characters').isLength({min: 0, max: 255});
+	var errors = req.validationErrors();
 	if(errors)  {
 		var response = { errors: [] };
 		errors.forEach(function(err) {
@@ -31,14 +32,14 @@ router.post('/:saleId/message', function(req,res){
 		if(agentId.length == 0)	{
 			return res.redirect('..');
 		}	else	{
-			var agentId = agentId.agentId;
+			var agentId = agentId[0].agentId;
 			return MessageAgentModel.sendMessage(messageId, agentId, 
 				saleId, date, messageContent, phoneNo);
 		}
 	})
 	.then(function(messages)	{
 		console.log("Message sent to agent for sale " + saleId);
-		return res.send('..');
+		return res.redirect('..');
 	})
 	.catch(function(error)  {
 		return res.status(500).send( { error : error });
