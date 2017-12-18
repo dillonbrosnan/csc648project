@@ -1,118 +1,101 @@
 <! — views/partials/header.ejs -->
-<base href="/fa17g07/">
-
-<div class="container navigation">
-  <nav class="navbar navbar-default">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar2">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href=" "><img src="images/logo.png" alt="logo">
-        </a>
-      </div>
-      <div id="navbar2" class="navbar-collapse collapse">
-        <ul class="nav navbar-nav navbar-right">
-          <li class="active"><a href=" ">Home</a></li>
-          <li><a href="">Buy</a></li>
-          <li><a href="">Rent</a></li>
-          <li><a href="login/">Login</a></li>
-          <li><a href="register/">Register</a></li>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">More <span class="caret"></span></a>
-            <ul class="dropdown-menu" role="menu">
-              <li><a href="#">About Us</a></li>
-              <li><a href="#">Contact Us</a></li>
-              
-              <li class="divider"></li>
-              <li class="dropdown-header">Nav header</li>
-              <li><a href="#">Separated link</a></li>
-              <li><a href="#">One more separated link</a></li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-      <!--/.nav-collapse -->
-    </div>
-    <!--/.container-fluid -->
-  </nav>
-</div>
+<base href="/">
 
 
-<!--MENU FOR AGENT 
-<div class="container navigation-agent">
-  <nav class="navbar navbar-default">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar2">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="/"><img src="/images/logo.png" alt="logo">
-        </a>
+ <% if(typeof role != 'undefined'){ %>
+  <% if(role == "agent") { %>
+    <div class="container navigation-agent" id="navigation-agent">
+        <nav class="navbar navbar-default">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="/"><img src="/images/logo.png" alt="logo" id="navLogo">
+              </a>
+            </div>
+            <div id="navbar2" class="navbar-collapse collapse">
+              <ul class="nav navbar-nav navbar-right">
+                <li class="active"><a href="/"> Home </a></li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> More <span class="caret"></span></a>
+                  <ul class="dropdown-menu" role="menu">
+                      <li><a href="agent/messageAgent">Messages</a></li> 
+                    <li><a href="agent/editprofile">Edit Profile</a></li> 
+                    <li><a href="agent/post">Post Listing</a></li>  
+                    <li><a href="logout">Log out</a></li>     
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
       </div>
-      <div id="navbar2" class="navbar-collapse collapse">
-        <ul class="nav navbar-nav navbar-right">
-          <li class="active"><a href="/">Home</a></li>
-          <li><a href="#">Rent</a></li>
-          <li><a href="#">Buy</a></li>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Settings <span class="caret"></span></a>
-            <ul class="dropdown-menu" role="menu">
-              <li><a href="#">Profile</a></li> ***** direct to profile page ****
-              <li><a href="#">Post Listing</a></li>  ***** direct to post listing page ****
-              <li><a href="#">Log out</a></li>      ***** direct to index page ****
-              <li><a href="#">Something else here</a></li>
-              <li class="divider"></li>
-              <li class="dropdown-header">Nav header</li>
-              <li><a href="#">Separated link</a></li>
-              <li><a href="#">One more separated link</a></li>
-            </ul>
-          </li>
-        </ul>
+      <% } else if (role == "user") { %>
+      <div class="container navigation-buyer"  id="navigation-buyer">
+        <nav class="navbar navbar-default">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="/"><img src="/images/logo.png" alt="logo" id="navLogo">
+              </a>
+            </div>
+            <div id="navbar2" class="navbar-collapse collapse">
+              <ul class="nav navbar-nav navbar-right">
+                <li><a href="/"> Search </a></li> 
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> More <span class="caret"></span></a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="agent/editprofile"> Profile </a></li>  
+                    <li><a href="logout"> Log out </a></li>  
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
       </div>
-    </div>
-  </nav>
-</div>
--->
-
-<!-- NAVIGATION FOR BUYER (NORMAL USER) 
-<div class="container navigation-buyer">
-  <nav class="navbar navbar-default">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar2">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="/"><img src="/images/logo.png" alt="logo">
-        </a>
-      </div>
-      <div id="navbar2" class="navbar-collapse collapse">
-        <ul class="nav navbar-nav navbar-right">
-          <li><a href="/">Search</a></li> 
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Settings <span class="caret"></span></a>
-            <ul class="dropdown-menu" role="menu">
-              <li><a href="#">Profile</a></li>  
-              <li><a href="#">Log out</a></li>  
-              
-              <li class="divider"></li>
-              <li class="dropdown-header">Nav header</li>
-              <li><a href="#">Separated link</a></li>
-              <li><a href="#">One more separated link</a></li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-</div>-->
-
+        <% } %>
+      <% } else { %>
+      <div class="container navigation"  id="navigation">
+          <nav class="navbar navbar-default">
+            <div class="container-fluid">
+              <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href=" "><img src="/images/logo.png" alt="logo" id="navLogo">
+                </a>
+              </div>
+              <div id="navbar2" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                  <li class="active"><a href=" "> Home </a></li>
+                  <li><a href=""> Buy </a></li>
+                  <li><a href="login/"> Login </a></li>
+                  <li><a href="register/"> Register </a></li>
+                  <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> More <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                      <li><a href="/portfolio"> About Us </a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+              <!--/.nav-collapse -->
+            </div>
+            <!--/.container-fluid -->
+          </nav>
+          </div>
+          <% } %>
+     

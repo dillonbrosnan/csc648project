@@ -1,7 +1,7 @@
 <!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" dir="ltr">
 <!-- Contains head of website -->
-<base href="/fa17g07/">
+<base href="/">
 <head>
   <% include partials/head %>
   <link rel="stylesheet" href="css/sale.css"></link> <!-- styleing for sale page -->
@@ -51,8 +51,6 @@
   var latInput = <%- JSON.stringify(lat) %>;
   var lngInput = <%- JSON.stringify(lon) %>;
   function initMap() {
-    //var latInput = <%- JSON.stringify(lat) %>;
-    //var lngInput = <%- JSON.stringify(lon) %>;
     var milesRadius = <%= JSON.stringify(milesRadius) %>; 
     var saleListings = <%- JSON.stringify(saleListings) %>;
 
@@ -137,7 +135,6 @@
               children.push(parent.childNodes[i]); 
             }        
         }
-
 
         let childrenLength = children.length; 
         var location = [], i, len;

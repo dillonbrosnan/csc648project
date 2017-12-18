@@ -1,6 +1,14 @@
 
-  /* navigation sytle*/
+html{
+  height: 100%; 
+  width: 100%; 
+}
+body{
+  height: 100%; 
+}
 
+
+  /* navigation sytle*/
   .navbar {
     margin-bottom: 0px!important; 
   }
@@ -13,23 +21,15 @@
     width: auto;
   }
   
-  .navigation{
+  #navigation-agent, #navigation-buyer, #navigation{
     width: 100%;
+    padding: 0px;
   }
   
   .navbar-default{
     background-color: black;
   }
-  
-  #mainlogo{
-        width: 300px;
-        padding-left: auto;
-        padding: auto;
-        position: absolute;
-        left: 50%;
-        margin-left: -157px !important;
-        display: block;
-  }
+ 
 /*============== navigation sytle==============*/
 .navbar-brand {
   padding: 0px;
@@ -45,18 +45,6 @@
 
 .navbar-default{
   background-color: black;
-}
-
-#mainlogo{
-      /* height: 100%; */
-      width: 300px;
-      padding-left: auto;
-      /* margin-left: 50%; */
-      padding: auto;
-      position: absolute;
-      left: 50%;
-      margin-left: -157px !important;
-      display: block;
 }
 
 /* ----------- iPhone 6, 6S, 7 and 8 ----------- */
