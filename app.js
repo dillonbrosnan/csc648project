@@ -41,6 +41,7 @@ var viewListings = require('./routes/viewListings.js');
 var deleteListing = require('./routes/deleteListing.js');
 var logout = require('./routes/logout.js');
 var messageAgent = require('./routes/messageAgent.js');
+var editProfile = require('./routes/editProfile.js');
 
 app.use(express.static(__dirname + '/public'));
 
@@ -57,6 +58,7 @@ app.use('/forSale', saleListing);
 app.use('/agent/viewListings', viewListings);
 app.use('/agent/deleteListing', deleteListing);
 app.use('/forSale', messageAgent);
+app.use('/', editProfile);
 app.use('/logout', logout);
 
 
