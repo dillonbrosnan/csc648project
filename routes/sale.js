@@ -54,7 +54,7 @@ router.post('/', function(req, res) {
                     lat: lat, 
                     lon: lon, 
                     saleListings: saleListings,
-                    saleImages: saleListings,
+                    saleImages: saleImages,
                     milesRadius: milesRadius,
                     role: req.session.role,
                     id: req.session.sessionId
@@ -64,6 +64,7 @@ router.post('/', function(req, res) {
                     lat: lat, 
                     lon: lon, 
                     saleListings: saleListings,
+                    saleImages: saleImages,
                     milesRadius: milesRadius
                 })
             }

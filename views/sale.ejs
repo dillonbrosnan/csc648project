@@ -28,7 +28,7 @@
         <div class="col-lg-4 col-md-4 col-sm-6" price="<%= saleListings[i].price %>" lat="<%= saleListings[i].lat %>" lng="<%= saleListings[i].lng %>">
           <div class="thumbnail img-thumb-bg">
               <div class="overlay"></div>
-              <img alt="img" class="img-responsive" src="images/house1.jpeg"> <!-- pull image from db --> 
+              <img alt="img" class="img-responsive" src="saleImages/<%= saleImages[i][0].imageId %>.jpg"> <!-- pull image from db --> 
               <div class="caption">
                   <div class="tag"><a href="forSale/<%= saleListings[i].saleId %>/"> $ <%= saleListings[i].price %> </a></div>
                   <div class="title"><a href="forSale/<%= saleListings[i].saleId %>/"> <%= saleListings[i].formattedAddress %> </a></div>
