@@ -58,7 +58,7 @@ app.use('/forSale', saleListing);
 app.use('/agent/viewListings', viewListings);
 app.use('/agent/deleteListing', deleteListing);
 app.use('/forSale', messageAgent);
-app.use('/editProfile', editProfile);
+app.use('/', editProfile);
 app.use('/logout', logout);
 
 
