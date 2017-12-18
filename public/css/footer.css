@@ -14,7 +14,10 @@
 .footer1 a:active {
 	color: #FFF;
 }
-
+.footer1{
+	position: absolute;
+	width: 100%; 
+}
 .footer1 .footer {
 	background-color: #2E3436 ;
 	padding: 35px 0;
