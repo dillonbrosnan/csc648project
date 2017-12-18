@@ -16,20 +16,16 @@ var getSaleMessages = function (saleId, userId)	{
 
 	    pool.getConnection(function(err, connection){ //Get connection to pool
 	      
-	      if(err) console.log(err);
+		if(err) return reject(err);
 
-	      connection.query(sql, array, function (err, rows) {
+		connection.query(sql, array, function (err, rows) {
+		  
+			if(err)		return reject(err);
 
+			resolve(rows);
+		})
 
-	      	console.log(this.sql);
-	          
-	          if(err)	{
-	          	return reject(err);
-	          }
-	          resolve(rows);
-	      })
-
-	      connection.release();
+		connection.release();
 
       	}); //End of connection pool
 
@@ -47,19 +43,16 @@ var getAgentId = function(saleId)	{
 
 	    pool.getConnection(function(err, connection){ //Get connection to pool
 	      
-	      if(err) console.log(err);
+	    if(err) return reject(err);
 
-	      connection.query(sql, array, function (err, rows) {
+		connection.query(sql, array, function (err, rows) {
+		  
+			if(err)		return reject(err);
 
-	      	console.log(this.sql);
-	          
-	          if(err)	{
-	          	return reject(err);
-	          }
-	          resolve(rows);
-	      })
+			resolve(rows);
+		})
 
-	      connection.release();
+		connection.release();
 
       	}); //End of connection pool
 

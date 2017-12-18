@@ -1,0 +1,39 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" dir="ltr">
+<!-- Contains head of website -->
+<base href="/">
+<head>
+  <% include partials/head %>
+
+</head>
+<body>
+  <!-- Contains header of website -->
+  <% include partials/header %>
+            <h2>Messages from Potentail Buyers:</h2>
+        <table class="table table-striped" width = "70%" >
+                <thead>
+                  <tr>
+                    <th>Phone Number</th>
+                    <th>Real Estate</th>
+                    <th>Message</th>
+                  </tr>
+                </thead>
+                <tbody>
+                        <% for(var i = 0; i < messages.length; i++) { %>
+                  <tr>
+                    <td><%= messages[i].phoneNo %></td>
+                    <td><a href="forSale/<%= messages[i].saleId %>/">Label of ink</a></td>
+                    <td><%= messages[i].messageContent %></td>
+                  </tr>
+                    <% } %>
+                </tbody>
+              </table>
+
+
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPXF-zkLqKND8w5ktBN5bdlTkQSVbw950&libraries=places&callback=initMap" async defer></script>
+        <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+      </body>
+       <!-- Contains header of website -->
+       <% include partials/footer %>
+      </html>

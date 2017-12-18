@@ -8,12 +8,13 @@ var PostModel = require('../models/postModel');
 
 // Route
 router.get('/',function(req,res){
-  console.log(req.session.role);
-  console.log(req.session.agentId);
   if(req.session.role != "agent") {
-    res.redirect('/login/agent/');
+    res.redirect('../../login/agent');
   } else  {
-  res.render('post');
+  res.render('post',{
+    role: req.session.role,
+    id: req.session.sessionId
+  });
   }
 });
 
@@ -34,7 +35,7 @@ router.post('/', function(req,res){
   var currentTimestamp = moment().unix();
   var datePosted = moment(currentTimestamp*1000).format("YYYY-MM-DD HH:mm:ss");
   var saleId = uuidv4({msecs: new Date().getTime()});
-  var imageId = uuidv4({msecs: new Date().getTime()});
+  var agentId = req.session.sessionId;
 
   beds = Number(beds);
   baths = Number(baths);
@@ -59,10 +60,7 @@ router.post('/', function(req,res){
   req.checkBody('hoa', 'Hoa must be between 0 and 10000').notEmpty().isInt({ min: 0, max: 10000 });
   req.checkBody('description', 'Description must be between 0 and 255 characters').isLength({ min: 0, max: 255 });
   req.checkBody('price', 'Price must between 0 and 1000000000').notEmpty().isInt({ min: 0, max: 1000000000 });
-  var errors = req.validationErrors();
-
-
-    
+  var errors = req.validationErrors();   
 
   if(errors)  {
     var response = { errors: [] };
@@ -71,33 +69,83 @@ router.post('/', function(req,res){
     });
     res.statusCode = 400;
     return res.json(response);
-  }   
-  else if(req.files.saleImage.length > 12 || !req.files) {
-      res.send("File wrong");
-  }
-  else  {
-    req.files.saleImage.mv('./public/saleImages/' + imageId + '.jpg', function(err)  {
-      if(err) {
+  }   else  {
+    
+    if(typeof req.files.saleImage == 'undefined') {
+      PostModel.checkFormattedAddress(formattedAddress)
+      .then(function() {
+        return PostModel.insertPosting(beds, baths, sqFt, lotSqFt, yearBuilt, 
+        hoa, lotType, price, lat, lng, formattedAddress, saleId, datePosted, description, agentId); 
+      })
+      .then(function(results) {
+        return res.redirect('../../forSale/' + saleId + '/')
+      })
+      .catch(function(err) {
         console.log(err);
-        res.send(err);
-      }
-    });
-    PostModel.checkFormattedAddress(formattedAddress)
-    .then(function() {
-      return Promise.all([PostModel.insertImage(saleId, imageId)]); 
-    })
-    .then(function() {
-      return Promise.all([, PostModel.insertPosting(beds, baths, sqFt, lotSqFt, yearBuilt, 
-      hoa, lotType, price, lat, lng, formattedAddress, saleId, datePosted, description)]); 
-    })
-    .then(function() {
-      res.redirect('/forSale/' + saleId + '/')
-    })
-    .catch(function(err) {
-      console.log(err);
-      res.status(400);
-      return res.send("Couldn't post posting");
-    });    
+        res.status(400);
+        return res.send("Couldn't post posting without image");
+      })
+    } else if(!Array.isArray(req.files.saleImage)) {
+      PostModel.checkFormattedAddress(formattedAddress)
+      .then(function() {
+        return PostModel.insertPosting(beds, baths, sqFt, lotSqFt, yearBuilt, 
+        hoa, lotType, price, lat, lng, formattedAddress, saleId, datePosted, description, agentId); 
+      })
+      .then(function()  {
+        var imageId = uuidv4({msecs: new Date().getTime()});
+        return PostModel.insertImageFile(req.files.saleImage, imageId, saleId).then(function(result)  {
+          return imageId;
+        });
+      })
+      .then(function(imageId) {
+        return PostModel.insertImageDb(saleId, imageId).then(function(result)  {
+            return imageId;
+        })
+      })
+      .then(function(results) {
+        return res.redirect('../../forSale/' + saleId + '/')
+      })
+      .catch(function(err) {
+        console.log(err);
+        res.status(400);
+        return res.send("Couldn't post posting with single image");
+      }); 
+    } else  {
+      PostModel.checkFormattedAddress(formattedAddress)
+      .then(function() {
+        return PostModel.insertPosting(beds, baths, sqFt, lotSqFt, yearBuilt, 
+        hoa, lotType, price, lat, lng, formattedAddress, saleId, datePosted, description, agentId); 
+      })
+      .then(function()  {
+
+        return Promise.all(req.files.saleImage.map(function(image)  {
+          var imageId = uuidv4({msecs: new Date().getTime()});
+          return PostModel.insertImageFile(image, imageId, saleId).then(function(result)  {
+            return imageId;
+          })
+        }))
+      
+      })
+      .then(function(imageIdresults) {
+
+        return Promise.all(imageIdresults.map(function(imageId)  {
+        // var imageId = uuidv4({msecs: new Date().getTime()});
+          return PostModel.insertImageDb(saleId, imageId).then(function(result)  {
+            return imageId;
+          })
+        }))
+        
+      })
+      .then(function(results) {
+        return res.redirect('../../forSale/' + saleId + '/')
+      })
+      .catch(function(err) {
+        console.log(err);
+        res.status(400);
+        return res.send("Couldn't post posting with multiple images");
+      }); 
+    }
+
   } 
 
 });

@@ -1,5 +1,23 @@
 body	{
-	margin-top: 50px;
+  background-image: url('../images/keys.jpg');
+
+  /* Background image is centered vertically and horizontally at all times */
+  background-position: center center;
+  
+  /* Background image doesn't tile */
+  background-repeat: no-repeat;
+  
+  /* Background image is fixed in the viewport so that it doesn't move when 
+     the content's height is greater than the image's height */
+  background-attachment: fixed;
+  
+  /* This is what makes the background image rescale based
+     on the container's size */
+  background-size: cover;
+  
+  /* Set a background color that will be displayed
+     while the background image is loading */
+  background-color: #464646;
 }
 
 	* {
@@ -15,10 +33,19 @@ section {
   text-align: center;
 }
 
+label {
+  color: white;
+}
+
 .searchContainer  {
-  margin-left: 10%;
-  margin-right: 10%;
-  padding-top: 25px;
+  background-color: #00000024;
+  width: 90%;
+  margin: auto;
+}
+
+#searchContainer{
+  width: 70%; 
+  margin-top: 24%;
 }
 
 #latInput, #lngInput  {
@@ -36,3 +63,19 @@ section {
 #searchForm :input  {
   z-index: 9999;
 }
+
+/*============= form styling ================*/
+
+.searchContainer input{
+  height: 40px;
+  font-size: 15px; 
+}
+.btn-default{
+  font-size: 15px; 
+  height: 50px; 
+}
+#submit{
+  height: 50px!important;
+  font-size: 15px; 
+}
+
