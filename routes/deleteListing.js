@@ -19,7 +19,7 @@ router.get('/:saleId', function(req,res){
 			}
 		})
 		.then(function(deleteRows)	{
-			return res.redirect('../../viewListings')
+			return res.redirect('../../../agent/viewListings')
 		})
 	
 	.catch(function(err){
