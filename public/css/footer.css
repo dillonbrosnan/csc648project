@@ -9,25 +9,13 @@
 footer{
 	font-size: 16px;
     margin-top: 16%;
-    height: 105px;
+    height: 110px;
     position: relative;
     background-color: black;
     color: white;
 }
 
-
-
-
-
-
-
-
-@media (max-width: 550px) {
-	 .footer1 .footer-bottom .pull-left,
-	 .footer1 .footer-bottom .pull-right {
-			 float: none !important;
-			 width: 100%;
-			 padding: 10px;
-			 text-align: center;
-	 }
+#footerfoot{
+	position: absolute;
+	bottom: 0px;
 }
