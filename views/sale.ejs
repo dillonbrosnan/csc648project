@@ -1,18 +1,14 @@
 <!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" dir="ltr">
-
 <!-- Contains head of website -->
+<base href="/">
 <head>
   <% include partials/head %>
-  <link rel="stylesheet" href="/css/sale.css"></link>
+  <link rel="stylesheet" href="css/sale.css"></link> <!-- styleing for sale page -->
 </head>
-
-
 <body>
-
   <!-- Contains header of website -->
   <% include partials/header %>
-
   <!-- Contains body of page -->
   <div class="container-fluid saleContainer">
     <div class="btn-group btn-group-justified hidden-md hidden-lg">
@@ -22,51 +18,49 @@
     <div class="mapContainer col-md-5" id="map">
       
     </div>
-    <div class="listContainer col-md-7">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Formatted Address</th>
-            <th>Beds</th>
-            <th>Baths</th>
-            <th>Square Feet</th>
-            <th>Price</th>
-            <th>Message</th>
-            <th>View</th>
-          </tr>
-        </thead>
-  
-      <tbody>
+    <div class="listContainer">
+      <div class="filterContainer">
+          <button onclick="acendingsort()" id="sortingbutton">Price <i class="fa fa-angle-double-down" aria-hidden="true"></i></button>
+          <button onclick="locationDecendingSort()" id="sortLocation">Location <i class="fa fa-map-marker" aria-hidden="true"></i></button>
+      </div>
+        <div class="row" >
       <% for(var i = 0; i < saleListings.length; i++) { %>
-        <tr>
-          <td><%= saleListings[i].formattedAddress %></td>
-          <td><%= saleListings[i].beds %></td>
-          <td><%= saleListings[i].baths %></td>
-          <td><%= saleListings[i].sqFt %></td>
-          <td><%= saleListings[i].price %></td>
-          <td><a href="/user/message/<%= saleListings[i].saleId %>/">Message</a></td>
-          <td><a href="/forSale/<%= saleListings[i].saleId %>/">View</a></td>
-        </tr>
+        <div class="col-lg-4 col-md-4 col-sm-6" price="<%= saleListings[i].price %>" lat="<%= saleListings[i].lat %>" lng="<%= saleListings[i].lng %>">
+          <div class="thumbnail img-thumb-bg">
+              <div class="overlay"></div>
+              <% if (typeof saleImages[i][0] != 'undefined') {%>
+              <img alt="img" class="img-responsive" src="saleImages/<%= saleImages[i][0].imageId %>.jpg"> <!-- pull image from db -->
+              <%} else { %>
+                <img alt="img" class="img-responsive" src="images/house1.jpg"> <!-- pull image from db -->
+                <%}%>
+              <div class="caption">
+                  <div class="tag"><a href="forSale/<%= saleListings[i].saleId %>/"> $ <%= saleListings[i].price %> </a></div>
+                  <div class="title"><a href="forSale/<%= saleListings[i].saleId %>/"> <%= saleListings[i].formattedAddress %> </a></div>
+                  <div class="clearfix">
+                      <span class="meta-data">Sqft: <%= saleListings[i].sqFt %>, Beds: <%= saleListings[i].beds %>, Baths:  <%= saleListings[i].baths %></span>
+                      <!-- <span class="meta-data pull-right"><a href=""><i class="fa fa-heart-o"></i> 4</a></span> -->
+                  </div>
+                  <div class="content">
+                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo nulla porro qui quo expedita voluptas ab iure dolore.</p>
+                      <hr>
+                  </div>
+              </div>
+          </div>
+        </div>
       <% } %>
-        </tbody>
-      </table>
+        </div>
     </div>
-    
-
   </div>
-
   <script>
+  var latInput = <%- JSON.stringify(lat) %>;
+  var lngInput = <%- JSON.stringify(lon) %>;
   function initMap() {
-    var latInput = <%- JSON.stringify(lat) %>;
-    var lngInput = <%- JSON.stringify(lon) %>;
-    var milesRadius = <%= JSON.stringify(milesRadius) %>
+    var milesRadius = <%= JSON.stringify(milesRadius) %>; 
     var saleListings = <%- JSON.stringify(saleListings) %>;
-
 
     latInput = parseFloat(latInput);
     lngInput = parseFloat(lngInput);
     milesRadius = parseInt(milesRadius);
-
     var uluru = {lat: latInput, lng: lngInput};
 
     var map = new google.maps.Map(document.getElementById('map'), {
@@ -100,13 +94,71 @@
 
     var bounds = milesCircle.getBounds();
     map.fitBounds(bounds);
-
-
   }
+      //set distance to every location on window load
+    (function addEventsAndStuff() {
+     setLocationforListing(); 
+    })();
+
+    // //convert lat and lng to distance from each search result
+    function getDistance(lat2,lon2) {
+      let lat1 = latInput,
+          lon1 = lngInput;
+          
+      var R = 6371; // Radius of the earth in km
+      var dLat = deg2rad(lat2-lat1);  // deg2rad below
+      var dLon = deg2rad(lon2-lon1); 
+      var a = 
+              Math.sin(dLat/2) * Math.sin(dLat/2) +
+              Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
+              Math.sin(dLon/2) * Math.sin(dLon/2); 
+
+      var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+      var d = R * c; // Distance in km
+      return d;
+    }
+    //convert degrees to radians
+    function deg2rad(deg) {
+      return deg * (Math.PI/180)
+    }
+
+    //sets the distance property to each listing 
+    function setLocationforListing(){
+      var listSection = document.getElementsByClassName('listContainer');
+        
+        for(let i = 0; i < listSection[0].children.length; i++){
+          if(listSection[0].children[i].className == 'row'){
+            var parent = listSection[0].children[i]; 
+          }
+        }
+
+        var children = [];
+        //get all childNodes
+        for (var i = 0; i < parent.childNodes.length; i++) {
+            if (parent.childNodes[i].className == "col-lg-4 col-md-4 col-sm-6") {
+              children.push(parent.childNodes[i]); 
+            }        
+        }
+
+        let childrenLength = children.length; 
+        var location = [], i, len;
+        
+        for (i = 0, len = children.length; i < len; i++) {
+          location.push(getDistance(children[i].attributes[2].nodeValue, children[i].attributes[3].nodeValue));
+        }
+
+        for(let i = 0; i < location.length; i++){
+          var att = document.createAttribute("distance");       // Create a "class" attribute
+          att.value = location[i];                           // Set the value of the class attribute
+          children[i].setAttributeNode(att);                          // Add the class attribute to <h1>
+        }
+    }
   </script>
-  <script src="/js/sale.js"></script> <!-- Client side code for sale.ejs -->
+  <script src="js/sale.js"></script> <!-- Client side code for sale.ejs -->
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPXF-zkLqKND8w5ktBN5bdlTkQSVbw950&libraries=places&callback=initMap" async defer></script>
   <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 </body>
+ <!-- Contains header of website -->
+ <% include partials/footer %>
 </html>

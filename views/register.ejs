@@ -1,25 +1,66 @@
 <!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" dir="ltr">
+<base href="/">
+
 
 <!-- Contains head of website -->
 <head>
   <% include partials/head %>
-  <link rel="stylesheet" href="/css/register.css"></link>
+  <link rel="stylesheet" href="css/register.css"></link>
 </head>
 
 
 <body>
 
   	<!-- Contains header of website -->
-  	<% include partials/header %>
-
+  	
+	  <div class="container navigation"  id="navigation">
+			<nav class="navbar navbar-default">
+			  <div class="container-fluid">
+				<div class="navbar-header">
+				  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				  </button>
+				  <a class="navbar-brand" href=" "><img src="/images/logo.png" alt="logo" id="navLogo">
+				  </a>
+				</div>
+				<div id="navbar2" class="navbar-collapse collapse">
+				  <ul class="nav navbar-nav navbar-right">
+					<li class="active"><a href=" "> Home </a></li>
+					<li><a href=""> Buy </a></li>
+					<li><a href="login/"> Login </a></li>
+					<li><a href="register/"> Register </a></li>
+					<li class="dropdown">
+					  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> More <span class="caret"></span></a>
+					  <ul class="dropdown-menu" role="menu">
+						<li><a href="/portfolio"> About Us </a></li>
+					  </ul>
+					</li>
+				  </ul>
+				</div>
+				<!--/.nav-collapse -->
+			  </div>
+			  <!--/.container-fluid -->
+			</nav>
+			</div>
   	<!-- Contains body of page -->
   	<div class="container registerContainer">
 
 		<div class="row main">
 			<div class="main-login main-center">
-				<form class="form-horizontal" method="post" action="/register/<%= role %>" onsubmit="return validateRegistration()">
-				
+<!-- 				local
+				<form class="form-horizontal" method="post" action="register/<%= role %>" onsubmit="return validateRegistration()">
+				server -->
+				<% if(role == 'agent')	{ %>
+					<h1>Agent Registration</h1>
+					<form class="form-horizontal" method="post" action="register/<%= role %>" onsubmit="return validateRegistration()">
+				<% } else if(role == 'user') { %>
+					<h1>Buyer Registration</h1>
+					<form class="form-horizontal" method="post" action="register/" onsubmit="return validateRegistration()">
+				<% } 	%>
 					<div class="form-group">
 						<label for="firstName" class="cols-sm-1 control-label">Your First Name</label>
 						<div class="cols-sm-5">
@@ -91,9 +132,9 @@
 					</div>
 
 					<% if(role == 'agent')	{ %>
-						<a href="/register">Looking for user registration? Click here</a>
+						<a href="register">Looking for user registration? Click here</a>
 					<% } else if(role == 'user') { %>
-						<a href="/register/agent">Looking for agent registration? Click here</a>
+						<a href="register/agent">Looking for agent registration? Click here</a>
 					<% } 	%>
 					
 				</form>
@@ -207,7 +248,7 @@
 	</script>
 
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPXF-zkLqKND8w5ktBN5bdlTkQSVbw950&libraries=places&callback=initAutocomplete" async defer></script>
-  <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 </body>
 </html>

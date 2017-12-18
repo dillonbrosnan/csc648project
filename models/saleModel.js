@@ -5,7 +5,7 @@ var getSaleListings = function (lat, lon, milesRadius)	{
 
 	return new Promise(function(resolve, reject)	{
 		
-		var sql = ['SELECT saleId, agentId, lat, lon, formattedAddress, price, baths, beds, sqFt, ACOS( SIN( RADIANS( lat ) ) * SIN( RADIANS( ? ) ) ' + 
+		var sql = ['SELECT saleId, agentId, lat, lon, formattedAddress, price, baths, beds, sqFt, description, ACOS( SIN( RADIANS( lat ) ) * SIN( RADIANS( ? ) ) ' + 
 	    '+ COS( RADIANS( lat ) ) * COS( RADIANS( ? )) * COS( RADIANS( lon ) ' +
 	    '- RADIANS( ? )) ) * 3959 AS distance FROM Sale WHERE ' +
 	    'ACOS( SIN( RADIANS( lat ) ) * SIN( RADIANS( ? ) ) + COS( RADIANS( lat ) ) ' +
@@ -16,20 +16,16 @@ var getSaleListings = function (lat, lon, milesRadius)	{
 
 	    pool.getConnection(function(err, connection){ //Get connection to pool
 	      
-	      if(err) console.log(err);
+		if(err) reject(err);
 
-	      connection.query(sql, array, function (err, rows) {
-
-
-	      		console.log(this.sql);
+		connection.query(sql, array, function (err, rows) {
 	          
-	          if(err)	{
-	          	return reject(err);
-	          }
-	          resolve(rows);
-	      })
+			if(err)	return reject(err);
 
-	      connection.release();
+			resolve(rows);
+		})
+
+		connection.release();
 
       	}); //End of connection pool
 
@@ -42,7 +38,7 @@ var getAdvancedSaleListings = function (lat, lon, milesRadius, bedsMin, bedsMax,
 
 	return new Promise(function(resolve, reject)	{
 	
-		var sql = ['SELECT saleId, agentId, lat, lon, formattedAddress, price, baths, beds, sqFt, ACOS( SIN( RADIANS( lat ) ) * SIN( RADIANS( ? ) ) ' + 
+		var sql = ['SELECT saleId, agentId, lat, lon, formattedAddress, price, baths, beds, sqFt, description, ACOS( SIN( RADIANS( lat ) ) * SIN( RADIANS( ? ) ) ' + 
 	    '+ COS( RADIANS( lat ) ) * COS( RADIANS( ? )) * COS( RADIANS( lon ) ' +
 	    '- RADIANS( ? )) ) * 3959 AS distance FROM Sale WHERE ' +
 	    'ACOS( SIN( RADIANS( lat ) ) * SIN( RADIANS( ? ) ) + COS( RADIANS( lat ) ) ' +
@@ -62,20 +58,17 @@ var getAdvancedSaleListings = function (lat, lon, milesRadius, bedsMin, bedsMax,
 
 	    pool.getConnection(function(err, connection){ //Get connection to pool
 	      
-	      if(err) console.log(err);
+		if(err) reject(err);
 
-	      connection.query(sql, array, function (err, rows) {
-
-	      		console.log(this.sql);
+		connection.query(sql, array, function (err, rows) {
 	          
-	          if(err)	{
-	          	console.log(err);
-	          	return reject(err);
-	          }
-	          resolve(rows);
-	      })
+			if(err)	return reject(err);
 
-	      connection.release();
+			resolve(rows);
+	      
+		})
+
+		connection.release();
 
       	}); //End of connection pool
 
@@ -83,5 +76,30 @@ var getAdvancedSaleListings = function (lat, lon, milesRadius, bedsMin, bedsMax,
 
 }
 
+var getSaleImages = function(saleId)	{
+	
+	return new Promise(function(resolve, reject){
+		
+		var sql = 'SELECT imageId FROM SaleImages WHERE saleId = ?;';
+		
+		var array = [saleId];
+		
+		pool.getConnection(function(err, connection){
+			
+			if(err) return reject(err);
+			
+			connection.query(sql, array, function(err, rows){
+				
+				if(err)	return reject(err);
+
+				resolve(rows);
+			})
+			
+			connection.release();
+		});
+	});
+}
+
+module.exports.getSaleImages = getSaleImages;
 module.exports.getSaleListings = getSaleListings;
 module.exports.getAdvancedSaleListings = getAdvancedSaleListings;
