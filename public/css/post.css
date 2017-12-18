@@ -24,10 +24,14 @@ h1.title {
 }
 
 hr{
-	width: 10%;
+	width: 100%;
 	color: #fff;
 }
-
+.separation {
+    height : 2px;
+    width: 100%;
+    border-top: 2px solid #ccc;
+}
 .form-group{
 	margin-bottom: 3px;
 }
@@ -39,7 +43,7 @@ label{
 .main-center{
  	margin-top: 30px;
  	margin: 0 auto;
- 	max-width: 330px;
+ 	max-width: 500px;
     padding: 40px 40px;
 
 }
