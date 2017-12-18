@@ -106,12 +106,14 @@
 
                                             <!-- Carousel items -->
                                             <div class="carousel-inner">
-                                                <div class="active item" data-slide-number="0">
-                                                    <img src="/saleImages/<%= saleListing[0].imageId %>.jpg"></div>
-
-                                                <div class="item" data-slide-number="1">
-                                                    <img src="/saleImages/<%= saleListing[0].imageId %>.jpg"></div>
-
+                                                <% for(var i = 0; i < saleImages.length; i++){ %>
+                                                    <% if (i == 0) { %>
+                                                        <div class="active item" data-slide-number="<%= i %>">
+                                                        <img src="/saleImages/<%= saleImages[i].imageId %>.jpg"></div>
+                                                    <%}%>
+                                                    <div class="item" data-slide-number="<%= i %>">
+                                                    <img src="/saleImages/<%= saleImages[i].imageId %>.jpg"></div>
+                                                <% } %>
                                             </div>
 
                                             <!-- Carousel nav -->
