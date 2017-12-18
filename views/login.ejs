@@ -52,10 +52,13 @@
 			<div class="main-login main-center">
 
 				<% if(role == 'agent')	{ %>
+					<h1>Agent Login</h1>
 					<form class="form-horizontal" method="post" action="login/<%= role %>">
 				<% } else if(role == 'user') { %>
+					<h1>Buyer Login</h1>
 					<form class="form-horizontal" method="post" action="login/">
 				<% } else if(role == 'admin') { %>
+					<h1>Admin Login</h1>
 					<form class="form-horizontal" method="post" action="login/<%= role %>">
 				<% } 	%>
 

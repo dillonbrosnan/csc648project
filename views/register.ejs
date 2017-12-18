@@ -55,8 +55,10 @@
 				<form class="form-horizontal" method="post" action="register/<%= role %>" onsubmit="return validateRegistration()">
 				server -->
 				<% if(role == 'agent')	{ %>
+					<h1>Agent Registration</h1>
 					<form class="form-horizontal" method="post" action="register/<%= role %>" onsubmit="return validateRegistration()">
 				<% } else if(role == 'user') { %>
+					<h1>Buyer Registration</h1>
 					<form class="form-horizontal" method="post" action="register/" onsubmit="return validateRegistration()">
 				<% } 	%>
 					<div class="form-group">
