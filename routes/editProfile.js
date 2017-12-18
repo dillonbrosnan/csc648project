@@ -4,18 +4,18 @@ var pool = require('../db');
 var EditProfileModel = require('../models/editProfileModel.js');
 
 // Route
-router.get('/',function(req,res){
-  if(req.session.isLoggedIn)  {
-    return res.redirect('..');
-  }
-  res.render('register', {role: "user"} );
-});
-
-router.get('/agent',function(req,res){
-  if(req.session.isLoggedIn)  {
+router.get('agent/editProfile',function(req,res){
+  if(req.session.isLoggedIn && req.session.role != 'agent')  {
     return res.redirect('../..');
   }
-  res.render('register', {role: "agent"});
+  res.render('agentEditProfile', {role: "agent"} );
+});
+
+router.get('user/editProfile',function(req,res){
+  if(req.session.isLoggedIn && req.session.role != 'user')  {
+    return res.redirect('..');
+  }
+  res.render('userEditProfile', {role: "user"});
 });
 
 // Route
