@@ -46,7 +46,6 @@ var editProfile = require('./routes/editProfile.js');
 
 app.use(express.static(__dirname + '/public'));
 
-console.log("Directory name of app: " + __dirname);
 
 <!-- Routes -->
 app.use('', index);
