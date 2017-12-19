@@ -1,0 +1,10 @@
+﻿
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch indexstyling
+# Changes to be committed:
+#	modified:   db.js
+#	new file:   public/saleImages/2319424f-4480-4d82-a3a1-092e881b2b49.jpg
+#	modified:   views/agentListings.ejs
+#
+
