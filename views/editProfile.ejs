@@ -1,0 +1,192 @@
+
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" dir="ltr">
+<!-- Contains head of website -->
+<base href="/fa17g07/">
+<head>
+  <% include partials/head %>
+  <link rel="stylesheet" href="css/editProfile.css"></link> <!-- styleing for sale page -->
+</head>
+<body>
+  <!-- Contains header of website -->
+  <% include partials/header %>
+
+  
+<!-- container for agent edit profile section start -->
+<div class="container">
+    <h1>Edit Profile</h1>
+    <hr>
+  <div class="row">
+      <!-- edit form column -->
+      <div class="col-md-9 personal-info">
+        <% if(typeof error == 'undefined') { %>
+        <div class="alert alert-info alert-dismissable">
+          <a class="panel-close close" data-dismiss="alert">×</a> 
+          <i class="fa fa-exclamation" aria-hidden="true"></i>
+          
+          Alert: <strong>Profile updated</strong>
+        </div>
+        <% } %>
+        <% if(typeof error != 'undefined') { %>
+          <div class="alert alert-info alert-dismissable">
+            <a class="panel-close close" data-dismiss="alert">×</a> 
+            <i class="fa fa-exclamation" aria-hidden="true"></i>
+            Alert: <strong> <%= error %> </strong>
+          </div>
+          <% } %>
+        
+        <% if(role == 'agent')  { %>
+          <h3>Agent edit info</h3>
+          <form class="form-horizontal" method="post" action="editProfile/agent" onsubmit="return validateRegistration()">
+         
+        <% } else if(role == 'user') { %>
+          <h3>User edit info</h3>
+          <form class="form-horizontal" method="post" action="editProfile/" onsubmit="return validateRegistration()">
+        <% }  %>
+        <input id="latInput" name="lat" value="<%= info.lat %>"></input>
+        <input id="lngInput" name="lng" value="<%= info.lon %>"></input>
+          <div class="form-group">
+              <label class="col-lg-3 control-label">First name:</label>
+              <div class="col-lg-8">
+                <input class="form-control" type="text" value="<%= info.firstName %>" name="firstName" id="firstName">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-lg-3 control-label">Last name:</label>
+              <div class="col-lg-8">
+                <input class="form-control" type="text"  value="<%= info.lastName %>" name="lastName" id="lastName">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-lg-3 control-label">Username:</label>
+              <div class="col-lg-8">
+                <input class="form-control" type="text"  value="<%= info.username %>" name="username" id="username">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-lg-3 control-label">Address:</label>
+              <div class="col-lg-8">
+                <input class="form-control" type="text" value="<%= info.formattedAddress %>"name="formattedAddress" id="formattedAddress">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-lg-3 control-label">Email:</label>
+              <div class="col-lg-8">
+                <input class="form-control" type="text" name="email" value="<%= info.email %>"id="email">
+              </div>
+            </div>
+  
+            <div class="form-group">
+              <label class="col-md-3 control-label"></label>
+              <div class="col-md-8">
+                <input type="submit" class="btn btn-primary" value="Save Changes">
+              </div>
+            </div>
+          </form>
+      </div>
+  </div>
+</div>
+
+<!-- container for agent edit profile section start -->
+  <script src="js/agentProfile.js"></script> <!-- Client side code for sale.ejs -->
+  <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+  <!-- Contains autocomplete functionality -->
+  <script>
+      // Create the search box and link it to the UI element.
+      function initAutocomplete() {
+        var input = document.getElementById('formattedAddress');
+        var searchBox = new google.maps.places.SearchBox(input);
+        searchBox.addListener('places_changed', function() {
+              var places = searchBox.getPlaces();
+              if (places.length == 0) {
+                return;
+              }
+              places.forEach(function(place) {
+                  var location = place.geometry.location;
+                  // var zipCodeFound = false;
+                  for (var i = 0; i < place.address_components.length; i++) {
+                      for (var j = 0; j < place.address_components[i].types.length; j++) {
+                        if (place.address_components[i].types[j] == "street_number") {
+                          streetNumber = place.address_components[i].long_name;
+                          if(typeof streetNumber !== 'undefined') {
+                  streetNumber = place.address_components[i].long_name;
+                }
+                        }
+                    }
+                  }
+                  // if(!zipCodeFound)  {
+                  //  alert("Please narrow down to a specific area");
+                  // }
+                  lat = location.lat();
+                  lng = location.lng();
+                  formattedAddress = place.formatted_address;
+                  console.log(formattedAddress);
+                  document.getElementById('latInput').value=lat; 
+                  document.getElementById('lngInput').value=lng;  
+                  document.getElementById('formattedAddress').value=formattedAddress; 
+              });
+        });
+      }
+      function validateRegistration() {
+        console.log("ok");
+        
+        var username = document.getElementById('username').value;
+        var password = document.getElementById('password').value;
+        var role = "<%= role %>";
+        if(role == "agent" && typeof streetNumber === 'undefined')  {
+          var alertMessage = "Specify address";
+          alert(alertMessage);
+          return false;
+        } else if(role == "agent" && typeof streetNumber !== 'undefined') {
+          document.getElementById('streetNumber').value=streetNumber;
+        }
+        
+        if(!validateUser(username, password)) {
+          return false;
+        }
+        alert("Lat: " + lat + " Lon: " + lng + " Formatted address: " + formattedAddress + " Narrow down to area please.");
+        if(typeof lat === 'undefined' || typeof lng === 'undefined' || typeof formattedAddress === 'undefined') {
+          alert("Lat: " + lat + " Lon: " + lng + " Formatted address: " + formattedAddress + " Narrow down to area please.");
+          return false;
+        } else  {
+          document.getElementById('latInput').value=lat; 
+          document.getElementById('lngInput').value=lng; 
+          document.getElementById('formattedAddress').value=formattedAddress;  
+          console.log(document.getElementById('latInput').value);
+          console.log(document.getElementById('lngInput').value);
+          console.log(document.getElementById('formattedAddress').value);
+        }
+        
+      return true;
+      }
+      function validateLength(text, lengthRestriction)  {
+        if(text.length > lengthRestriction || text.length == 0) return false;
+        return true;
+      }
+      function validateUndefined(text)  {
+        if(text == "" || text == null || text.length == 0) return false;
+        return true;
+      }
+      function validateUser(username, password) {
+        if(!/^[a-zA-Z]+$/.test(username) || !validateLength(username, 20))  {
+          return false;
+        }
+        if(!validateLength(password, 20)) {
+          return false;
+        }
+        return true;
+      }
+       $( document ).ready(function() {
+        lat = <%- info.lat %>;
+        lng = <%- info.lon %>;
+      });
+  </script>
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPXF-zkLqKND8w5ktBN5bdlTkQSVbw950&libraries=places&callback=initAutocomplete" async defer></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+</body>
+ <!-- Contains header of website -->
+ <% include partials/footer %>
+</html>

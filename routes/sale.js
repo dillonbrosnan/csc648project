@@ -32,19 +32,45 @@ router.post('/', function(req, res) {
 
     } else  {
 
-      SaleModel.getSaleListings(lat, lon, milesRadius)
-        .then(function(saleListings)  {
-          if(saleListings.length >= 0) {
-            res.render('sale', {
-                lat: lat, 
-                lon: lon, 
-                saleListings: saleListings,
-                milesRadius: milesRadius
-            });
-          }
+        var saleListings;
+        SaleModel.getSaleListings(lat, lon, milesRadius)
+        .then(function(saleListingResults)  {
+            saleListings = saleListingResults;
+            if(saleListings.length > 0) {
+                return Promise.all(saleListings.map(function(saleListing)  {
+                    var saleId = saleListing.saleId;
+                    return SaleModel.getSaleImages(saleId).then(function(result)  {
+                        console.log(result);
+                        return result;
+                    })
+                }))
+            }
+        })
+        .then(function(saleImages)    {
+            if(saleListings.length >= 0 && req.session.isLoggedIn) {
+                console.log(saleListings);
+                console.log(saleImages);
+                res.render('sale', {
+                    lat: lat, 
+                    lon: lon, 
+                    saleListings: saleListings,
+                    saleImages: saleImages,
+                    milesRadius: milesRadius,
+                    role: req.session.role,
+                    id: req.session.sessionId
+                })
+            } else if(saleListings.length >= 0 && !req.session.isLoggedIn) {
+                res.render('sale', {
+                    lat: lat, 
+                    lon: lon, 
+                    saleListings: saleListings,
+                    saleImages: saleImages,
+                    milesRadius: milesRadius
+                })
+            }
         })
         .catch(function(err) {
-          res.redirect("http://www.google.com");
+            return res.redirect('/fa17g07/error');
         });
     }
 
@@ -115,28 +141,48 @@ router.post('/advancedSearch/', function(req, res) {
     // Checks to see if there is any errors with form types
     if (errors) {
       
-      var response = { errors: [] };
-      errors.forEach(function(err) {
-        response.errors.push(err.msg);
-      });
-      res.statusCode = 400;
-      return res.json(response);
+      return res.redirect('/fa17g07/');
 
     } else  {
 
-      SaleModel.getAdvancedSaleListings(lat, lon, milesRadius, bedsMin, bedsMax, bathsMin, bathsMax, sqFtMin,
+        SaleModel.getAdvancedSaleListings(lat, lon, milesRadius, bedsMin, bedsMax, bathsMin, bathsMax, sqFtMin,
         sqFtMax, lotSqFtMin, lotSqFtMax, yearBuiltMin, yearBuiltMax, hoaMin, hoaMax, lotType, priceMin, priceMax)
-        .then(function(saleListings)  {
-          if(saleListings.length >= 0) {
-            res.render('sale', {
-                lat: lat, 
-                lon: lon, 
-                saleListings: saleListings,
-                milesRadius: milesRadius
-            });
-          }
+        .then(function(saleListingResults)  {
+            saleListings = saleListingResults;
+            if(saleListings.length > 0) {
+                return Promise.all(saleListings.map(function(saleListing)  {
+                    var saleId = saleListing.saleId;
+                    return SaleModel.getSaleImages(saleId).then(function(result)  {
+                        console.log(result);
+                        return result;
+                    })
+                }))
+            }
+        })
+        .then(function(saleImages)    {
+            if(saleListings.length >= 0 && req.session.isLoggedIn) {
+                console.log(saleListings);
+                console.log(saleImages);
+                res.render('sale', {
+                    lat: lat, 
+                    lon: lon, 
+                    saleListings: saleListings,
+                    saleImages: saleListings,
+                    milesRadius: milesRadius,
+                    role: req.session.role,
+                    id: req.session.sessionId
+                })
+            } else if(saleListings.length >= 0 && !req.session.isLoggedIn) {
+                res.render('sale', {
+                    lat: lat, 
+                    lon: lon, 
+                    saleListings: saleListings,
+                    milesRadius: milesRadius
+                })
+            }
         })
         .catch(function(err) {
+            console.log(err);
           res.redirect("/error");
         });
     }

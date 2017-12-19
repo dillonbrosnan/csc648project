@@ -1,0 +1,63 @@
+
+html{
+  height: 100%; 
+  width: 100%; 
+}
+body{
+  height: 100%; 
+}
+
+
+  /* navigation sytle*/
+  .navbar {
+    margin-bottom: 0px!important; 
+  }
+  .navbar-brand {
+    padding: 0px;
+  }
+
+  .navbar-brand>img {
+    height: 100%;
+    width: auto;
+  }
+  
+  #navigation-agent, #navigation-buyer, #navigation{
+    width: 100%;
+    padding: 0px;
+  }
+  
+  .navbar-default{
+    background-color: black;
+  }
+ #navLogo{
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  top: 1px;
+ }
+/*============== navigation sytle==============*/
+.navbar-brand {
+  padding: 0px;
+}
+.navbar-brand>img {
+  height: 100%;
+  width: auto;
+}
+
+.navigation{
+  width: 100%;
+}
+
+.navbar-default{
+  background-color: black;
+}
+
+/* ----------- iPhone 6, 6S, 7 and 8 ----------- */
+
+/* Portrait and Landscape */
+@media (max-width: 730px) { 
+  #searchContainer{
+    width: 100%; 
+    margin-top: 50%; 
+  }
+}

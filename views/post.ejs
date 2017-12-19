@@ -1,24 +1,54 @@
 <!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" dir="ltr">
+<base href="/fa17g07/">
 
 <!-- Contains head of website -->
 <head>
   <% include partials/head %>
-  <link rel="stylesheet" href="/css/post.css"></link>
+  <link rel="stylesheet" href="css/post.css"></link>
 </head>
 
 
 <body>
-
     <!-- Contains header of website -->
-    <% include partials/header %>
+    <div class="container navigation-agent" id="navigation-agent">
+        <nav class="navbar navbar-default">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href=""><img src="images/logo.png" alt="logo" id="navLogo">
+              </a>
+            </div>
+            <div id="navbar2" class="navbar-collapse collapse">
+              <ul class="nav navbar-nav navbar-right">
+                <li class="active"><a href=""> Home </a></li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> More <span class="caret"></span></a>
+                  <ul class="dropdown-menu" role="menu">
+                      <li><a href="agent/messageAgent">Messages</a></li> 
+                    <li><a href="agent/editprofile">Edit Profile</a></li> 
+                    <li><a href="agent/post">Post Listing</a></li>  
+                    <li><a href="logout">Log out</a></li>     
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
 
     <!-- Contains body of page -->
     <div class="container registerContainer">
 
     <div class="row main">
       <div class="main-login main-center">
-        <form ref='postForm' action="/agent/post/" method="post" id="postForm" enctype="multipart/form-data" onsubmit="return postValidation()">
+        <h1>Agent Post Listing: </h1>
+        <form ref='postForm' action="agent/post/" method="post" id="postForm" enctype="multipart/form-data" onsubmit="return postValidation()">
           <input id="latInput" name="lat"></input>
           <input id="lngInput" name="lng"></input>
           <div class="form-group">
@@ -81,7 +111,7 @@
             <input name="description" type="text" class="form-control" id="description" min="0">
           </div>
           <div class="form-group">
-            <input type="file" name="saleImage" class="form-control">
+            <input type="file" name="saleImage" class="form-control" multiple>
           </div>
           <button type="submit" class="btn btn-default">Submit</button>
         </form>
@@ -91,9 +121,9 @@
     <!-- End of search box area -->
 
 
-  <script src="/js/post.js"></script> <!-- Contains client side javascript -->
+  <script src="js/post.js"></script> <!-- Contains client side javascript -->
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPXF-zkLqKND8w5ktBN5bdlTkQSVbw950&libraries=places&callback=initAutocomplete" async defer></script>
-  <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 </body>
 </html>

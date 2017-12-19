@@ -107,7 +107,7 @@ function validateAdvancedSearch() {
 }
 
 $("#openAdvancedSearchBtn").click(function(){
-  var currentAction = $('#buyBtn').hasClass('active') ? "/sale/" : "/rent/";
+  var currentAction = $('#buyBtn').hasClass('active') ? "forSale/" : "/rent/";
   if($('#advancedSearchInputs').css('display') == 'none') {
     $('#advancedSearchInputs').css('display', 'block');
     $('#openAdvancedSearchBtn').text('▲ Advanced Search');
@@ -129,14 +129,9 @@ $("#openAdvancedSearchBtn").click(function(){
 });
 
 $(".btn-group > .btn").click(function(){
-  $(this).addClass("active").siblings().removeClass("active");
   var action = $(this).text();
-  var advancedSearch = $('#advancedSearchInputs').css('display') == 'none' ? '/' : '/advancedSearch/';
-  if(action == "Buy") {
-    action = "sale";
-  } else  {
-    action = "rent";
-  }
+  var advancedSearch = '/advancedSearch/';
+  action = "forSale";
   $("#searchForm").attr("action", "/" + action + advancedSearch);
 });
 
@@ -147,3 +142,49 @@ $('#searchForm').on('keyup keypress', function(e) {
     return false;
   }
 });
+
+
+// /* gallery functionality */
+
+// $(document).ready(function(){
+
+//     $(".filter-button").click(function(){
+//         var value = $(this).attr('data-filter');
+        
+//         if(value == "all")
+//         {
+//             //$('.filter').removeClass('hidden');
+//             $('.filter').show('1000');
+//         }
+//         else
+//         {
+// //            $('.filter[filter-item="'+value+'"]').removeClass('hidden');
+// //            $(".filter").not('.filter[filter-item="'+value+'"]').addClass('hidden');
+//             $(".filter").not('.'+value).hide('3000');
+//             $('.filter').filter('.'+value).show('3000');
+            
+//         }
+//     });
+    
+//     if ($(".filter-button").removeClass("active")) {
+// $(this).removeClass("active");
+// }
+// $(this).addClass("active");
+
+// });
+
+// //run function once page is loaded
+// (function() {
+//     var po = document.createElement('script'); po.type = 'text/javascript'; 
+//         po.async = true;
+//     po.src = 'https://apis.google.com/js/platform.js';
+
+//     var s = document.getElementsByTagName('script')[0]; 
+//     s.parentNode.insertBefore(po, s);
+//   })();
+
+
+
+
+
+

@@ -1,0 +1,96 @@
+
+      * {
+    box-sizing: border-box;
+  }
+  body {
+    font-size: 1.25rem;
+    font-family: sans-serif;
+  }
+  
+  section {
+    color: #000000;
+    text-align: center;
+  }
+  
+  /* navigation sytle*/
+  .navbar-brand {
+    padding: 0px;
+  }
+
+  .navbar-brand>img {
+    height: 100%;
+    width: auto;
+  }
+  
+  .navigation{
+    width: 100%;
+  }
+  
+  .navbar-default{
+    background-color: black;
+  }
+  
+  #mainlogo{
+        width: 300px;
+        padding-left: auto;
+        padding: auto;
+        position: absolute;
+        left: 50%;
+        margin-left: -157px !important;
+        display: block;
+  }
+
+  /************ FOOTER ************/
+
+/*FOOTER START///////////////////*/
+
+.footer {
+  padding: 50px 0 20px 0;
+  background-color: #35404f;
+  color: #878c94;
+}
+.footer .title{text-align: left;color:#fff;font-size:25px;}
+
+
+.footer .social-icon{padding:0px;margin:0px;}
+.footer .social-icon a{display:inline-block;color:#fff;font-size:25px;padding:5px;}
+.footer .acount-icon a{display:block;color:#fff;font-size:18px;padding:5px;text-decoration:none;}
+.footer .acount-icon .fa{margin-right:25px;}
+
+
+.footer .category a {
+  text-decoration: none;
+  color: #fff;
+  display: inline-block;
+  padding: 5px 20px;
+  margin: 1px;
+  border-radius:4px;
+  margin-top: 6px;
+  background-color: black;
+  border: solid 1px #fff;
+}
+
+.footer .payment{margin:0px;padding:0px;list-style-type:none}
+.footer .payment li{list-style-type:none}
+.footer .payment li a {
+  text-decoration: none;
+  display: inline-block;
+  color: #fff;
+  float: left;
+  font-size: 25px;
+  padding: 10px 10px;
+}
+
+ /* ----------- iPhone 6, 6S, 7 and 8 ----------- */
+  
+  /* Portrait and Landscape */
+  @media (max-width: 730px) { 
+    #searchContainer{
+      width: 100%; 
+      margin-top: 50%; 
+    }
+  }
+
+  #latInput, #lngInput  {
+  display: none;
+}

@@ -1,0 +1,50 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" dir="ltr">
+<!-- Contains head of website -->
+<base href="/fa17g07/">
+<head>
+  <% include partials/head %>
+  <link rel="stylesheet" href="css/agentListing.css"></link> <!-- styleing for sale page -->
+</head>
+<body>
+  <!-- Contains header of website -->
+  <% include partials/header %>
+  
+  <!-- HEADER -->
+  <div class="container">
+    <div class="jumbotron">
+      <h1>My Listings</h1> 
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+            <% for(var i = 0; i < listings.length; i++) { %>
+                <div class="col-lg-4 col-md-4 col-sm-6" price="<%= listings[i].price %>" lat="<%= listings[i].lat %>" lng="<%= listings[i].lng %>">
+                   <div class="caption">
+                           <div class="address"><a href="forSale/<%= listings[i].saleId %>/" id="formattedAddress" name="formattedAddress">  <%= listings[i].formattedAddress %>  </a></div>
+                           <div class="date">
+                               <!-- <span class="meta-data">By Admin on <p id="datePosted" name="datePosted">29/06/2016</p></span> -->
+                               <!-- <span class="meta-data pull-right"><a href=""><i class="fa fa-heart-o"></i> 4</a></span> -->
+                           </div>
+                           <div class="description">
+                            <a href="agent/deleteListing/<%= listings[i].saleId %>">
+                              <input type="submit"class="btn btn-primary btn-block login-button" value='Delete'></input>
+                            </a>
+                           </div>
+                       </div>
+                   </div>
+                </div>
+                <% } %>
+    </div>
+</div>
+
+<!-- container for agent edit profile section start -->
+  <script src="js/agentListing.js"></script> <!-- Client side code for sale.ejs -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPXF-zkLqKND8w5ktBN5bdlTkQSVbw950&libraries=places&callback=initMap" async defer></script>
+  <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+</body>
+ <!-- Contains header of website -->
+ <% include partials/footer %>
+</html>
