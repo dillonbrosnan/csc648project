@@ -90,3 +90,7 @@
       margin-top: 50%; 
     }
   }
+
+  #latInput, #lngInput  {
+  display: none;
+}
