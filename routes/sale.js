@@ -161,13 +161,11 @@ router.post('/advancedSearch/', function(req, res) {
         })
         .then(function(saleImages)    {
             if(saleListings.length >= 0 && req.session.isLoggedIn) {
-                console.log(saleListings);
-                console.log(saleImages);
                 res.render('sale', {
                     lat: lat, 
                     lon: lon, 
                     saleListings: saleListings,
-                    saleImages: saleListings,
+                    saleImages: saleImages,
                     milesRadius: milesRadius,
                     role: req.session.role,
                     id: req.session.sessionId
@@ -177,14 +175,13 @@ router.post('/advancedSearch/', function(req, res) {
                     lat: lat, 
                     lon: lon, 
                     saleListings: saleListings,
-                    saleImages: saleListings,
+                    saleImages: saleImages,
                     milesRadius: milesRadius
                 })
             }
         })
         .catch(function(err) {
-            console.log(err);
-          res.redirect("/error");
+          res.redirect("/fa17g07/error");
         });
     }
 
