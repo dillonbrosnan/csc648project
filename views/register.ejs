@@ -1,6 +1,6 @@
 <!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" dir="ltr">
-<base href="/">
+<base href="/fa17g07/">
 <!-- Contains head of website -->
 <head>
   <% include partials/head %>
@@ -18,7 +18,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				  </button>
-				  <a class="navbar-brand" href=" "><img src="/images/logo.png" alt="logo" id="navLogo">
+				  <a class="navbar-brand" href=" "><img src="images/logo.png" alt="logo" id="navLogo">
 				  </a>
 				</div>
 				<div id="navbar2" class="navbar-collapse collapse">
@@ -30,7 +30,7 @@
 					<li class="dropdown">
 					  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> More <span class="caret"></span></a>
 					  <ul class="dropdown-menu" role="menu">
-						<li><a href="/portfolio"> About Us </a></li>
+						<li><a href="portfolio"> About Us </a></li>
 					  </ul>
 					</li>
 				  </ul>
@@ -208,7 +208,7 @@
 	    	if(!validateUser(username, password))	{
 	    		return false;
 	    	}
-	    	alert("Lat: " + lat + " Lon: " + lng + " Formatted address: " + formattedAddress + " Narrow down to area please.");
+
 	    	if(typeof lat === 'undefined' || typeof lng === 'undefined' || typeof formattedAddress === 'undefined')	{
     			alert("Lat: " + lat + " Lon: " + lng + " Formatted address: " + formattedAddress + " Narrow down to area please.");
 	    		return false;
@@ -216,9 +216,7 @@
 	    		document.getElementById('latInput').value=lat; 
                 document.getElementById('lngInput').value=lng; 
                 document.getElementById('formattedAddress').value=formattedAddress;  
-                console.log(document.getElementById('latInput').value);
-                console.log(document.getElementById('lngInput').value);
-                console.log(document.getElementById('formattedAddress').value);
+                
 	    	}
 	    	
 			return true;

@@ -17,7 +17,7 @@ router.get('/',function(req,res){
 router.get('/agent',function(req,res){
   
   if(req.session.isLoggedIn) {
-    res.redirect('../..');
+    res.redirect('../../../fa17g07/');
   } else  {
     res.render('login', {role: "agent"});
   }
@@ -169,7 +169,7 @@ router.post('/agent',function(req,res){
               req.session.sessionId = usernames[0].agentId;
               req.session.isLoggedIn = true;
               req.session.role = "agent";
-              res.redirect('../..');
+              res.redirect('..');
             } else  { //If username doesn't match database
               res.render('login', {
                 role: "agent",

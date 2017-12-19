@@ -7,7 +7,7 @@ var ViewListingsModel = require('../models/viewListingsModel');
 router.get('/',function(req,res){
   
   if(!req.session.isLoggedIn || req.session.role != "agent") {
-    return res.redirect('../../login/agent');
+    return res.redirect('/fa17g07/login/agent');
   } 
 
   var agentId = req.session.sessionId;
