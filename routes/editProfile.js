@@ -106,7 +106,7 @@ router.post('/agent',function(req,res){
               email: email
             })
           } else  {
-            return res.redirect('../editProfile/agent');
+            return res.redirect('/fa17g07/editProfile/agent');
           }
         } else  {
           return EditProfileModel.updateValuesAgent(email, firstName, 
@@ -115,7 +115,7 @@ router.post('/agent',function(req,res){
     })
     .then(function(insertedRows)  {
       console.log(insertedRows);
-        return res.redirect('../editProfile/agent');
+        return res.redirect('/fa17g07/editProfile/agent');
     })
     .catch(function(error)  {
       return res.status(500).send( { error : error });
