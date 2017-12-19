@@ -42,6 +42,7 @@ var deleteListing = require('./routes/deleteListing.js');
 var logout = require('./routes/logout.js');
 var messageAgent = require('./routes/messageAgent.js');
 var editProfile = require('./routes/editProfile.js');
+var errorPage = require('./routes/error')
 
 app.use(express.static(__dirname + '/public'));
 
@@ -61,10 +62,7 @@ app.use('/agent/deleteListing', deleteListing);
 app.use('/forSale', messageAgent);
 app.use('/editProfile', editProfile);
 app.use('/logout', logout);
-
-app.get('/error' function(req, res)	{
-	res.render('errorPage');
-})
+app.use('/error', errorPage);
 
 
 
