@@ -129,14 +129,9 @@ $("#openAdvancedSearchBtn").click(function(){
 });
 
 $(".btn-group > .btn").click(function(){
-  $(this).addClass("active").siblings().removeClass("active");
   var action = $(this).text();
-  var advancedSearch = $('#advancedSearchInputs').css('display') == 'none' ? '/' : 'advancedSearch/';
-  if(action == "Buy") {
-    action = "forSale";
-  } else  {
-    action = "rent";
-  }
+  var advancedSearch = '/advancedSearch/';
+  action = "forSale";
   $("#searchForm").attr("action", "/" + action + advancedSearch);
 });
 

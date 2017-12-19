@@ -35,7 +35,6 @@ var login = require('./routes/login.js');
 var register = require('./routes/register.js');
 var team = require('./routes/team.js');
 var post = require('./routes/post.js');
-var userChat = require('./routes/userChat.js');
 var saleListing = require('./routes/saleListing.js');
 var viewListings = require('./routes/viewListings.js');
 var viewMessages = require('./routes/viewMessages.js');
@@ -46,6 +45,7 @@ var editProfile = require('./routes/editProfile.js');
 
 app.use(express.static(__dirname + '/public'));
 
+
 <!-- Routes -->
 app.use('', index);
 app.use('/forSale', sale);
@@ -54,7 +54,6 @@ app.use('/login', login);
 app.use('/register', register);
 app.use('/team', team);
 app.use('/agent/post', post);
-app.use('/user/message', userChat);
 app.use('/forSale', saleListing);
 app.use('/agent/viewListings', viewListings);
 app.use('/agent/viewMessages', viewMessages);
@@ -66,7 +65,7 @@ app.use('/logout', logout);
 
 
 app.get('*', function(req, res){
-  res.redirect('/');
+  res.redirect('/fa17g07/');
 });
 
 

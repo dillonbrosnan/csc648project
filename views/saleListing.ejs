@@ -45,7 +45,14 @@
                             </form>
                         </div>
                        <% } else { %>
+                            <% if (role == 'user') {  %>
                             <a href="/login/" class="btn btn-info center-block">Message Agent</a>
+                            <% } %>
+                            <% if (role != 'agent') {  %>
+                                <a href="register/" class="btn btn-info center-block">Register to Message Agent</a>
+                            <% } %>
+                            
+                          
                        <% }%>
                        <% }%>
                         <hr class="separation">
