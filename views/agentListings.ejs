@@ -22,7 +22,6 @@
             <% for(var i = 0; i < listings.length; i++) { %>
                 <div class="col-lg-4 col-md-4 col-sm-6" price="<%= listings[i].price %>" lat="<%= listings[i].lat %>" lng="<%= listings[i].lng %>">
                    <div class="caption">
-                           <div class="price"><a href="forSale/<%= listings[i].saleId %>/"id="price" name="price"> $ <%= listings[i].price %> </a></div>
                            <div class="address"><a href="forSale/<%= listings[i].saleId %>/" id="formattedAddress" name="formattedAddress">  <%= listings[i].formattedAddress %>  </a></div>
                            <div class="date">
                                <!-- <span class="meta-data">By Admin on <p id="datePosted" name="datePosted">29/06/2016</p></span> -->
