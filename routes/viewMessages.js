@@ -20,7 +20,7 @@ router.get('/',function(req,res){
   		})
   	})
   	.catch(function(error)	{
-  		return res.status(500).send({ error: error});
+  		return res.redirect('/fa17g07/error');
   	})
   
 });
