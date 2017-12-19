@@ -36,7 +36,7 @@ router.post('/:saleId/message', function(req,res){
 	})
 	.then(function(messages)	{
 		console.log("Message sent to agent for sale " + saleId);
-		return res.redirect('../../../forSale/' + saleId);
+		return res.redirect('/fa17g07/forSale/' + saleId);
 	})
 	.catch(function(error)  {
 		return res.redirect('/fa17g07/error');
