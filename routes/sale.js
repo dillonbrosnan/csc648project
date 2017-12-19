@@ -177,6 +177,7 @@ router.post('/advancedSearch/', function(req, res) {
                     lat: lat, 
                     lon: lon, 
                     saleListings: saleListings,
+                    saleImages: saleListings,
                     milesRadius: milesRadius
                 })
             }
