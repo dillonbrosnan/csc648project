@@ -46,12 +46,7 @@ router.post('/',function(req,res){
   // Checks to see if there is any errors with form types
   if (errors) {
     
-    var response = { errors: [] };
-    errors.forEach(function(err) {
-      response.errors.push(err.msg);
-    });
-    res.statusCode = 400;
-    return res.json(response);
+    return res.redirect('/fa17g07/login');
 
   } else  {
 
@@ -80,58 +75,7 @@ router.post('/',function(req,res){
       })
       .catch(function(err) {
         console.log(err);
-        res.redirect("/error");
-      });
-  }
-
-});
-
-router.post('/admin',function(req,res){
-  var username = req.body.username;
-  var password = req.body.password;
-  
-  req.checkBody('username', 'Username must be between 1 and 20 characters').isLength({ min: 1, max: 20});
-  req.checkBody('password', 'Password must be between 1 and 20 characters').isLength({ min: 1, max: 20});
-  var errors = req.validationErrors();
-
-  // Checks to see if there is any errors with form types
-  if (errors) {
-    
-    var response = { errors: [] };
-    errors.forEach(function(err) {
-      response.errors.push(err.msg);
-    });
-    res.statusCode = 400;
-    return res.json(response);
-
-  } else  {
-
-    LoginModel.loginAsAdmin(username, password)
-      .then(function(usernames)  {
-        if(usernames.length == 0) {
-          res.redirect('../..');
-        }
-        if(usernames.length == 1) {
-          var hash = usernames[0].password;
-          bcrypt.compare(password, hash, function(err, response) {
-            if(response == true) { //If username matches database
-              req.session.sessionId = usernames[0].adminId;
-              req.session.isLoggedIn = true;
-              req.session.role = "admin";
-              res.redirect('../..');
-            } else  { //If username doesn't match database
-              res.render('login', {
-                role: "admin",
-                errors: "Password incorrect",
-                username: username
-              });
-            }
-          });
-        }
-      })
-      .catch(function(err) {
-        console.log(err);
-        res.redirect("/error");
+        res.redirect("/fa17g07/error");
       });
   }
 
@@ -148,12 +92,7 @@ router.post('/agent',function(req,res){
   // Checks to see if there is any errors with form types
   if (errors) {
     
-    var response = { errors: [] };
-    errors.forEach(function(err) {
-      response.errors.push(err.msg);
-    });
-    res.statusCode = 400;
-    return res.json(response);
+    return res.redirect('/fa17g07/login/agent');
 
   } else  {
 
@@ -182,7 +121,7 @@ router.post('/agent',function(req,res){
       })
       .catch(function(err) {
         console.log(err);
-        res.redirect("/error");
+        res.redirect("/fa17g07/error");
       });
   }
 

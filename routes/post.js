@@ -63,12 +63,9 @@ router.post('/', function(req,res){
   var errors = req.validationErrors();   
 
   if(errors)  {
-    var response = { errors: [] };
-    errors.forEach(function(err) {
-      response.errors.push(err.msg);
-    });
-    res.statusCode = 400;
-    return res.json(response);
+    
+    return res.redirect('/fa17g07/agent/post');
+
   }   else  {
     
     if(typeof req.files.saleImage == 'undefined') {
@@ -81,9 +78,9 @@ router.post('/', function(req,res){
         return res.redirect('../../forSale/' + saleId + '/')
       })
       .catch(function(err) {
-        console.log(err);
-        res.status(400);
-        return res.send("Couldn't post posting without image");
+        
+        return res.redirect('/fa17g07/error');
+
       })
     } else if(!Array.isArray(req.files.saleImage)) {
       PostModel.checkFormattedAddress(formattedAddress)
@@ -106,9 +103,9 @@ router.post('/', function(req,res){
         return res.redirect('../../forSale/' + saleId + '/')
       })
       .catch(function(err) {
-        console.log(err);
-        res.status(400);
-        return res.send("Couldn't post posting with single image");
+        
+        return res.redirect('/fa17g07/error');
+
       }); 
     } else  {
       PostModel.checkFormattedAddress(formattedAddress)
@@ -140,9 +137,9 @@ router.post('/', function(req,res){
         return res.redirect('../../forSale/' + saleId + '/')
       })
       .catch(function(err) {
-        console.log(err);
-        res.status(400);
-        return res.send("Couldn't post posting with multiple images");
+        
+        return res.redirect('/fa17g07/error');
+
       }); 
     }
 

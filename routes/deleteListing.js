@@ -23,7 +23,7 @@ router.get('/:saleId', function(req,res){
 		})
 	
 	.catch(function(err){
-		return res.redirect("/error");
+		return res.redirect("/fa17g07/error");
 	});
 });
 
