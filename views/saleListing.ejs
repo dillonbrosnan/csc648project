@@ -121,9 +121,10 @@
                                                         <% if (i == 0) { %>
                                                             <div class="active item" data-slide-number="<%= i %>">
                                                             <img src="saleImages/<%= saleImages[i].imageId %>.jpg"></div>
-                                                        <%}%>
+                                                        <%} else {%>
                                                         <div class="item" data-slide-number="<%= i %>">
                                                         <img src="saleImages/<%= saleImages[i].imageId %>.jpg"></div>
+                                                        <% } %>
                                                     <% } %>
                                                 <% } %>
                                             </div>
