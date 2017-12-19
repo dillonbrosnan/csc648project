@@ -65,7 +65,7 @@ app.use('/logout', logout);
 
 
 app.get('*', function(req, res){
-  res.redirect('/');
+  res.redirect('/fa17g07/');
 });
 
 
