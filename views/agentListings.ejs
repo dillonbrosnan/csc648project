@@ -15,28 +15,23 @@
     <div class="jumbotron">
       <h1>My Listings</h1> 
     </div>
-</div>
+  </div>
 
 <div class="container">
-    <div class="row">
-            <% for(var i = 0; i < listings.length; i++) { %>
-                <div class="col-lg-4 col-md-4 col-sm-6" price="<%= listings[i].price %>" lat="<%= listings[i].lat %>" lng="<%= listings[i].lng %>">
-                   <div class="caption">
-                           <div class="address"><a href="forSale/<%= listings[i].saleId %>/" id="formattedAddress" name="formattedAddress">  <%= listings[i].formattedAddress %>  </a></div>
-                           <div class="date">
-                               <!-- <span class="meta-data">By Admin on <p id="datePosted" name="datePosted">29/06/2016</p></span> -->
-                               <!-- <span class="meta-data pull-right"><a href=""><i class="fa fa-heart-o"></i> 4</a></span> -->
-                           </div>
-                           <div class="description">
-                            <a href="agent/deleteListing/<%= listings[i].saleId %>">
-                              <input type="submit"class="btn btn-primary btn-block login-button" value='Delete'></input>
-                            </a>
-                           </div>
-                       </div>
-                   </div>
-                </div>
-                <% } %>
-    </div>
+  <div class="row">
+    <% for(var i = 0; i < listings.length; i++) { %>
+      <div class=" listing col-xs-12">
+        <div class="caption">
+             <div class="address col-xs-7 col-sm-9"><a href="forSale/<%= listings[i].saleId %>/" id="formattedAddress" name="formattedAddress">  <%= listings[i].formattedAddress %>  </a></div>
+             <div class="description col-xs-5 col-sm-3">
+                <a href="agent/deleteListing/<%= listings[i].saleId %>">
+                  <input type="submit"class="btn btn-warning btn-block login-button" value='Delete'></input>
+                </a>
+             </div>
+          </div>
+      </div>
+    <% } %>
+  </div>
 </div>
 
 <!-- container for agent edit profile section start -->
