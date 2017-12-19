@@ -1,6 +1,6 @@
 <!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" dir="ltr">
-<base href="/fa17g07/">
+<base href="/">
 <!-- Contains head of website -->
 <head>
     <% include partials/head %>
@@ -45,7 +45,16 @@
                             </form>
                         </div>
                        <% } else { %>
+                            <% if (role == 'user') {  %>
                             <a href="/login/" class="btn btn-info center-block">Message Agent</a>
+                            <% } %>
+
+                            <% if (role != 'agent') {  %>
+                                <a href="register/" class="btn btn-info center-block">Register to Message Agent</a>
+                            <% } %>
+                            
+                          
+
                        <% }%>
                        <% }%>
                         <hr class="separation">

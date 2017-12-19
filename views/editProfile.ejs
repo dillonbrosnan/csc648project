@@ -1,7 +1,7 @@
 <!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" dir="ltr">
 <!-- Contains head of website -->
-<base href="/fa17g07/">
+<base href="/">
 <head>
   <% include partials/head %>
   <link rel="stylesheet" href="css/editProfile.css"></link> <!-- styleing for sale page -->
@@ -18,11 +18,21 @@
   <div class="row">
       <!-- edit form column -->
       <div class="col-md-9 personal-info">
+        <% if(typeof error == 'undefined') { %>
         <div class="alert alert-info alert-dismissable">
           <a class="panel-close close" data-dismiss="alert">×</a> 
-          <i class="fa fa-coffee"></i>
-          This is an <strong>.alert</strong>. Use this to show important messages to the user.
+          <i class="fa fa-exclamation" aria-hidden="true"></i>
+          
+          Alert: <strong>Profile updated</strong>
         </div>
+        <% } %>
+        <% if(typeof error != 'undefined') { %>
+          <div class="alert alert-info alert-dismissable">
+            <a class="panel-close close" data-dismiss="alert">×</a> 
+            <i class="fa fa-exclamation" aria-hidden="true"></i>
+            Alert: <strong> <%= error %> </strong>
+          </div>
+          <% } %>
         
         <% if(role == 'agent')	{ %>
           <h3>Agent edit info</h3>
