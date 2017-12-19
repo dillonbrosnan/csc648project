@@ -46,6 +46,17 @@ router.post('/',function(req,res){
   var lat = Number(req.body.lat);
   var lng = Number(req.body.lng);
   var userId = req.session.sessionId;
+  req.checkBody('username', 'Username cannot be empty').notEmpty();
+  req.checkBody('email', 'Email cannot be empty').notEmpty();
+  req.checkBody('firstName', 'First name cannot be empty').notEmpty();
+  req.checkBody('lastName', 'Last name cannot be empty').notEmpty();
+  req.checkBody('formattedAddress', 'Formatted address cannot be empty').notEmpty();
+  req.checkBody('lat', 'Lat must be filled').notEmpty();
+  req.checkBody('lng', 'Lng must be filled').notEmpty();
+  var errors = req.validationErrors();
+  if(errors)  {
+    return res.redirect('/fa17g07/editProfile');
+  }
 
   EditProfileModel.userCheck(username, email, userId)
     .then(function(duplicateUsers)  {
@@ -90,6 +101,17 @@ router.post('/agent',function(req,res){
   var lat = Number(req.body.lat);
   var lng = Number(req.body.lng);
   var agentId = req.session.sessionId;
+  req.checkBody('username', 'Username cannot be empty').notEmpty();
+  req.checkBody('email', 'Email cannot be empty').notEmpty();
+  req.checkBody('firstName', 'First name cannot be empty').notEmpty();
+  req.checkBody('lastName', 'Last name cannot be empty').notEmpty();
+  req.checkBody('formattedAddress', 'Formatted address cannot be empty').notEmpty();
+  req.checkBody('lat', 'Lat must be filled').notEmpty();
+  req.checkBody('lng', 'Lng must be filled').notEmpty();
+  var errors = req.validationErrors();
+  if(errors)  {
+    return res.redirect('/fa17g07/editProfile/agent');
+  }
 
   EditProfileModel.agentCheck(username, email, agentId)
     .then(function(duplicateUsers)  {
