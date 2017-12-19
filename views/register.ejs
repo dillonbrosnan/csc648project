@@ -1,19 +1,13 @@
 <!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" dir="ltr">
 <base href="/fa17g07/">
-
-
 <!-- Contains head of website -->
 <head>
   <% include partials/head %>
   <link rel="stylesheet" href="css/register.css"></link>
 </head>
-
-
 <body>
-
   	<!-- Contains header of website -->
-  	
 	  <div class="container navigation"  id="navigation">
 			<nav class="navbar navbar-default">
 			  <div class="container-fluid">
@@ -48,12 +42,19 @@
 			</div>
   	<!-- Contains body of page -->
   	<div class="container registerContainer">
-
 		<div class="row main">
 			<div class="main-login main-center">
 <!-- 				local
 				<form class="form-horizontal" method="post" action="register/<%= role %>" onsubmit="return validateRegistration()">
 				server -->
+				<% if(typeof error != 'undefined')	{ %>
+				<div class="alert alert-info alert-dismissable">
+          <a class="panel-close close" data-dismiss="alert">×</a> 
+          <i class="fa fa-coffee"></i>
+         <strong>Error:<br /> <%= error %> </strong> 
+				</div>
+				<% } %>
+				
 				<% if(role == 'agent')	{ %>
 					<h1>Agent Registration</h1>
 					<form class="form-horizontal" method="post" action="register/<%= role %>" onsubmit="return validateRegistration()">
