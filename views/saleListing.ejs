@@ -46,7 +46,7 @@
                         </div>
                        <% } else { %>
                             <% if (role == 'user') {  %>
-                            <a href="/login/" class="btn btn-info center-block">Message Agent</a>
+                            <a href="login/" class="btn btn-info center-block">Message Agent</a>
                             <% } %>
                             <% if (role != 'agent') {  %>
                                 <a href="register/" class="btn btn-info center-block">Register to Message Agent</a>
@@ -120,10 +120,10 @@
                                                     <% for(var i = 0; i < saleImages.length; i++){ %>
                                                         <% if (i == 0) { %>
                                                             <div class="active item" data-slide-number="<%= i %>">
-                                                            <img src="/saleImages/<%= saleImages[i].imageId %>.jpg"></div>
+                                                            <img src="saleImages/<%= saleImages[i].imageId %>.jpg"></div>
                                                         <%}%>
                                                         <div class="item" data-slide-number="<%= i %>">
-                                                        <img src="/saleImages/<%= saleImages[i].imageId %>.jpg"></div>
+                                                        <img src="saleImages/<%= saleImages[i].imageId %>.jpg"></div>
                                                     <% } %>
                                                 <% } %>
                                             </div>
