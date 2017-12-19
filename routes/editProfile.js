@@ -140,7 +140,7 @@ router.post('/agent',function(req,res){
         return res.redirect('/fa17g07/editProfile/agent');
     })
     .catch(function(error)  {
-      return res.status(500).send( { error : error });
+      return res.redirect('/fa17g07/error');
     })
 
 });

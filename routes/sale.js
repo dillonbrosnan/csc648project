@@ -70,8 +70,7 @@ router.post('/', function(req, res) {
             }
         })
         .catch(function(err) {
-            console.log(err);
-          res.redirect("/error");
+            return res.redirect('/fa17g07/error');
         });
     }
 
@@ -142,12 +141,7 @@ router.post('/advancedSearch/', function(req, res) {
     // Checks to see if there is any errors with form types
     if (errors) {
       
-      var response = { errors: [] };
-      errors.forEach(function(err) {
-        response.errors.push(err.msg);
-      });
-      res.statusCode = 400;
-      return res.json(response);
+      return res.redirect('/fa17g07/');
 
     } else  {
 

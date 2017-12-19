@@ -62,6 +62,10 @@ app.use('/forSale', messageAgent);
 app.use('/editProfile', editProfile);
 app.use('/logout', logout);
 
+app.get('/error' function(req, res)	{
+	res.render('errorPage');
+})
+
 
 
 app.get('*', function(req, res){

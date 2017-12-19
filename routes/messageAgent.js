@@ -19,12 +19,9 @@ router.post('/:saleId/message', function(req,res){
 	req.checkBody('messageContent', 'Message cannot be more than 255 characters').isLength({min: 0, max: 255});
 	var errors = req.validationErrors();
 	if(errors)  {
-		var response = { errors: [] };
-		errors.forEach(function(err) {
-		  response.errors.push(err.msg);
-		});
-		res.statusCode = 400;
-		return res.json(response);
+		
+		return res.redirect('/fa17g07/error');
+
 	}   
 
 	MessageAgentModel.getAgentId(saleId)
@@ -42,7 +39,7 @@ router.post('/:saleId/message', function(req,res){
 		return res.redirect('../../../forSale/' + saleId);
 	})
 	.catch(function(error)  {
-		return res.status(500).send( { error : error });
+		return res.redirect('/fa17g07/error');
 	});
 
 });

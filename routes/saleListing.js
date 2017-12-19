@@ -11,7 +11,7 @@ router.get('/:saleId', function(req,res){
 	// SaleListingModel.getSaleInfo(saleId)
 	.then(function(saleListing){
 		if(saleListing[0].length == 0)	{
-			res.redirect('/fa17g07/');
+			return res.redirect('/fa17g07/');
 		}
 		else if(saleListing[0].length == 1 && req.session.isLoggedIn){
 			res.render('saleListing', {
@@ -31,8 +31,9 @@ router.get('/:saleId', function(req,res){
 		}
 	})
 	.catch(function(err){
-		console.log(err);
-		res.redirect("/error");
+		
+		return res.redirect('/fa17g07/error');
+
 	});
 });
 
