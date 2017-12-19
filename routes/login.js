@@ -17,7 +17,7 @@ router.get('/',function(req,res){
 router.get('/agent',function(req,res){
   
   if(req.session.isLoggedIn) {
-    res.redirect('../..');
+    res.redirect('..');
   } else  {
     res.render('login', {role: "agent"});
   }
