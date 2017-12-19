@@ -7,7 +7,7 @@ var getMessages = function (agentId)	{
 
 
 		var array = [agentId];
-		var sql = ['SELECT messageId, date, saleId, phoneNo FROM SaleMessages WHERE',
+		var sql = ['SELECT messageContent, messageId, date, saleId, phoneNo FROM SaleMessages WHERE',
 					'agentId = ? ORDER BY date DESC'].join(" ");
 
 	    pool.getConnection(function(err, connection){ //Get connection to pool
