@@ -48,7 +48,7 @@ router.post('/',function(req,res){
           } else if(duplicateUsers[0].username == username) {
             return res.render('register', {
               role: 'user',
-              error: 'Username ' + username + 'taken',
+              error: 'Username ' + username + ' taken',
               email: email
             })
           } else  {
@@ -100,7 +100,7 @@ router.post('/agent',function(req,res){
           } else if(duplicateUsers[0].username == username) {
             return res.render('register', {
               role: 'agent',
-              error: 'Username ' + username + 'taken',
+              error: 'Username ' + username + ' taken',
               email: email
             })
           } else  {

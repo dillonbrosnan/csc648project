@@ -47,6 +47,14 @@
 <!-- 				local
 				<form class="form-horizontal" method="post" action="register/<%= role %>" onsubmit="return validateRegistration()">
 				server -->
+				<% if(typeof error != 'undefined')	{ %>
+				<div class="alert alert-info alert-dismissable">
+          <a class="panel-close close" data-dismiss="alert">×</a> 
+          <i class="fa fa-coffee"></i>
+         <strong>Error:<br /> <%= error %> </strong> 
+				</div>
+				<% } %>
+				
 				<% if(role == 'agent')	{ %>
 					<h1>Agent Registration</h1>
 					<form class="form-horizontal" method="post" action="register/<%= role %>" onsubmit="return validateRegistration()">
