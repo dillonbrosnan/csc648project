@@ -1,5 +1,5 @@
 body	{
-  background-image: url('../images/keys.jpg');
+  background-image: url('../images/ladies.jpg');
 
   /* Background image is centered vertically and horizontally at all times */
   background-position: center center;
@@ -18,14 +18,17 @@ body	{
   /* Set a background color that will be displayed
      while the background image is loading */
   background-color: #464646;
+  height: 100%; 
+  width: 100%; 
+  font-size: 1.25rem;
+  font-family: sans-serif;
+}
+html{
+  height: 100%; 
 }
 
 	* {
   box-sizing: border-box;
-}
-body {
-  font-size: 1.25rem;
-  font-family: sans-serif;
 }
 
 section {
@@ -45,7 +48,7 @@ label {
 
 #searchContainer{
   width: 70%; 
-  margin-top: 24%;
+  margin-top: 100px;
 }
 
 #latInput, #lngInput  {
