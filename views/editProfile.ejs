@@ -26,49 +26,49 @@
         
         <% if(role == 'agent')	{ %>
           <h3>Agent edit info</h3>
-          <form class="form-horizontal" method="post" action="<%= role %>/editProfile" onsubmit="return validateRegistration()">
+          <form class="form-horizontal" method="post" action="editProfile/agent" onsubmit="return validateRegistration()">
          
         <% } else if(role == 'user') { %>
           <h3>User edit info</h3>
-          <form class="form-horizontal" method="post" action="<%= role %>/editProfile" onsubmit="return validateRegistration()"></form>
-          <% } 	%>
+          <form class="form-horizontal" method="post" action="editProfile/" onsubmit="return validateRegistration()">
+        <% } 	%>
+        <input id="latInput" name="lat" value="<%= info.lat %>"></input>
+        <input id="lngInput" name="lng" value="<%= info.lon %>"></input>
           <div class="form-group">
               <label class="col-lg-3 control-label">First name:</label>
               <div class="col-lg-8">
-                <input class="form-control" type="text" value="Roy" name="firstName" id="firstName">
+                <input class="form-control" type="text" value="<%= info.firstName %>" name="firstName" id="firstName">
               </div>
             </div>
             <div class="form-group">
               <label class="col-lg-3 control-label">Last name:</label>
               <div class="col-lg-8">
-                <input class="form-control" type="text" placeholder="Bishop" name="lastName" id="lastName">
+                <input class="form-control" type="text" placeholder="Bishop" value="<%= info.lastName %>" name="lastName" id="lastName">
               </div>
             </div>
             <div class="form-group">
               <label class="col-lg-3 control-label">Username:</label>
               <div class="col-lg-8">
-                <input class="form-control" type="text" placeholder="roy.kid16@gmail.com" name="username" id="username">
+                <input class="form-control" type="text" placeholder="roy.kid16@gmail.com" value="<%= info.username %>" name="username" id="username">
               </div>
             </div>
             <div class="form-group">
               <label class="col-lg-3 control-label">Address:</label>
               <div class="col-lg-8">
-                <input class="form-control" type="text" placeholder="2142 22 ave, san francisco, CA 92116" name="formattedAddress" id="formattedAddress">
+                <input class="form-control" type="text" placeholder="2142 22 ave, san francisco, CA 92116" value="<%= info.formattedAddress %>"name="formattedAddress" id="formattedAddress">
               </div>
             </div>
             <div class="form-group">
               <label class="col-lg-3 control-label">Email:</label>
               <div class="col-lg-8">
-                <input class="form-control" type="text" placeholder="janesemail@gmail.com" name="email" id="email">
+                <input class="form-control" type="text" placeholder="janesemail@gmail.com" name="email" value="<%= info.email %>"id="email">
               </div>
             </div>
   
             <div class="form-group">
               <label class="col-md-3 control-label"></label>
               <div class="col-md-8">
-                <input type="button" class="btn btn-primary" value="Save Changes">
-                <span></span>
-                <input type="reset" class="btn btn-default" value="Cancel">
+                <input type="submit" class="btn btn-primary" value="Save Changes">
               </div>
             </div>
           </form>
@@ -78,14 +78,13 @@
 
 <!-- container for agent edit profile section start -->
   <script src="js/agentProfile.js"></script> <!-- Client side code for sale.ejs -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPXF-zkLqKND8w5ktBN5bdlTkQSVbw950&libraries=places&callback=initMap" async defer></script>
   <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 
   <!-- Contains autocomplete functionality -->
   <script>
 	    // Create the search box and link it to the UI element.
 	    function initAutocomplete() {
-	      var input = document.getElementById('address');
+	      var input = document.getElementById('formattedAddress');
 	      var searchBox = new google.maps.places.SearchBox(input);
 
 	      searchBox.addListener('places_changed', function() {
@@ -125,6 +124,8 @@
 	    }
 
 	    function validateRegistration()	{
+
+        console.log("ok");
 	    	
 	    	var username = document.getElementById('username').value;
 	    	var password = document.getElementById('password').value;
@@ -147,11 +148,11 @@
 	    		return false;
 	    	}	else	{
 	    		document.getElementById('latInput').value=lat; 
-                document.getElementById('lngInput').value=lng; 
-                document.getElementById('formattedAddress').value=formattedAddress;  
-                console.log(document.getElementById('latInput').value);
-                console.log(document.getElementById('lngInput').value);
-                console.log(document.getElementById('formattedAddress').value);
+          document.getElementById('lngInput').value=lng; 
+          document.getElementById('formattedAddress').value=formattedAddress;  
+          console.log(document.getElementById('latInput').value);
+          console.log(document.getElementById('lngInput').value);
+          console.log(document.getElementById('formattedAddress').value);
 	    	}
 	    	
 			return true;
@@ -178,6 +179,11 @@
 	    	}
 	    	return true;
 	    }
+
+       $( document ).ready(function() {
+        lat = <%- info.lat %>;
+        lng = <%- info.lon %>;
+      });
 
 	</script>
 

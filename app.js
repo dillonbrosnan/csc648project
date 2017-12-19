@@ -60,7 +60,7 @@ app.use('/agent/viewListings', viewListings);
 app.use('/agent/viewMessages', viewMessages);
 app.use('/agent/deleteListing', deleteListing);
 app.use('/forSale', messageAgent);
-app.use('/', editProfile);
+app.use('/editProfile', editProfile);
 app.use('/logout', logout);
 
 
