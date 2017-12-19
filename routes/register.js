@@ -116,7 +116,7 @@ router.post('/agent',function(req,res){
         }
     })
     .then(function(insertedRows)  {
-        return res.redirect('../../login/agent');
+        return res.redirect('../login/agent');
     })
     .catch(function(error)  {
       return res.status(500).send( { error : error });
