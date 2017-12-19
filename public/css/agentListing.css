@@ -139,6 +139,10 @@ body {
   .img-thumb-bg:hover .caption .description {
     display: block;
   }
+
+  .listing  {
+    padding-bottom: 7px;
+  }
   
 
   /* ----------- iPhone 6, 6S, 7 and 8 ----------- */
